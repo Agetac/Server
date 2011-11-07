@@ -6,10 +6,11 @@ import java.awt.FlowLayout;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 
-public class Soltype extends JPanel{
-	private TitledBorder titledborder= new TitledBorder("Solution type");
+
+public class SolAdoptee extends JPanel{
+	private TitledBorder titledborder= new TitledBorder("Solution adoptée");
 	
-	public Soltype(){
+	public SolAdoptee(){
 		new JPanel();
 		JScrollPane barre1 = new JScrollPane();
 		this.add(barre1, BorderLayout.EAST);

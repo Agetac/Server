@@ -1,16 +1,15 @@
 package ihmserveur;
 
-import javax.swing.JFrame;
 
 
 public class Alerte {
-	private alerte1 al1;
-	private alerte2 al2;
+	private Alerte1 al1;
+	private Alerte2 al2;
 
 
 	public Alerte(){
-		al1 = new alerte1(this);
-		al2 = new alerte2(this);
+		al1 = new Alerte1(this);
+		al2 = new Alerte2(this);
 	}
 
 

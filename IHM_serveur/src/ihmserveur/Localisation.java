@@ -16,8 +16,8 @@ public class Localisation extends JPanel{
 	private JLabel lQuartier = new JLabel("Quartier: ");
 	private JComboBox cbQuartier = initQuartierComboBox();
 	
-	private JLabel lCoordonnées = new JLabel("Coordonnées: ");
-	private JTextField tCoordonnées = new JTextField(20);
+	private JLabel lCoordonnees = new JLabel("CoordonnÃ©es: ");
+	private JTextField tCoordonnees = new JTextField(20);
 	private JButton GoogleMap = new JButton(new ImageIcon("./ressources/GoogleMap.jpg"));
 	
 	private JLabel lEtare = new JLabel("Etare: ");
@@ -29,8 +29,8 @@ public class Localisation extends JPanel{
 	private JTextField tVoieType = new JTextField(6);
 	private JTextField tVoieNom = new JTextField(20);
 	
-	private JLabel lRésidence = new JLabel("Résidence: ");
-	private JTextField tRésidence = new JTextField(20);
+	private JLabel lResidence = new JLabel("RÃ©sidence: ");
+	private JTextField tResidence = new JTextField(20);
 	private JLabel lCommentaires = new JLabel("Commentaires: ");
 	private JTextField tCommentaires = new JTextField(30);
 	
@@ -73,8 +73,8 @@ public class Localisation extends JPanel{
 		
 		h3.add(lEtare);
 		h3.add(cbEtare);
-		h3.add(lCoordonnées);
-		h3.add(tCoordonnées);
+		h3.add(lCoordonnees);
+		h3.add(tCoordonnees);
 		h3.add(GoogleMap);
 		
 		h4.add(lVoie);
@@ -83,8 +83,8 @@ public class Localisation extends JPanel{
 		h4.add(tVoieType);
 		h4.add(tVoieNom);
 		
-		h5.add(lRésidence);
-		h5.add(tRésidence);
+		h5.add(lResidence);
+		h5.add(tResidence);
 		h5.add(lCommentaires);
 		h5.add(tCommentaires);
 		

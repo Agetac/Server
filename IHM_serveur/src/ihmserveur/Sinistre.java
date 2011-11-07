@@ -1,8 +1,11 @@
 package ihmserveur;
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 
-import javax.swing.*;
+import javax.swing.Box;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.border.TitledBorder;
 
 public class Sinistre extends JPanel{
@@ -43,11 +46,11 @@ public class Sinistre extends JPanel{
 	private JComboBox initCodeComboBox() {
 		JComboBox combo = new JComboBox();
 		combo.addItem("");
-		combo.addItem("1 Secours à victime");
+		combo.addItem("1 Secours Ã  victime");
 		combo.addItem("2 Accident");
 		combo.addItem("3 Feux");
 		combo.addItem("4 Autres");
-		combo.addItem("5 Groupes constitués");
+		combo.addItem("5 Groupes constituÃ©s");
 		combo.addItem("6 Manoeuvres");
 		combo.addItem("7 Plan rouge");
 		return combo;

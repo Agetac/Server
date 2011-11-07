@@ -6,10 +6,10 @@ import java.awt.FlowLayout;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 
-public class Listedefense extends JPanel{
+public class ListeDefense extends JPanel{
 	private TitledBorder titledborder= new TitledBorder("Liste défense");
 	
-	public Listedefense(){
+	public ListeDefense(){
 		new JPanel();
 		JScrollPane barre1 = new JScrollPane();
 		this.add(barre1, BorderLayout.EAST);

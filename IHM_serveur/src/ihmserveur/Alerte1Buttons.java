@@ -5,7 +5,7 @@ import java.awt.FlowLayout;
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 
-public class alerte1Buttons extends JPanel {
+public class Alerte1Buttons extends JPanel {
 	
 	private JButton bProposer = new JButton("Proposer");
 	private JButton bTransferer = new JButton("Transferer");
@@ -17,7 +17,7 @@ public class alerte1Buttons extends JPanel {
 	private JButton bAbandon = new JButton("Abandon");
 	
 
-	public alerte1Buttons(){
+	public Alerte1Buttons(){
 		new JPanel();
 		
 		Box h1 = Box.createHorizontalBox();

@@ -6,23 +6,23 @@ import javax.swing.Box;
 import javax.swing.JFrame;
 
 
-public class alerte1 extends JFrame{
+public class Alerte1 extends JFrame{
 	private Alerte alerte;
 	private Appelant appelant;
 	private Localisation localisation;
 	private Sinistre sinistre;
 	private EnCours encours;
-	private alerte1Buttons buttons;
+	private Alerte1Buttons buttons;
 	
 
-	public alerte1(Alerte a){
+	public Alerte1(Alerte a){
 		new JFrame();
 		alerte = a;
 		appelant = new Appelant();
 		localisation = new Localisation();
 		sinistre = new Sinistre();
 		encours = new EnCours();
-		buttons = new alerte1Buttons();
+		buttons = new Alerte1Buttons();
 		Box vBox = Box.createVerticalBox();
 		vBox.add(appelant);
 		vBox.add(localisation);
