@@ -10,6 +10,7 @@ public class Alerte {
 
 	public Alerte(){
 		al1 = new alerte1(this);
+		al2 = new alerte2(this);
 	}
 
 
