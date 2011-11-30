@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class SDIS{
 	
 	List<Caserne> caserne_list;
@@ -24,8 +25,8 @@ public class SDIS{
 	/*
 	 * Création/Ajout d'une intervention
 	 */
-	public void createIntervention(String nom) {
-		intervention_list.add(new Intervention(nom, this));
+	public void createIntervention(Position pos) {
+		intervention_list.add(new Intervention(pos));
 	}
 	
 	/*
@@ -36,11 +37,11 @@ public class SDIS{
 		
 		for(int i=0; i<nbCaserne; i++){
 			ArrayList<Moyen> moyens = new ArrayList<Moyen>();
-			moyens.add(new Moyen("FPT1"));
-			moyens.add(new Moyen("FPT2"));
-			moyens.add(new Moyen("FPT3"));
-			moyens.add(new Moyen("VSAV1"));
-			moyens.add(new Moyen("VSAV2"));
+			moyens.add(new Moyen("FPT1", null, null));
+			moyens.add(new Moyen("FPT2", null, null));
+			moyens.add(new Moyen("FPT3", null, null));
+			moyens.add(new Moyen("VSAV1", null, null));
+			moyens.add(new Moyen("VSAV2", null, null));
 			
 			casernes_list.add(new Caserne("C_"+i, moyens));
 		}

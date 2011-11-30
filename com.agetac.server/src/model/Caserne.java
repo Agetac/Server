@@ -3,8 +3,26 @@ package model;
 import java.util.ArrayList;
 
 public class Caserne {
-	ArrayList<Moyen> moyens;
-	String nom;
+	
+	private String nom;
+	private ArrayList<Moyen> moyens;
+
+	public String getNom() {
+		return nom;
+	}
+
+	public void setNom(String nom) {
+		this.nom = nom;
+	}
+
+	public ArrayList<Moyen> getMoyens() {
+		return moyens;
+	}
+
+	public void setMoyens(ArrayList<Moyen> moyens) {
+		this.moyens = moyens;
+	}
+
 	public Caserne(String nom, ArrayList<Moyen> moyens) {
 		super();
 		this.nom = nom;
@@ -20,10 +38,14 @@ public class Caserne {
 		else { return null;}
 	}
 
-	@Override
 	public String toString() {
-		return "Caserne [nom=" + nom + ", moyens=" + moyens + "]";
-	}
+		 StringBuffer sb = new StringBuffer();
+		 sb.append("nom:");
+		 sb.append(this.nom);
+		 sb.append(", moyens:");
+		 sb.append(this.moyens);
+		 return sb.toString();
+		}
 	
 	
 }
