@@ -2,6 +2,7 @@ package org.agetac.common;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -12,7 +13,8 @@ public class Message {
 	private String date;
 
 	public Message(String message, String date) {
-		super();
+
+		this.uniqueID = date;
 		this.message = message;
 		this.date = date;
 	}

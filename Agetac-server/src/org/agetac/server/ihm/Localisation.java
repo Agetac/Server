@@ -8,20 +8,22 @@ import javax.swing.border.TitledBorder;
 
 public class Localisation extends JPanel {
 
+	private static final long serialVersionUID = -6063919494365645053L;
+	
 	private JLabel lCommune = new JLabel("Commune: ");
-	private JComboBox<String> cbCommune = initCommuneComboBox();
+	private JComboBox cbCommune = initCommuneComboBox();
 	private JLabel lZone = new JLabel("Zone: ");
-	private JComboBox<String> cbZone = initZoneComboBox();
+	private JComboBox cbZone = initZoneComboBox();
 
 	private JLabel lQuartier = new JLabel("Quartier: ");
-	private JComboBox<String> cbQuartier = initQuartierComboBox();
+	private JComboBox cbQuartier = initQuartierComboBox();
 
 	private JLabel lCoordonnees = new JLabel("Coordonnées: ");
 	private JTextField tCoordonnees = new JTextField(20);
 	private JButton GoogleMap = new JButton(new ImageIcon("./ressources/GoogleMap.jpg"));
 
 	private JLabel lEtare = new JLabel("Etare: ");
-	private JComboBox<String> cbEtare = initEtareComboBox();
+	private JComboBox cbEtare = initEtareComboBox();
 
 	private JLabel lVoie = new JLabel("Voie: ");
 	private JTextField tVoieNum = new JTextField(3);
@@ -108,8 +110,8 @@ public class Localisation extends JPanel {
 		setBorder(titledborder);
 	}
 
-	private JComboBox<String> initCommuneComboBox() {
-		JComboBox<String> combo = new JComboBox<String>();
+	private JComboBox initCommuneComboBox() {
+		JComboBox combo = new JComboBox();
 		combo.addItem("");
 		combo.addItem("000");
 		combo.addItem("001");
@@ -123,8 +125,8 @@ public class Localisation extends JPanel {
 
 	}
 
-	private JComboBox<String> initZoneComboBox() {
-		JComboBox<String> combo = new JComboBox<String>();
+	private JComboBox initZoneComboBox() {
+		JComboBox combo = new JComboBox();
 		combo.addItem("");
 		combo.addItem("000");
 		combo.addItem("001");
@@ -138,8 +140,8 @@ public class Localisation extends JPanel {
 
 	}
 
-	private JComboBox<String> initQuartierComboBox() {
-		JComboBox<String> combo = new JComboBox<String>();
+	private JComboBox initQuartierComboBox() {
+		JComboBox combo = new JComboBox();
 		combo.addItem("");
 		combo.addItem("000");
 		combo.addItem("001");
@@ -153,8 +155,8 @@ public class Localisation extends JPanel {
 
 	}
 
-	private JComboBox<String> initEtareComboBox() {
-		JComboBox<String> combo = new JComboBox<String>();
+	private JComboBox initEtareComboBox() {
+		JComboBox combo = new JComboBox();
 		combo.addItem("");
 		combo.addItem("000");
 		combo.addItem("001");

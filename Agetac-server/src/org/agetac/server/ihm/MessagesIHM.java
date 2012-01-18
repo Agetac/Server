@@ -32,7 +32,7 @@ public class MessagesIHM extends JFrame implements Observer {
 		setTitle("Liste des messages");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		JTable tableau = new JTable(modele);
+		tableau = new JTable(modele);
 
 		getContentPane().add(new JScrollPane(tableau), BorderLayout.CENTER);
 
@@ -43,11 +43,14 @@ public class MessagesIHM extends JFrame implements Observer {
 		getContentPane().add(boutons, BorderLayout.SOUTH);
 
 		pack();
+		
+		
+		Messages.getInstance().attach(this);
 	}
 
 	@Override
 	public void update(Subject s) {
-
+		
 	}
 
 	/**
