@@ -14,12 +14,11 @@ import org.restlet.resource.ResourceException;
 
 public class TestAgentResource {
 
-	/** The port used for testing. */
+	/** Le port utilisé pour les tests. */
 	private static int testPort = 8112;
 
 	/**
-	 * Start up a test server before testing any of the operations on this
-	 * resource.
+	 * Démarre le serveur avant de tester quoi que ce soit.
 	 * 
 	 * @throws Exception
 	 *             If problems occur starting up the server.
@@ -30,11 +29,10 @@ public class TestAgentResource {
 	}
 
 	/**
-	 * Tests that we cannot retrieve an unknown Agent ID without throwing an
-	 * exception.
+	 * Test qu'on ne peut pas récupérer d'agent inconnue sans lancer d'exception.
 	 * 
 	 * @throws Exception
-	 *             If no exception, Houston we have a problem.
+	 *             Si pas d'exception, on a un problème.
 	 */
 	@Test(expected = ResourceException.class)
 	public void testUnknownAgent() throws Exception {
@@ -45,44 +43,41 @@ public class TestAgentResource {
 	}
 
 	/**
-	 * Test the cycle of putting a new Agent on the server, retrieving it,
-	 * then deleting it.
+	 * Test l'ajout, la récupération et la suppression d'un agent.
 	 * 
 	 * @throws Exception
-	 *             If problems occur.
+	 *             En cas de problème.
 	 */
 	@Test
 	public void testAddAgent() throws Exception {
-		// Construct the URL to test.
+		// Construction de l'url de test
 		String uniqueID = "np";
 		String testUrl = String.format(
 				"http://localhost:%s/agetacserver/agent/%s", testPort,
 				uniqueID);
 		ClientResource client = new ClientResource(testUrl);
 
-		// Construct the payload: an XML representation of a Agent.
-		Agent agent = new Agent(uniqueID, "Noel", new Aptitude("CDG"), null, null);
+		// On construit la représentation JSON de l'agent
+		Agent agent = new Agent(uniqueID, "Noel", new Aptitude("CDG"), null);
 		JsonRepresentation representation = new JsonRepresentation(agent.toJson());
 
-		// Now put the Agent to the server.
+		// On envoie (put) l'agent au serveur
 		client.put(representation);
 
-		// Let's now try to retrieve the Agent instance we just put on the
-		// server.
+		// Maintenant ont essaye de récupérer ce meme agent
 		JsonRepresentation representation2 = new JsonRepresentation(client.get());
 		Agent agent2 = new Agent(representation2.getJsonObject());
-		assertEquals("Checking retrieved agent's ID", uniqueID,
+		assertEquals("Vérification de l'id de l'agent récupéré", uniqueID,
 				agent2.getUniqueID());
 
-		// Now let's get rid of the sucker.
+		// On le supprime.
 		client.delete();
 
-		// Make sure it's really gone.
+		// On s'assure qu'il n'éxiste plus.
 		try {
 			client.get();
-			throw new Exception("Eek! We got a deleted Agent!");
-		} catch (Exception e) { // NOPMD
-			// It's all G.
+			throw new Exception("L'agent n'éxiste pas !");
+		} catch (Exception e) { 
 		}
 	}
 }

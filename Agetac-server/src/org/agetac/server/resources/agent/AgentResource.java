@@ -12,13 +12,14 @@ import org.restlet.resource.ServerResource;
 
 public class AgentResource extends ServerResource {
 	/**
-	 * Returns the Contact instance requested by the URL.
+	 * Retourne l'instance de l'agent demander dans l'url
 	 * 
-	 * @return The XML representation of the contact, or
-	 *         CLIENT_ERROR_NOT_ACCEPTABLE if the unique ID is not present.
+	 * @return La representation de l'agent demander ou
+	 *         CLIENT_ERROR_NOT_ACCEPTABLE si l'id unique n'éxiste pas
 	 * @throws Exception
-	 *             If problems occur making the representation. Shouldn't occur
-	 *             in practice but if it does, Restlet will set the Status code.
+	 *             En cas de problème de génération de représentation. Ne
+	 *             devrait pas arriver en pratique mais si c'est le cas, Restlet
+	 *             met le bon code status.
 	 */
 	@Get
 	public Representation getAgent() throws Exception {
@@ -26,56 +27,54 @@ public class AgentResource extends ServerResource {
 		JsonRepresentation result = null;
 		// Récupère l'identifiant unique de la ressource demandée.
 		String uniqueID = (String) this.getRequestAttributes().get("uniqueID");
-		System.out.println(uniqueID);
+		// System.out.println(uniqueID);
 		// La recherche dans la base de données.
 		Agent agent = Agents.getInstance().getAgent(uniqueID);
 		if (agent == null) {
-			// The requested contact was not found, so set the Status to
-			// indicate this.
+			// Ressource non-trouvé, envois du code status 406
 			getResponse().setStatus(Status.CLIENT_ERROR_NOT_ACCEPTABLE);
 		} else {
-			// The requested contact was found, so add the Contact's XML
-			// representation to the response.
+			// Ressource trouvé, envoie de la représentation Json
 			result = new JsonRepresentation(agent.toJson());
-			// Status code defaults to 200 if we don't set it.
+			// Le code status par défaut est 200 s'il n'est pas
 		}
-		// Return the representation. The Status code tells the client if the
-		// representation is valid.
+		// Retourne la représentation, le code status indique au client si elle
+		// est valide
 		return result;
 	}
 
 	/**
-	 * Adds the passed Contact to our internal database of Contacts.
+	 * Ajoute l'agent transmit à la base de données interne.
 	 * 
 	 * @param representation
-	 *            The XML representation of the new Contact to add.
+	 *           La représentation Json de l'agent
 	 * @return null.
 	 * @throws Exception
-	 *             If problems occur unpacking the representation.
+	 *             En cas de problème de lecture de la representation.
 	 */
 	@Put
-	public Representation putContact(Representation representation)
+	public Representation putAgent(Representation representation)
 			throws Exception {
-		// Get the XML representation of the Contact.
+		// Récupère la représentation JSON de l'agent
 		JsonRepresentation jsonRepr = new JsonRepresentation(representation);
-		// Convert the XML representation to the Java representation.
+		// Transforme la representation en objet java
 		Agent agent = new Agent(jsonRepr.getJsonObject());
-		// Add the Contact to our repository.
+		// Ajoute l'agent a la base de donnée
 		Agents.getInstance().addAgent(agent);
-		// No need to return a representation to the client.
+		// Pas besoin de retourner de représentation au client
 		return null;
 	}
 
 	/**
-	 * Deletes the unique ID from the internal database.
+	 * Supprime l'agent identifié de la base de données
 	 * 
 	 * @return null.
 	 */
 	@Delete
-	public Representation deleteContact() {
-		// Get the requested Contact ID from the URL.
+	public Representation deleteAgent() {
+		// Récupère l'id dans l'url
 		String uniqueID = (String) this.getRequestAttributes().get("uniqueID");
-		// Make sure it is no longer present in the Contacts database.
+		// On s'assure qu'il n'est plus présent en base de données
 		Agents.getInstance().deleteAgent(uniqueID);
 		return null;
 	}

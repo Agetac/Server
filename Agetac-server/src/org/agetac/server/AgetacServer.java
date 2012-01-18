@@ -2,6 +2,7 @@ package org.agetac.server;
 
 import org.agetac.server.resources.agent.AgentResource;
 import org.agetac.server.resources.intervention.InterventionResource;
+import org.agetac.server.resources.message.MessageResource;
 import org.restlet.*;
 import org.restlet.data.Protocol;
 import org.restlet.routing.Router;
@@ -48,6 +49,7 @@ public class AgetacServer extends Application {
 		// Attache les ressources au routeur.
 		router.attach("/intervention/{uniqueID}", InterventionResource.class);
 		router.attach("/agent/{uniqueID}", AgentResource.class);
+		router.attach("/message/{uniqueID}", MessageResource.class);
 		// Retourne le routeur.
 		return router;
 	}

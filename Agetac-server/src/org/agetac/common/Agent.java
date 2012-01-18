@@ -11,7 +11,6 @@ public class Agent {
 	private String nom;
 	private Aptitude aptitude;
 
-	private Agent superieur = null;
 	private List<Agent> subordonnes = null;
 	private String uniqueID;
 	
@@ -19,16 +18,14 @@ public class Agent {
 		super();
 		this.nom = "";
 		this.aptitude = null;
-		this.superieur = null;
 		this.subordonnes = null;
 	}
 	
-	public Agent(String uniqueID, String nom, Aptitude aptitude, Agent superieur,
+	public Agent(String uniqueID, String nom, Aptitude aptitude, 
 			List<Agent> subordonnes) {
 		super();
 		this.nom = nom;
 		this.aptitude = aptitude;
-		this.superieur = superieur;
 		this.subordonnes = subordonnes;
 		this.uniqueID = uniqueID;
 	}
@@ -37,8 +34,7 @@ public class Agent {
 			this.uniqueID = json.getString("uniqueID");
 			this.nom = json.getString("nom");
 			this.aptitude = new Aptitude(json.getString("aptitude"));
-			//this.superieur = (Agent) json.get("superieur");
-			//this.subordonnes = (List<Agent>) json.get("subordonnes");
+			this.subordonnes = (List<Agent>) json.get("subordonnes");
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -68,14 +64,6 @@ public class Agent {
 		this.aptitude = aptitude;
 	}
 
-	public Agent getSuperieur() {
-		return superieur;
-	}
-
-	public void setSuperieur(Agent superieur) {
-		this.superieur = superieur;
-	}
-
 	public List<Agent> getSubordonnes() {
 		return subordonnes;
 	}
@@ -96,8 +84,6 @@ public class Agent {
 		sb.append(this.nom);
 		sb.append(",aptitude:");
 		sb.append(this.aptitude);
-		sb.append(",superieur:");
-		sb.append(this.superieur);
 		sb.append(",subordonnes:");
 		sb.append(this.subordonnes);
 		sb.append("]");
@@ -113,8 +99,7 @@ public class Agent {
 			json.put("uniqueID", this.uniqueID);
 			json.put("nom", this.nom);
 			json.put("aptitude", this.aptitude);
-			//json.append("superieur", this.superieur);
-			//json.append("subordonnes", this.subordonnes);
+			json.append("subordonnes", this.subordonnes);
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -21,7 +21,7 @@ public class TestAgents {
 
 	    // Add a agent to the repository.
 	    String uniqueID = "np";
-	    Agent agent = new Agent(uniqueID, "Noel", new Aptitude("CDG"), null, null);
+	    Agent agent = new Agent(uniqueID, "Noel", new Aptitude("CDG"), null);
 	    agents.addAgent(agent);
 
 	    // Get the agent out of the repository and make sure it's the same one.

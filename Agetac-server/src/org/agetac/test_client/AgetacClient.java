@@ -58,7 +58,7 @@ public class AgetacClient {
 
 				Random r = new Random();
 
-				Agent agent = new Agent(uniqueID, "bob", new Aptitude("CDC"), null, null);
+				Agent agent = new Agent(uniqueID, "bob", new Aptitude("CDC"), null);
 				
 				JsonRepresentation representation = new JsonRepresentation(agent.toJson());
 
