@@ -1,4 +1,4 @@
-package org.agetac.server.resources.agent;
+package org.agetac.server.resources;
 
 import static org.junit.Assert.*;
 
