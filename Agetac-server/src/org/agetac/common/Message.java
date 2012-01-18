@@ -12,9 +12,9 @@ public class Message {
 	private String message;
 	private String date;
 
-	public Message(String message, String date) {
+	public Message(String uniqueID, String message, String date) {
 
-		this.uniqueID = date;
+		this.uniqueID = uniqueID;
 		this.message = message;
 		this.date = date;
 	}
@@ -58,17 +58,24 @@ public class Message {
 	 * Convert this object to a JSON object for representation
 	 */
 	public String toJson() {
+		
 		JSONObject json = new JSONObject();
 		try {
 			json.put("uniqueID", this.uniqueID);
 			json.put("message", this.message);
 			json.put("date", this.date);
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-		//System.out.println("test "+json.toString());
+		System.out.println("test "+json.toString());
+		
 		return json.toString();
+	}
+
+	@Override
+	public String toString() {
+		return "Message [uniqueID=" + uniqueID + ", message=" + message
+				+ ", date=" + date + "]";
 	}
 }

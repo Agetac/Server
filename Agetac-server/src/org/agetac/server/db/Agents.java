@@ -40,7 +40,7 @@ public class Agents {
    * @param agent L'agent à ajouter.
    */
   public synchronized void addAgent(Agent agent) {
-	  uniqueID2Agent.put(agent.getUniqueID(), agent);
+	  uniqueID2Agent.put(agent.getUniqueId(), agent);
 	  System.out.println("DB add :" + this.getAgents().toString());
   }
   

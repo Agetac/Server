@@ -7,6 +7,7 @@ import java.util.Random;
 import org.agetac.common.Agent;
 import org.agetac.common.Aptitude;
 import org.agetac.common.Intervention;
+import org.agetac.common.Message;
 import org.agetac.common.Position;
 import org.agetac.util.Lecture;
 import org.restlet.ext.json.JsonRepresentation;
@@ -18,9 +19,10 @@ import org.restlet.resource.ResourceException;
  * 
  */
 public class AgetacClient {
-	
+
 	/**
 	 * Connect to a running AgetacServer and perform the requested operation.
+	 * 
 	 * @param args
 	 * @throws Exception
 	 *             If problems occur.
@@ -36,33 +38,51 @@ public class AgetacClient {
 
 		Lecture lec = new Lecture();
 
-		resource = lec.askInput("Ressource : ")+"/";
+		resource = lec.askInput("Ressource : ");
 		uniqueID = lec.askInput("UniqueID : ");
 
-		String url = host + contextRoot + resource + uniqueID;
+		String url = host + contextRoot + resource + "/" + uniqueID;
 		ClientResource client = new ClientResource(url);
 
-		
 		operation = lec.askInput("Opération : ");
-		
-		
+
 		try {
 			if ("get".equals(operation)) {
-				JsonRepresentation representation = new JsonRepresentation(
-						client.get());
-				Agent agent = new Agent(representation.getJsonObject());
-				System.out.println(agent.toString());
-			} else if ("delete".equals(operation)) {
-				client.delete();
-			} else if ("put".equals(operation)) {
-
-				Random r = new Random();
-
-				Agent agent = new Agent(uniqueID, "bob", new Aptitude("CDC"), null);
 				
-				JsonRepresentation representation = new JsonRepresentation(agent.toJson());
-
-				client.put(representation);
+				System.out.println("GET");
+				if ("agent".equals(resource)) {
+					JsonRepresentation representation = new JsonRepresentation(client.get());
+					Agent agent = new Agent(representation.getJsonObject());
+					System.out.println(agent.toString());
+				}
+				
+				if("message".equals(resource)){
+					JsonRepresentation representation = new JsonRepresentation(	client.get());
+					Message msg = new Message(representation.getJsonObject());
+					System.out.println(msg.toString());
+				}
+				
+			} else if ("delete".equals(operation)) {
+				
+				System.out.println("DELETE");
+				client.delete();
+				
+			} else if ("put".equals(operation)) {
+				
+				System.out.println("PUT");
+				
+				if (resource.equals("agent")) {
+					Agent agent = new Agent(uniqueID, "bob",new Aptitude("CDC"), null);
+					JsonRepresentation representation = new JsonRepresentation(agent.toJson());
+					client.put(representation);
+				}
+				
+				if (resource.equals("message")) {
+					Message msg = new Message(uniqueID, "Mon super message.", "0105");
+					JsonRepresentation representation = new JsonRepresentation(msg.toJson());
+					client.put(representation);
+				}
+				
 			}
 		} catch (ResourceException e) {
 			// If the operation didn't succeed, indicate why here.

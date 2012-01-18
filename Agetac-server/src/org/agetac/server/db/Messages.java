@@ -50,6 +50,7 @@ public class Messages implements Subject {
 	 */
 	public synchronized void addMessage(Message message) {
 		uniqueID2Message.put(message.getUniqueID(), message);
+		notifyObserver();
 		System.out.println("DB add :" + this.getMessages().toString());
 	}
 
@@ -64,6 +65,7 @@ public class Messages implements Subject {
 	public synchronized Message getMessage(String uniqueID) {
 
 		System.out.println(this.getMessages().toString());
+		
 		return uniqueID2Message.get(uniqueID);
 
 	}
@@ -77,7 +79,7 @@ public class Messages implements Subject {
 	 */
 	public synchronized void deleteMessage(String uniqueID) {
 		uniqueID2Message.remove(uniqueID);
-
+		notifyObserver();
 		System.out.println(this.getMessages().toString());
 	}
 
@@ -97,19 +99,20 @@ public class Messages implements Subject {
 
 	@Override
 	public void attach(Observer o) {
-		// TODO Auto-generated method stub
+		observers.add(o);
 
 	}
 
 	@Override
 	public void detach(Observer o) {
-		// TODO Auto-generated method stub
+		observers.remove(o);
 
 	}
 
 	@Override
 	public void notifyObserver() {
-		// TODO Auto-generated method stub
-
+		for(Observer o:observers){
+			o.update(this);
+		}
 	}
 }

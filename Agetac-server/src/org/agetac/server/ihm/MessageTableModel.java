@@ -5,11 +5,13 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
 import org.agetac.common.Message;
+import org.agetac.observer.Observer;
+import org.agetac.observer.Subject;
 import org.agetac.server.db.Messages;
 
-public class MessageTableModel extends AbstractTableModel {
+public class MessageTableModel extends AbstractTableModel implements Observer{
 
-	private final List<Message> messages;
+	private List<Message> messages;
 	private final String[] entetes = { "ID", "Groupe Horaire", "Message" };
 
 	public MessageTableModel() {
@@ -45,7 +47,7 @@ public class MessageTableModel extends AbstractTableModel {
 
 	public void addMessage(Message msg) {
 		messages.add(msg);
-		Messages.getInstance().addMessage(msg);
+		//Messages.getInstance().addMessage(msg);
 		fireTableRowsInserted(messages.size() - 1, messages.size() - 1);
 	}
 
@@ -53,6 +55,12 @@ public class MessageTableModel extends AbstractTableModel {
 		messages.remove(rowIndex);
 
 		fireTableRowsDeleted(rowIndex, rowIndex);
+	}
+
+	@Override
+	public void update(Subject s) {
+		System.out.println("MessageTableModel.update");
+		messages = Messages.getInstance().getMessages();
 	}
 
 }

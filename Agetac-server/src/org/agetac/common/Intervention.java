@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -46,6 +47,36 @@ public class Intervention {
 			this.actions = (List<Action>) json.get("actions");
 			this.messages = (List<Message>) json.get("messages");
 			this.impliques = (List<Implique>) json.get("impliques");
+			
+			JSONArray jsar = json.getJSONArray("moyens");
+			for (int i=0; i< jsar.length(); i++){
+				moyens.add(new Moyen(jsar.getJSONObject(i)));
+			}
+			
+			jsar = json.getJSONArray("cibles");
+			for (int i=0; i< jsar.length(); i++){
+				cibles.add(new Cible(jsar.getJSONObject(i)));
+			}
+			
+			jsar = json.getJSONArray("sources");
+			for (int i=0; i< jsar.length(); i++){
+				sources.add(new Source(jsar.getJSONObject(i)));
+			}
+			
+			jsar = json.getJSONArray("actions");
+			for (int i=0; i< jsar.length(); i++){
+				actions.add(new Action(jsar.getJSONObject(i)));
+			}
+			
+			jsar = json.getJSONArray("messages");
+			for (int i=0; i< jsar.length(); i++){
+				messages.add(new Message(jsar.getJSONObject(i)));
+			}
+			
+			jsar = json.getJSONArray("impliques");
+			for (int i=0; i< jsar.length(); i++){
+				impliques.add(new Implique(jsar.getJSONObject(i)));
+			}
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -60,7 +91,7 @@ public class Intervention {
 	public String toString() {
 		return "Intervention [moyens=" + moyens + ", lieu=" + lieu + "]";
 	}
-	public String toJson() {
+	public JSONObject toJson() {
 		JSONObject json = new JSONObject();
 		try {
 			json.append("uniqueID", this.uniqueID);
@@ -75,7 +106,7 @@ public class Intervention {
 			e.printStackTrace();
 		}
 		
-		return json.toString();
+		return json;
 	}
 	
 	/*

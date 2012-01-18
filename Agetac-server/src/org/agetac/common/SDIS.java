@@ -40,11 +40,11 @@ public class SDIS{
 		
 		for(int i=0; i<nbCaserne; i++){
 			ArrayList<Moyen> moyens = new ArrayList<Moyen>();
-			moyens.add(new Moyen("FPT1", null, null));
-			moyens.add(new Moyen("FPT2", null, null));
-			moyens.add(new Moyen("FPT3", null, null));
-			moyens.add(new Moyen("VSAV1", null, null));
-			moyens.add(new Moyen("VSAV2", null, null));
+			moyens.add(new Moyen("FPT1", null));
+			moyens.add(new Moyen("FPT2", null));
+			moyens.add(new Moyen("FPT3", null));
+			moyens.add(new Moyen("VSAV1", null));
+			moyens.add(new Moyen("VSAV2", null));
 			
 			casernes_list.add(new Caserne("C_"+i, moyens));
 		}

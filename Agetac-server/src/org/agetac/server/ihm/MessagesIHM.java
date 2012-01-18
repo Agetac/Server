@@ -2,9 +2,6 @@ package org.agetac.server.ihm;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 
 import javax.swing.AbstractAction;
 import javax.swing.JButton;
@@ -14,11 +11,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 import org.agetac.common.Message;
-import org.agetac.observer.Observer;
-import org.agetac.observer.Subject;
 import org.agetac.server.db.Messages;
 
-public class MessagesIHM extends JFrame implements Observer {
+
+public class MessagesIHM extends JFrame{
 
 	private static final long serialVersionUID = 8938525932293876472L;
 
@@ -44,14 +40,8 @@ public class MessagesIHM extends JFrame implements Observer {
 
 		pack();
 		
-		
-		Messages.getInstance().attach(this);
 	}
 
-	@Override
-	public void update(Subject s) {
-		
-	}
 
 	/**
 	 * @param args
@@ -66,7 +56,8 @@ public class MessagesIHM extends JFrame implements Observer {
 		}
 
 		public void actionPerformed(ActionEvent e) {
-			modele.addMessage(new Message("Mon message", "12345"));
+			modele.addMessage(new Message("12", "Mon message", "12345"));
 		}
 	}
+
 }

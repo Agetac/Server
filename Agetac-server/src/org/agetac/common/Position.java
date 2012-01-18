@@ -8,9 +8,18 @@ public class Position {
 	private double latitude;
 
 	public Position(double longitude, double latitude) {
-		super();
 		this.longitude = longitude;
 		this.latitude = latitude;
+	}
+	
+	public Position(JSONObject json){
+		try {
+			this.longitude = json.getDouble("longitude");
+			this.latitude = json.getDouble("latitude");
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public double getLongitude() {
@@ -29,15 +38,15 @@ public class Position {
 		this.latitude = latitude;
 	}
 
-	public String toJson() {
+	public JSONObject toJson() {
 		JSONObject json = new JSONObject();
 		try {
-			json.append("longitude", this.longitude);
-			json.append("latitude", this.latitude);
+			json.put("longitude", this.longitude);
+			json.put("latitude", this.latitude);
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return json.toString();
+		return json;
 	}
 }

@@ -1,13 +1,22 @@
 package org.agetac.common;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Implique {
 	private EtatImplique etat;
 
 	public Implique(EtatImplique etat) {
-		super();
 		this.etat = etat;
+	}
+	
+	public Implique (JSONObject json){
+		try {
+			this.etat = new EtatImplique(json.getString("etat"));
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public EtatImplique getEtat() {
@@ -35,7 +44,7 @@ public class Implique {
 	public JSONObject toJSON() {
 		try {
 			JSONObject jsonobj = new JSONObject();
-			jsonobj.put("etat", this.etat);
+			jsonobj.put("etat", etat.toJSON());
 			return jsonobj;
 		} catch (Exception e) {
 			return null;

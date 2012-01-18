@@ -1,5 +1,6 @@
 package org.agetac.common;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Moyen {
@@ -7,11 +8,19 @@ public class Moyen {
 	private Caserne caserne;
 	private Position position;
 
-	public Moyen(String nom, Caserne caserne, Position position) {
+	public Moyen(String nom, Position position) {
 		super();
 		this.nom = nom;
-		this.caserne = caserne;
 		this.position = position;
+	}
+	public Moyen(JSONObject json){
+		try {
+			this.nom = json.getString("nom");
+			this.position = new Position(json.getJSONObject("position"));
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public String getNom() {

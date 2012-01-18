@@ -1,17 +1,30 @@
 package org.agetac.common;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Vehicule extends Moyen {
 
 	private EtatVehicule etat;
 	private Groupe groupe;
+	private String uniqueID;
 
-	public Vehicule(String nom, Caserne caserne, Position position,
+	public Vehicule(String nom, Position position,
 			EtatVehicule etat, Groupe groupe) {
-		super(nom, caserne, position);
+		super(nom, position);
 		this.etat = etat;
 		this.groupe = groupe;
+	}
+	
+	public Vehicule(JSONObject json) {
+		super(json);
+		try {
+			this.uniqueID = json.getString("uniqueID");
+			this.etat = new EtatVehicule(json.getJSONObject("etat"));
+			this.groupe = new Groupe(json.getJSONObject("groupe"));
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public EtatVehicule getEtat() {
@@ -56,5 +69,13 @@ public class Vehicule extends Moyen {
 		} catch (Exception e) {
 			return null;
 		}
+	}
+	
+	public String getUniqueId() {
+		return this.uniqueID;
+	}
+
+	public void setId(String uniqueID) {
+		this.uniqueID = uniqueID;
 	}
 }

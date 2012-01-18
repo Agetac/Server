@@ -1,11 +1,37 @@
 package org.agetac.common;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class Caserne {
 	
 	private String nom;
-	private ArrayList<Moyen> moyens;
+	private List<Moyen> moyens;
+	
+	public Caserne(String nom, List<Moyen> moyens) {
+		super();
+		this.nom = nom;
+		this.moyens = moyens;
+	}
+	
+	public Caserne(JSONObject json){
+		try {
+			this.nom = json.getString("nom");
+			
+			JSONArray jsar = json.getJSONArray("moyens");
+			for (int i=0; i< jsar.length(); i++){
+				moyens.add(new Moyen(jsar.getJSONObject(i)));
+			}
+			
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 	public String getNom() {
 		return nom;
@@ -15,17 +41,11 @@ public class Caserne {
 		this.nom = nom;
 	}
 
-	public ArrayList<Moyen> getMoyens() {
+	public List<Moyen> getMoyens() {
 		return moyens;
 	}
 
 	public void setMoyens(ArrayList<Moyen> moyens) {
-		this.moyens = moyens;
-	}
-
-	public Caserne(String nom, ArrayList<Moyen> moyens) {
-		super();
-		this.nom = nom;
 		this.moyens = moyens;
 	}
 	

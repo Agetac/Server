@@ -34,7 +34,7 @@ public class Agent {
 			this.uniqueID = json.getString("uniqueID");
 			this.nom = json.getString("nom");
 			this.aptitude = new Aptitude(json.getString("aptitude"));
-			this.subordonnes = (List<Agent>) json.get("subordonnes");
+			//this.subordonnes = (List<Agent>) json.get("subordonnes");
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -93,24 +93,20 @@ public class Agent {
 	/**
 	 * Convert this object to a JSON object for representation
 	 */
-	public String toJson() {
+	public JSONObject toJson() {
 		JSONObject json = new JSONObject();
 		try {
 			json.put("uniqueID", this.uniqueID);
 			json.put("nom", this.nom);
 			json.put("aptitude", this.aptitude);
-			json.append("subordonnes", this.subordonnes);
+			json.put("subordonnes", this.subordonnes);
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 		System.out.println("test "+json.toString());
-		return json.toString();
-	}
-
-	public String getUniqueID() {
-		return this.uniqueID;
+		return json;
 	}
 
 }

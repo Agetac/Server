@@ -6,7 +6,6 @@ public class EtatImplique {
 	private String etat;
 
 	public EtatImplique(String etat) {
-		super();
 		this.etat = etat;
 	}
 
@@ -34,7 +33,7 @@ public class EtatImplique {
 	public JSONObject toJSON() {
 		try {
 			JSONObject jsonobj = new JSONObject();
-			jsonobj.put("etat", this.etat);
+			jsonobj.put("etat", etat);
 			return jsonobj;
 		} catch (Exception e) {
 			return null;
