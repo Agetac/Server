@@ -2,9 +2,9 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="D:/Projets/Agetac/Server/Agetac-server/lib/restlet/org.json_2.0/org.json.jar"/>
-	<classpathentry kind="lib" path="D:/Projets/Agetac/Server/Agetac-server/lib/restlet/org.restlet.jar"/>
-	<classpathentry kind="lib" path="D:/Projets/Agetac/Server/Agetac-server/lib/restlet/org.restlet.ext.json.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="lib" path="lib/restlet/org.json_2.0/org.json.jar"/>
+	<classpathentry kind="lib" path="lib/restlet/org.restlet.jar"/>
+	<classpathentry kind="lib" path="lib/restlet/org.restlet.ext.json.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
