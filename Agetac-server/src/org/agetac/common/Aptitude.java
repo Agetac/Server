@@ -1,6 +1,7 @@
 package org.agetac.common;
 
-import java.util.Collection;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class Aptitude {
 	private String grade;
@@ -9,7 +10,17 @@ public class Aptitude {
 		super();
 		this.grade = grade;
 	}
-
+	
+	public Aptitude(JSONObject json) {
+		try {
+			
+			this.grade = json.getString("grade");
+			
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public String getGrade() {
 		return grade;
 	}
@@ -19,14 +30,22 @@ public class Aptitude {
 	}
 	
 	public String toString() {
-		 StringBuffer sb = new StringBuffer();
+		/* StringBuffer sb = new StringBuffer();
 		 sb.append("grade:");
 		 sb.append(this.grade);
-		 return sb.toString();
-		}
+		 return sb.toString();*/
+		return "apt";
+	}
 
-	public Collection toJSON() {
-		// TODO Auto-generated method stub
-		return null;
+	public JSONObject toJSON() {
+		JSONObject json = new JSONObject();
+		try {
+			
+			json.put("grade", this.grade);
+			
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return json;
 	}
 }

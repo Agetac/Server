@@ -1,7 +1,12 @@
 package org.agetac.server.resources.message;
 
+import java.util.List;
+
+import org.agetac.common.Intervention;
 import org.agetac.common.Message;
+import org.agetac.server.db.Interventions;
 import org.agetac.server.db.Messages;
+import org.json.JSONObject;
 import org.restlet.data.Status;
 import org.restlet.ext.json.JsonRepresentation;
 import org.restlet.representation.Representation;
@@ -22,14 +27,27 @@ public class MessageResource extends ServerResource {
 	 *             met le bon code status.
 	 */
 	@Get
-	public Representation getMessage() throws Exception {
+	public Representation getMessage() throws Exception {		
 		// Crée une representation JSON vide
 		JsonRepresentation result = null;
 		// Récupère l'identifiant unique de la ressource demandée.
-		String uniqueID = (String) this.getRequestAttributes().get("uniqueID");
-		// System.out.println(uniqueID);
-		// La recherche dans la base de données.
-		Message message = Messages.getInstance().getMessage(uniqueID);
+		String interId = (String) this.getRequestAttributes().get("interId");
+		String msgId = (String) this.getRequestAttributes().get("messageId");
+		
+		
+		//TODO corrigé null pointer exception (message non ajouté à l'intervention)
+		// Récupération des messages de l'intervention
+		List<Message> messages = Interventions.getInstance().getIntervention(interId).getMessages();
+
+		Message message = null;
+		
+		//Recherche du message demandé
+		for(int i=0; i<messages.size(); i++){
+			if(messages.get(i).getUniqueID().equals(msgId)){
+				message = messages.get(i);
+			}
+		}
+		
 		if (message == null) {
 			// Ressource non-trouvé, envois du code status 406
 			getResponse().setStatus(Status.CLIENT_ERROR_NOT_ACCEPTABLE);
@@ -55,12 +73,24 @@ public class MessageResource extends ServerResource {
 	@Put
 	public Representation putMessage(Representation representation)
 			throws Exception {
-		// Récupère la représentation JSON de l'message
+		// Récupère l'identifiant unique de la ressource demandée.
+		String interId = (String) this.getRequestAttributes().get("interId");
+		String msgId = (String) this.getRequestAttributes().get("messageId");
+		
+		// Récupère la représentation JSON du message
 		JsonRepresentation jsonRepr = new JsonRepresentation(representation);
+		//System.out.println("JsonRepresentation : " + jsonRepr.getText());
+		
 		// Transforme la representation en objet java
-		Message message = new Message(jsonRepr.getJsonObject());
+		JSONObject jsObj = jsonRepr.getJsonObject();
+		Message message = new Message(jsObj);
+		//System.out.println("Message : " + message.toJson());
+		
 		// Ajoute l'message a la base de donnée
-		Messages.getInstance().addMessage(message);
+		Intervention i = Interventions.getInstance().getIntervention(interId);
+		List<Message> lm = i.getMessages();
+		lm.add(message);
+		//Messages.getInstance().addMessage(message);
 		// Pas besoin de retourner de représentation au client
 		return null;
 	}

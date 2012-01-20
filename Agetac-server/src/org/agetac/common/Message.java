@@ -1,9 +1,5 @@
 package org.agetac.common;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Random;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -67,8 +63,6 @@ public class Message {
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-
-		System.out.println("test "+json.toString());
 		
 		return json.toString();
 	}

@@ -34,7 +34,7 @@ public class AgetacServer extends Application {
 	 * @throws Exception Si un problème survient.
 	 */
 	public static void main(String[] args) throws Exception {
-		runServer(8111);
+		runServer(8112);
 	}
 
 	/**
@@ -47,9 +47,9 @@ public class AgetacServer extends Application {
 		// Crée un routeur restlet.
 		Router router = new Router(getContext());
 		// Attache les ressources au routeur.
-		router.attach("/intervention/{uniqueID}", InterventionResource.class);
-		router.attach("/agent/{uniqueID}", AgentResource.class);
-		router.attach("/message/{uniqueID}", MessageResource.class);
+		router.attach("/intervention/{interId}", InterventionResource.class);
+		router.attach("/intervention/{interId}/message/{messageId}", MessageResource.class);
+		router.attach("/intervention/{interId}/agent/{agentId}", AgentResource.class);
 		// Retourne le routeur.
 		return router;
 	}

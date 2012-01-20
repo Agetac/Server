@@ -2,7 +2,6 @@ package org.agetac.common;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,7 +22,6 @@ public class Intervention {
 	
 	public Intervention(String uniqueID) {
 		super();
-		Random r = new Random();
 		
 		this.uniqueID = uniqueID;
 		this.lieu = new Position(0,0);
@@ -38,15 +36,17 @@ public class Intervention {
 	
 	public Intervention(JSONObject json) {
 		
+		this.moyens = new ArrayList<Moyen>();
+		this.cibles = new ArrayList<Cible>();
+		this.sources = new ArrayList<Source>();
+		this.actions = new ArrayList<Action>();
+		this.messages = new ArrayList<Message>();
+		this.impliques = new ArrayList<Implique>();
+		
 		try {
 			this.uniqueID = (String) json.get("uniqueID");
-			this.lieu = (Position) json.get("lieu");
-			this.moyens = (List<Moyen>) json.get("moyens");
-			this.cibles = (List<Cible>) json.get("cibles");
-			this.sources = (List<Source>) json.get("sources");
-			this.actions = (List<Action>) json.get("actions");
-			this.messages = (List<Message>) json.get("messages");
-			this.impliques = (List<Implique>) json.get("impliques");
+			
+			this.lieu = new Position(json.getJSONObject("lieu"));
 			
 			JSONArray jsar = json.getJSONArray("moyens");
 			for (int i=0; i< jsar.length(); i++){
@@ -94,15 +94,17 @@ public class Intervention {
 	public JSONObject toJson() {
 		JSONObject json = new JSONObject();
 		try {
-			json.append("uniqueID", this.uniqueID);
-			json.append("moyens", this.moyens);
-			json.append("cibles", this.cibles);
-			json.append("sources", this.sources);
-			json.append("actions", this.actions);
-			json.append("messages", this.messages);
-			json.append("impliques", this.impliques);
+			
+			json.put("uniqueID", this.uniqueID);
+			json.put("lieu", this.lieu.toJson());
+			json.put("moyens", this.moyens);
+			json.put("cibles", this.cibles);
+			json.put("sources", this.sources);
+			json.put("actions", this.actions);
+			json.put("messages", this.messages);
+			json.put("impliques", this.impliques);
+			
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

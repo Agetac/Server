@@ -68,7 +68,7 @@ public class TestAgentResource {
 		JsonRepresentation representation2 = new JsonRepresentation(client.get());
 		Agent agent2 = new Agent(representation2.getJsonObject());
 		assertEquals("Vérification de l'id de l'agent récupéré", uniqueID,
-				agent2.getUniqueID());
+				agent2.getUniqueId());
 
 		// On le supprime.
 		client.delete();

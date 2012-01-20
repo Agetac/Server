@@ -11,7 +11,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 import org.agetac.common.Message;
-import org.agetac.server.db.Messages;
 
 
 public class MessagesIHM extends JFrame{

@@ -2,7 +2,6 @@ package org.agetac.common;
 
 import java.util.List;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -29,14 +28,16 @@ public class Agent {
 		this.subordonnes = subordonnes;
 		this.uniqueID = uniqueID;
 	}
+	
 	public Agent(JSONObject json) {
 		try {
+			
 			this.uniqueID = json.getString("uniqueID");
 			this.nom = json.getString("nom");
-			this.aptitude = new Aptitude(json.getString("aptitude"));
+			this.aptitude = new Aptitude(json.getJSONObject("aptitude"));
 			//this.subordonnes = (List<Agent>) json.get("subordonnes");
+			
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -98,14 +99,14 @@ public class Agent {
 		try {
 			json.put("uniqueID", this.uniqueID);
 			json.put("nom", this.nom);
-			json.put("aptitude", this.aptitude);
+			json.put("aptitude", this.aptitude.toJSON());
 			json.put("subordonnes", this.subordonnes);
+			
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
-		System.out.println("test "+json.toString());
 		return json;
 	}
 
