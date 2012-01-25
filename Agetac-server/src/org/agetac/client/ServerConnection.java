@@ -19,9 +19,13 @@ public class ServerConnection {
 	}
 
 	public Representation getResource(String resType, String resUniqueID) {
-
-		String url = baseUrl() + resType + "/" + resUniqueID;
-
+		
+		String url = baseUrl() + resType;
+		
+		if(resUniqueID != null){
+			url +=  "/" + resUniqueID;
+		}
+		System.out.println(url);
 		ClientResource client = new ClientResource(url);
 		
 		Representation repr = null;
@@ -35,9 +39,14 @@ public class ServerConnection {
 		return repr;
 	}
 
+
 	public void putResource(String resType, String resUniqueID,	Representation resRepresentation) {
 
-		String url = baseUrl() + resType + "/" + resUniqueID;
+		String url = baseUrl() + resType;
+		
+		if(resUniqueID != null){
+			url += "/" + resUniqueID;
+		}
 
 		ClientResource client = new ClientResource(url);
 		
@@ -51,7 +60,11 @@ public class ServerConnection {
 
 	public void deleteResource(String resType, String resUniqueID) {
 
-		String url = baseUrl() + resType + "/" + resUniqueID;
+		String url = baseUrl() + resType;
+		
+		if(resUniqueID != null){
+			url += "/" + resUniqueID;
+		}
 
 		ClientResource client = new ClientResource(url);
 		

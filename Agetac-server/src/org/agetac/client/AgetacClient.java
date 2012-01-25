@@ -1,5 +1,7 @@
 package org.agetac.client;
 
+import java.util.List;
+
 import org.agetac.client.ServerConnection;
 import org.agetac.client.controler.MessageControler;
 import org.agetac.client.model.MessageModel;
@@ -54,8 +56,20 @@ public class AgetacClient {
 		//interCon.putMessage(msg);
 		
 		// Récupération du message
-		Message m = interCon.getMessage("4");
-		System.out.println(m.getMessage());
+		System.out.println("Récupération des messages");
+		List<Message> messages = interCon.getMessages();
+		
+		System.out.println("Affichage des messages");
+		
+		for(int i=0; i<messages.size(); i++){
+			System.out.println(messages.get(i).getMessage());
+		}
+		
+		System.out.println("Fin affichage des messages");
+		
+		
+		//Message m = interCon.getMessage("3");
+		//System.out.println(m.getMessage());
 		
 		//TODO Coté serveur, enregistrer le message et le rendre accessible seulement pour la bonne intervention
 

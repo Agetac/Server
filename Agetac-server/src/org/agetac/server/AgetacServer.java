@@ -67,7 +67,8 @@ public class AgetacServer extends Application {
 		Router router = new Router(getContext());
 		// Attache les ressources au routeur.
 		router.attach("/intervention/{interId}", InterventionResource.class);
-		router.attach("/intervention/{interId}/message/{messageId}", MessageResource.class);
+		router.attach("/intervention/{interId}/message", MessageResource.class); // Tous les messages
+		router.attach("/intervention/{interId}/message/{messageId}", MessageResource.class); // Un seul message
 		router.attach("/intervention/{interId}/agent/{agentId}", AgentResource.class);
 		// Retourne le routeur.
 		return router;

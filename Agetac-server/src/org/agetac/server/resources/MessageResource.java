@@ -6,6 +6,7 @@ import org.agetac.common.Intervention;
 import org.agetac.common.Message;
 import org.agetac.server.db.Interventions;
 import org.agetac.server.db.Messages;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.restlet.data.Status;
 import org.restlet.ext.json.JsonRepresentation;
@@ -27,35 +28,52 @@ public class MessageResource extends ServerResource {
 	 *             met le bon code status.
 	 */
 	@Get
-	public Representation getMessage() throws Exception {		
+	public Representation getMessage() throws Exception {
 		// Crée une representation JSON vide
 		JsonRepresentation result = null;
 		// Récupère l'identifiant unique de la ressource demandée.
 		String interId = (String) this.getRequestAttributes().get("interId");
 		String msgId = (String) this.getRequestAttributes().get("messageId");
-		
-		
-		//TODO corrigé null pointer exception (message non ajouté à l'intervention)
+		System.out.println(msgId);
 		// Récupération des messages de l'intervention
 		List<Message> messages = Interventions.getInstance().getIntervention(interId).getMessages();
 
 		Message message = null;
 		
-		//Recherche du message demandé
-		for(int i=0; i<messages.size(); i++){
-			if(messages.get(i).getUniqueID().equals(msgId)){
-				message = messages.get(i);
+		// Si on demande un message précis
+		if (msgId != null) {
+			// Recherche du message demandé
+			for (int i = 0; i < messages.size(); i++) {
+				if (messages.get(i).getUniqueID().equals(msgId)) {
+					message = messages.get(i);
+				}
 			}
+			// Si le message n'est pas trouvé
+			if (message == null) {
+				result = null;
+				getResponse().setStatus(Status.CLIENT_ERROR_NOT_ACCEPTABLE);
+			} else {
+				result = new JsonRepresentation(message.toJson());
+			}
+		// Si on veut tous les messages
+		} else if (msgId == null) {
+			
+			/*JSONObject jsonOb = new JSONObject(); // JsonObject englobant
+			JSONArray ar = new JSONArray(); // JsonArray contenant la liste des messages
+			
+			for(int i=0; i< messages.size();i++){
+				ar.put(new JSONObject(messages.get(i).toJson())); // On ajoute la un jsonObject par message dans le jsonArray
+			}
+			jsonOb.put("messages", ar); // On met le JsonArray dans le JsonObject englobant*/
+			
+			JSONArray jsonAr = new JSONArray();
+			for(int i=0; i< messages.size();i++){
+				jsonAr.put(new JSONObject(messages.get(i).toJson())); // On ajoute la un jsonObject par message dans le jsonArray
+			}
+			
+			result = new JsonRepresentation(jsonAr); // On crée la représentation de l'objet
 		}
-		
-		if (message == null) {
-			// Ressource non-trouvé, envois du code status 406
-			getResponse().setStatus(Status.CLIENT_ERROR_NOT_ACCEPTABLE);
-		} else {
-			// Ressource trouvé, envoie de la représentation Json
-			result = new JsonRepresentation(message.toJson());
-			// Le code status par défaut est 200 s'il n'est pas
-		}
+
 		// Retourne la représentation, le code status indique au client si elle
 		// est valide
 		return result;
@@ -76,21 +94,21 @@ public class MessageResource extends ServerResource {
 		// Récupère l'identifiant unique de la ressource demandée.
 		String interId = (String) this.getRequestAttributes().get("interId");
 		String msgId = (String) this.getRequestAttributes().get("messageId");
-		
+
 		// Récupère la représentation JSON du message
 		JsonRepresentation jsonRepr = new JsonRepresentation(representation);
-		//System.out.println("JsonRepresentation : " + jsonRepr.getText());
-		
+		// System.out.println("JsonRepresentation : " + jsonRepr.getText());
+
 		// Transforme la representation en objet java
 		JSONObject jsObj = jsonRepr.getJsonObject();
 		Message message = new Message(jsObj);
-		//System.out.println("Message : " + message.toJson());
-		
+		// System.out.println("Message : " + message.toJson());
+
 		// Ajoute l'message a la base de donnée
 		Intervention i = Interventions.getInstance().getIntervention(interId);
 		List<Message> lm = i.getMessages();
 		lm.add(message);
-		//Messages.getInstance().addMessage(message);
+		// Messages.getInstance().addMessage(message);
 		// Pas besoin de retourner de représentation au client
 		return null;
 	}
