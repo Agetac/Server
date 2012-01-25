@@ -1,8 +1,10 @@
 package org.agetac.server;
 
-import org.agetac.server.resources.agent.AgentResource;
-import org.agetac.server.resources.intervention.InterventionResource;
-import org.agetac.server.resources.message.MessageResource;
+import org.agetac.common.Intervention;
+import org.agetac.server.db.Interventions;
+import org.agetac.server.resources.AgentResource;
+import org.agetac.server.resources.InterventionResource;
+import org.agetac.server.resources.MessageResource;
 import org.restlet.*;
 import org.restlet.data.Protocol;
 import org.restlet.routing.Router;
@@ -35,6 +37,23 @@ public class AgetacServer extends Application {
 	 */
 	public static void main(String[] args) throws Exception {
 		runServer(8112);
+		Interventions interventions = Interventions.getInstance();
+		
+		Intervention inter1 = new Intervention("inter1");
+		Intervention inter2 = new Intervention("inter2");
+		Intervention inter3 = new Intervention("inter3");
+
+		inter1.getMessages().add(new org.agetac.common.Message("1", "message1 inter1", "0102"));
+		inter1.getMessages().add(new org.agetac.common.Message("2", "message2 inter1", "0103"));
+		inter1.getMessages().add(new org.agetac.common.Message("3", "message3 inter1", "0104"));
+		
+		inter2.getMessages().add(new org.agetac.common.Message("4", "message1 inter2", "0102"));
+		inter2.getMessages().add(new org.agetac.common.Message("5", "message2 inter2", "0103"));
+		inter2.getMessages().add(new org.agetac.common.Message("6", "message3 inter2", "0104"));
+		
+
+		interventions.addIntervention(inter1);
+		interventions.addIntervention(inter2);
 	}
 
 	/**
