@@ -3,10 +3,16 @@ package org.agetac.common;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.jdo.annotations.IdGeneratorStrategy;
+import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.PrimaryKey;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+@PersistenceCapable
 public class Intervention {
 
 	private Position lieu;
@@ -17,6 +23,10 @@ public class Intervention {
 	private List<Action> actions;
 	private List<Message> messages;
 	private List<Implique> impliques;
+	
+	@PrimaryKey
+	@Persistent(valueStrategy=IdGeneratorStrategy.INCREMENT)
+	long id;
 	
 	private String uniqueID;
 	

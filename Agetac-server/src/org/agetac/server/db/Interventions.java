@@ -4,6 +4,11 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import javax.jdo.JDOHelper;
+import javax.jdo.PersistenceManager;
+import javax.jdo.PersistenceManagerFactory;
+import javax.jdo.Transaction;
+
 import org.agetac.common.Intervention;
 
 
@@ -39,7 +44,24 @@ public class Interventions {
    * @param intervention L'intervention à ajouter.
    */
   public synchronized void addIntervention(Intervention intervention) {
-	  uniqueID2Intervention.put(intervention.getUniqueID(), intervention);
+	  PersistenceManagerFactory pmf = JDOHelper.getPersistenceManagerFactory("jdo.properties");
+	  PersistenceManager pm = pmf.getPersistenceManager();
+	  
+	  Transaction tx=pm.currentTransaction();
+	  try
+	  {
+	      tx.begin();
+	      pm.makePersistent(intervention);
+	      tx.commit();
+	  }
+	  finally
+	  {
+	      if (tx.isActive())
+	      {
+	          tx.rollback();
+	      }
+	      pm.close();
+	  }
   }
   
   /**
