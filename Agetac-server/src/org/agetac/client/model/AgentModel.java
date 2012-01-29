@@ -5,25 +5,27 @@ import javax.swing.table.AbstractTableModel;
 import org.agetac.common.Agent;
 
 public class AgentModel extends AbstractTableModel {
-	
+
 	private static final long serialVersionUID = -3436934299381693000L;
-	
-	private final List<Agent> agents;
-	private final String[] entetes = { "ID", "Nom", "Aptitude","Subordonnes" };
+
+	// TODO Le champ été marqué final mais le code ne compilé pas. Quand on fait
+	// un commit "je propose" qu'au moins ça compile!!!
+	private List<Agent> agents;
+	private final String[] entetes = { "ID", "Nom", "Aptitude", "Subordonnes" };
 
 	public AgentModel() {
 		super();
-		//agents = InterventionConnection.getAgents();
+		// agents = InterventionConnection.getAgents();
 	}
-	
+
 	public int getRowCount() {
 		return agents.size();
 	}
-	
+
 	public int getColumnCount() {
 		return entetes.length;
 	}
-	
+
 	public String getColumnName(int columnIndex) {
 		return entetes[columnIndex];
 	}

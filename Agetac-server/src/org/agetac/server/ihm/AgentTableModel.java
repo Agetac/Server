@@ -1,5 +1,6 @@
 package org.agetac.server.ihm;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -12,25 +13,27 @@ import org.agetac.server.db.Agents;
 import org.agetac.server.db.Messages;
 
 public class AgentTableModel extends AbstractTableModel {
-	
+
 	private static final long serialVersionUID = -3436934299381693000L;
-	
-	private final Collection<Agent> agents;
-	private final String[] entetes = { "ID", "Nom", "Aptitude","Subordonnes" };
+
+	private final List<Agent> agents;
+	private final String[] entetes = { "ID", "Nom", "Aptitude", "Subordonnes" };
 
 	public AgentTableModel() {
 		super();
-		agents = Agents.getInstance().getAgents();
+		// TODO Le code qu'on commit il faut que ça compile!!!!! Là j'ai donné
+		// un hack pour que le code compile.
+		agents = new ArrayList<Agent>(Agents.getInstance().getAgents());
 	}
-	
+
 	public int getRowCount() {
 		return agents.size();
 	}
-	
+
 	public int getColumnCount() {
 		return entetes.length;
 	}
-	
+
 	public String getColumnName(int columnIndex) {
 		return entetes[columnIndex];
 	}
@@ -38,7 +41,7 @@ public class AgentTableModel extends AbstractTableModel {
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		switch (columnIndex) {
 		case 0:
-			return agents.get(rowIndex).getUniqueID();
+			return agents.get(rowIndex).getUniqueId();
 		case 1:
 			return agents.get(rowIndex).getNom();
 		case 2:
