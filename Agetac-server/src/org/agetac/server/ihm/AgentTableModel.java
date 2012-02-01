@@ -1,5 +1,6 @@
 package org.agetac.server.ihm;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -15,12 +16,12 @@ public class AgentTableModel extends AbstractTableModel {
 	
 	private static final long serialVersionUID = -3436934299381693000L;
 	
-	private final Collection<Agent> agents;
+	private final List<Agent> agents;
 	private final String[] entetes = { "ID", "Nom", "Aptitude","Subordonnes" };
 
 	public AgentTableModel() {
 		super();
-		agents = Agents.getInstance().getAgents();
+		agents = new ArrayList<Agent>(Agents.getInstance().getAgents());
 	}
 	
 	public int getRowCount() {
@@ -38,7 +39,7 @@ public class AgentTableModel extends AbstractTableModel {
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		switch (columnIndex) {
 		case 0:
-			return agents.get(rowIndex).getUniqueID();
+			return agents.get(rowIndex).getUniqueId();
 		case 1:
 			return agents.get(rowIndex).getNom();
 		case 2:
