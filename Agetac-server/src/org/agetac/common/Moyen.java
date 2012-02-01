@@ -1,13 +1,28 @@
 package org.agetac.common;
 
+import javax.jdo.annotations.IdGeneratorStrategy;
+import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.PrimaryKey;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
+@PersistenceCapable
 public class Moyen {
+	
+	@PrimaryKey
+	@Persistent(valueStrategy=IdGeneratorStrategy.INCREMENT)
+	long id;
+	
 	private String nom;
 	private Caserne caserne;
 	private Position position;
 
+	public Moyen(){
+		
+	}
+	
 	public Moyen(String nom, Position position) {
 		super();
 		this.nom = nom;

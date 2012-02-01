@@ -1,14 +1,20 @@
 package org.agetac.common;
 
+import javax.jdo.annotations.PersistenceCapable;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
+@PersistenceCapable
 public class Vehicule extends Moyen {
 
 	private EtatVehicule etat;
 	private Groupe groupe;
 	private String uniqueID;
-
+	
+	public Vehicule(){
+	}
+	
 	public Vehicule(String nom, Position position,
 			EtatVehicule etat, Groupe groupe) {
 		super(nom, position);

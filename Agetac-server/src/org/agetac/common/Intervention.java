@@ -23,18 +23,20 @@ public class Intervention {
 	private List<Action> actions;
 	private List<Message> messages;
 	private List<Implique> impliques;
-	
+
 	@PrimaryKey
-	@Persistent(valueStrategy=IdGeneratorStrategy.INCREMENT)
-	long id;
-	
+	@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT)
 	private String uniqueID;
-	
+
 	public Intervention(String uniqueID) {
-		super();
-		
+		this();
+
 		this.uniqueID = uniqueID;
-		this.lieu = new Position(0,0);
+		this.lieu = new Position(0, 0);
+		
+	}
+
+	public Intervention() {
 		this.moyens = new ArrayList<Moyen>();
 		this.cibles = new ArrayList<Cible>();
 		this.sources = new ArrayList<Source>();
@@ -43,48 +45,47 @@ public class Intervention {
 		this.impliques = new ArrayList<Implique>();
 	}
 
-	
 	public Intervention(JSONObject json) {
-		
+
 		this.moyens = new ArrayList<Moyen>();
 		this.cibles = new ArrayList<Cible>();
 		this.sources = new ArrayList<Source>();
 		this.actions = new ArrayList<Action>();
 		this.messages = new ArrayList<Message>();
 		this.impliques = new ArrayList<Implique>();
-		
+
 		try {
 			this.uniqueID = (String) json.get("uniqueID");
-			
+
 			this.lieu = new Position(json.getJSONObject("lieu"));
-			
+
 			JSONArray jsar = json.getJSONArray("moyens");
-			for (int i=0; i< jsar.length(); i++){
+			for (int i = 0; i < jsar.length(); i++) {
 				moyens.add(new Moyen(jsar.getJSONObject(i)));
 			}
-			
+
 			jsar = json.getJSONArray("cibles");
-			for (int i=0; i< jsar.length(); i++){
+			for (int i = 0; i < jsar.length(); i++) {
 				cibles.add(new Cible(jsar.getJSONObject(i)));
 			}
-			
+
 			jsar = json.getJSONArray("sources");
-			for (int i=0; i< jsar.length(); i++){
+			for (int i = 0; i < jsar.length(); i++) {
 				sources.add(new Source(jsar.getJSONObject(i)));
 			}
-			
+
 			jsar = json.getJSONArray("actions");
-			for (int i=0; i< jsar.length(); i++){
+			for (int i = 0; i < jsar.length(); i++) {
 				actions.add(new Action(jsar.getJSONObject(i)));
 			}
-			
+
 			jsar = json.getJSONArray("messages");
-			for (int i=0; i< jsar.length(); i++){
+			for (int i = 0; i < jsar.length(); i++) {
 				messages.add(new Message(jsar.getJSONObject(i)));
 			}
-			
+
 			jsar = json.getJSONArray("impliques");
-			for (int i=0; i< jsar.length(); i++){
+			for (int i = 0; i < jsar.length(); i++) {
 				impliques.add(new Implique(jsar.getJSONObject(i)));
 			}
 		} catch (JSONException e) {
@@ -93,7 +94,6 @@ public class Intervention {
 		}
 	}
 
-
 	public void demandeMoyen() {
 
 	}
@@ -101,10 +101,11 @@ public class Intervention {
 	public String toString() {
 		return "Intervention [moyens=" + moyens + ", lieu=" + lieu + "]";
 	}
+
 	public JSONObject toJson() {
 		JSONObject json = new JSONObject();
 		try {
-			
+
 			json.put("uniqueID", this.uniqueID);
 			json.put("lieu", this.lieu.toJson());
 			json.put("moyens", this.moyens);
@@ -113,18 +114,18 @@ public class Intervention {
 			json.put("actions", this.actions);
 			json.put("messages", this.messages);
 			json.put("impliques", this.impliques);
-			
+
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-		
+
 		return json;
 	}
-	
+
 	/*
 	 * GETTER & SETTER
 	 */
-	
+
 	public Position getLieu() {
 		return lieu;
 	}
@@ -181,10 +182,8 @@ public class Intervention {
 		this.impliques = impliques;
 	}
 
-
 	public String getUniqueID() {
 		return this.uniqueID;
 	}
-
 
 }
