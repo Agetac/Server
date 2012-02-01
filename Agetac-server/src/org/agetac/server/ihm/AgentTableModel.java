@@ -1,25 +1,27 @@
-package org.agetac.client.model;
+package org.agetac.server.ihm;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
 
 import javax.swing.table.AbstractTableModel;
-import org.agetac.common.Agent;
-import org.agetac.observer.Subject;
 
-public class AgentModel extends AbstractTableModel implements Observer{
+import org.agetac.common.Agent;
+import org.agetac.common.Message;
+import org.agetac.server.db.Agents;
+import org.agetac.server.db.Messages;
+
+public class AgentTableModel extends AbstractTableModel {
 	
 	private static final long serialVersionUID = -3436934299381693000L;
 	
 	private final List<Agent> agents;
 	private final String[] entetes = { "ID", "Nom", "Aptitude","Subordonnes" };
 
-	public AgentModel() {
+	public AgentTableModel() {
 		super();
-		agents = new ArrayList<Agent>();
-		//agents = InterventionConnection.getAgents();
+		agents = new ArrayList<Agent>(Agents.getInstance().getAgents());
 	}
 	
 	public int getRowCount() {
@@ -51,26 +53,12 @@ public class AgentModel extends AbstractTableModel implements Observer{
 
 	public void addAgent(Agent ag) {
 		agents.add(ag);
-		// InterventionConnection.put(ag);
 		fireTableRowsInserted(agents.size() - 1, agents.size() - 1);
 	}
 
-	public void removeAgent(int rowIndex) {
+	public void removeMessage(int rowIndex) {
 		agents.remove(rowIndex);
-		// InterventionConnection.removerowIndex);
 		fireTableRowsDeleted(rowIndex, rowIndex);
-	}
-
-	
-	public void update(Subject s) {
-		System.out.println("AgentModel.update");
-		//agents = Agents.getInstance().getAgents() // pb de collection en utilisant la db
-	}
-	
-	@Override
-	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }
