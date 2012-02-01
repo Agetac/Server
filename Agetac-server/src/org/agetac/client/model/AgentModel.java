@@ -2,10 +2,14 @@ package org.agetac.client.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
+
 import javax.swing.table.AbstractTableModel;
 import org.agetac.common.Agent;
+import org.agetac.observer.Subject;
 
-public class AgentModel extends AbstractTableModel {
+public class AgentModel extends AbstractTableModel implements Observer{
 	
 	private static final long serialVersionUID = -3436934299381693000L;
 	
@@ -55,6 +59,18 @@ public class AgentModel extends AbstractTableModel {
 		agents.remove(rowIndex);
 		// InterventionConnection.removerowIndex);
 		fireTableRowsDeleted(rowIndex, rowIndex);
+	}
+
+	
+	public void update(Subject s) {
+		System.out.println("AgentModel.update");
+		//agents = Agents.getInstance().getAgents() // pb de collection en utilisant la db
+	}
+	
+	@Override
+	public void update(Observable o, Object arg) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

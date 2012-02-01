@@ -6,20 +6,20 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 
-import org.agetac.client.controler.AgentControler;
-import org.agetac.client.model.AgentModel;
+import org.agetac.client.controler.InterventionControler;
+import org.agetac.client.model.InterventionModel;
 
-public class AgentView extends JFrame {
+public class InterventionView extends JFrame {
 
-	private AgentControler controler;
-	private AgentModel model;
+	private InterventionControler controler;
+	private InterventionModel model;
 	
 	private JTable table;
 
-	public AgentView(AgentModel model) {
+	public InterventionView(InterventionModel model) {
 		
 		this.model = model;
-		this.controler = new AgentControler(this, this.model);
+		this.controler = new InterventionControler(this, this.model);
 
 		// Conteneur principal
 		JPanel panel = new JPanel();
@@ -34,12 +34,12 @@ public class AgentView extends JFrame {
 		panel2.setLayout(new BorderLayout());
 
 		// Ajouter
-		JButton addBut = new JButton("Ajouter un agent");
+		JButton addBut = new JButton("Ajouter une intervention");
 		addBut.addActionListener(this.controler);
 		panel2.add(addBut);
 
 		// Supprimer un message
-		JButton delBut = new JButton("Supprimer un agent");
+		JButton delBut = new JButton("Supprimer une intervention");
 		delBut.addActionListener(this.controler);
 		panel2.add(delBut);
 		
@@ -49,7 +49,7 @@ public class AgentView extends JFrame {
 		
 		
 		// Config de la JFrame
-		setTitle("Liste des agents");
+		setTitle("Liste des interventions");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		pack();
@@ -58,7 +58,7 @@ public class AgentView extends JFrame {
 	}
 	
 	
-	public void refreshAgents(){
+	public void refreshInterventions(){
 			
 	}
 	

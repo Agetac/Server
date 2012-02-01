@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.agetac.client.ServerConnection;
 import org.agetac.client.controler.MessageControler;
+import org.agetac.client.ihm.IHM;
 import org.agetac.client.model.MessageModel;
 import org.agetac.client.view.MessageView;
 import org.agetac.common.Intervention;
@@ -31,7 +32,7 @@ public class AgetacClient {
 	 */
 	public static void main(String[] args) throws Exception {
 
-		//IHM ihm = new IHM();
+		IHM ihm = new IHM();
 		//MessageModel msgModel = new MessageModel();
 		//MessageView msgView = new MessageView(msgModel);
 		
