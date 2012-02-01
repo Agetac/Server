@@ -11,8 +11,9 @@ public class Caserne implements IJsonable{
 	
 	private String nom;
 	private List<Moyen> moyens;
+	private String uniqueID;
 	
-	public Caserne(String nom, List<Moyen> moyens) {
+	public Caserne(String uniqueID, String nom, List<Moyen> moyens) {
 		super();
 		this.nom = nom;
 		this.moyens = moyens;
@@ -77,6 +78,11 @@ public class Caserne implements IJsonable{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	public String getUniqueID() {
+		return this.uniqueID;
+	}
+
 	
 	
 }

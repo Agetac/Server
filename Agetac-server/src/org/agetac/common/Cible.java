@@ -5,19 +5,24 @@ import org.json.JSONObject;
 
 public class Cible implements IJsonable{
 	private Position position;
+	private String uniqueID;
 
-	public Cible(Position position) {
+	public Cible(String uniqueId, Position position) {
+		this.uniqueID = uniqueId;
 		this.position = position;
 	}
 	
 	public Cible(JSONObject json){
 		try {
+			this.setUniqueID(json.getString("uniqueID"));
 			this.position = new Position(json.getJSONObject("position"));
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
+
+
 
 	public Position getPosition() {
 		return position;
@@ -37,6 +42,7 @@ public class Cible implements IJsonable{
 	public JSONObject toJson(){
 		JSONObject json = new JSONObject();
 		try {
+			json.put("uniqueID", this.uniqueID);
 			json.put("position", position.toJson());
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
@@ -48,5 +54,13 @@ public class Cible implements IJsonable{
 	@Override
 	public IJsonable fromJson(JSONObject json) {
 		return new Cible(json);
+	}
+
+	
+	private void setUniqueID(String uniqueId) {
+		this.uniqueID = uniqueId;
+	}
+	public String getUniqueID() {
+		return this.uniqueID;
 	}
 }

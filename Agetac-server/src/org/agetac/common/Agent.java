@@ -20,13 +20,13 @@ public class Agent implements IJsonable{
 		this.subordonnes = null;
 	}
 	
-	public Agent(String uniqueID, String nom, Aptitude aptitude, 
+	public Agent(String uniqueId, String nom, Aptitude aptitude, 
 			List<Agent> subordonnes) {
 		super();
 		this.nom = nom;
 		this.aptitude = aptitude;
 		this.subordonnes = subordonnes;
-		this.uniqueID = uniqueID;
+		this.uniqueID = uniqueId;
 	}
 	
 	public Agent(JSONObject json) {
@@ -34,7 +34,7 @@ public class Agent implements IJsonable{
 			
 			this.uniqueID = json.getString("uniqueID");
 			this.nom = json.getString("nom");
-			this.aptitude = new Aptitude(json.getJSONObject("aptitude"));
+			this.aptitude = Aptitude.valueOf(json.getString("aptitude"));
 			//this.subordonnes = (List<Agent>) json.get("subordonnes");
 			
 		} catch (JSONException e) {
@@ -99,14 +99,13 @@ public class Agent implements IJsonable{
 		try {
 			json.put("uniqueID", this.uniqueID);
 			json.put("nom", this.nom);
-			json.put("aptitude", this.aptitude.toJson());
+			json.put("aptitude", aptitude.name());
 			json.put("subordonnes", this.subordonnes);
 			
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 		return json;
 	}
 

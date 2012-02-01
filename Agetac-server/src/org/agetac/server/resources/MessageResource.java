@@ -84,7 +84,6 @@ public class MessageResource extends ServerResource implements IServerResource{
 			throws Exception {
 		// Récupère l'identifiant unique de la ressource demandée.
 		String interId = (String) this.getRequestAttributes().get("interId");
-		String msgId = (String) this.getRequestAttributes().get("messageId");
 
 		// Récupère la représentation JSON du message
 		JsonRepresentation jsonRepr = new JsonRepresentation(representation);

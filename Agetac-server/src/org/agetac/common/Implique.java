@@ -4,14 +4,17 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Implique implements IJsonable{
+	private String uniqueID;
 	private EtatImplique etat;
 
-	public Implique(EtatImplique etat) {
+	public Implique(String uniqueId, EtatImplique etat) {
+		this.uniqueID = uniqueId;
 		this.etat = etat;
 	}
 	
 	public Implique (JSONObject json){
 		try {
+			this.uniqueID = json.getString("uniqueID");
 			this.etat = EtatImplique.valueOf(json.getString("etat"));
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
@@ -42,18 +45,28 @@ public class Implique implements IJsonable{
 	 * Convert this object to a JSON object for representation
 	 */
 	public JSONObject toJson() {
+		JSONObject json = new JSONObject();
 		try {
-			JSONObject jsonobj = new JSONObject();
-			jsonobj.put("etat", etat.name());
-			return jsonobj;
-		} catch (Exception e) {
-			return null;
+			
+			json.put("uniqueID", this.uniqueID);
+			json.put("etat", etat.name());
+			
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
+		return json;
 	}
 
 	@Override
 	public IJsonable fromJson(JSONObject json) {
 		return new Implique(json);
 	}
-
+	
+	public void setUniqueID(String uniqueId) {
+		this.uniqueID = uniqueId;
+	}
+	public String getUniqueID() {
+		return this.uniqueID;
+	}
 }

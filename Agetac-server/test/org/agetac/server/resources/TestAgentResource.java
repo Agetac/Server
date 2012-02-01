@@ -58,7 +58,7 @@ public class TestAgentResource {
 		ClientResource client = new ClientResource(testUrl);
 
 		// On construit la représentation JSON de l'agent
-		Agent agent = new Agent(uniqueID, "Noel", new Aptitude("CDG"), null);
+		Agent agent = new Agent(uniqueID, "Noel", Aptitude.CDG, null);
 		JsonRepresentation representation = new JsonRepresentation(agent.toJson());
 
 		// On envoie (put) l'agent au serveur
