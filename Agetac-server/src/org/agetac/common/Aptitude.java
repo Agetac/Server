@@ -3,7 +3,7 @@ package org.agetac.common;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Aptitude {
+public class Aptitude implements IJsonable{
 	private String grade;
 
 	public Aptitude(String grade) {
@@ -30,14 +30,10 @@ public class Aptitude {
 	}
 	
 	public String toString() {
-		/* StringBuffer sb = new StringBuffer();
-		 sb.append("grade:");
-		 sb.append(this.grade);
-		 return sb.toString();*/
 		return "apt";
 	}
 
-	public JSONObject toJSON() {
+	public JSONObject toJson() {
 		JSONObject json = new JSONObject();
 		try {
 			
@@ -48,4 +44,11 @@ public class Aptitude {
 		}
 		return json;
 	}
+
+	@Override
+	public IJsonable fromJson(JSONObject json) {
+		return new Aptitude(json);
+	}
+
+
 }

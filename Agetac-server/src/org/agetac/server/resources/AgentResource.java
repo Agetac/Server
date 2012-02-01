@@ -10,7 +10,7 @@ import org.restlet.resource.Get;
 import org.restlet.resource.Put;
 import org.restlet.resource.ServerResource;
 
-public class AgentResource extends ServerResource {
+public class AgentResource extends ServerResource implements IServerResource{
 	/**
 	 * Retourne l'instance de l'agent demander dans l'url
 	 * 
@@ -22,7 +22,7 @@ public class AgentResource extends ServerResource {
 	 *             met le bon code status.
 	 */
 	@Get
-	public Representation getAgent() throws Exception {
+	public Representation getResource() throws Exception {
 		// Crée une representation JSON vide
 		JsonRepresentation result = null;
 		// Récupère l'identifiant unique de la ressource demandée.
@@ -53,7 +53,7 @@ public class AgentResource extends ServerResource {
 	 *             En cas de problème de lecture de la representation.
 	 */
 	@Put
-	public Representation putAgent(Representation representation)
+	public Representation putResource(Representation representation)
 			throws Exception {
 		// Récupère la représentation JSON de l'agent
 		JsonRepresentation jsonRepr = new JsonRepresentation(representation);
@@ -71,7 +71,7 @@ public class AgentResource extends ServerResource {
 	 * @return null.
 	 */
 	@Delete
-	public Representation deleteAgent() {
+	public Representation deleteResource() {
 		// Récupère l'id dans l'url
 		String uniqueID = (String) this.getRequestAttributes().get("uniqueID");
 		// On s'assure qu'il n'est plus présent en base de données

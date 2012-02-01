@@ -20,7 +20,7 @@ public class Vehicule extends Moyen {
 		super(json);
 		try {
 			this.uniqueID = json.getString("uniqueID");
-			this.etat = new EtatVehicule(json.getJSONObject("etat"));
+			this.etat = EtatVehicule.valueOf(json.getString("etat"));
 			this.groupe = new Groupe(json.getJSONObject("groupe"));
 		} catch (JSONException e) {
 			e.printStackTrace();
@@ -62,8 +62,8 @@ public class Vehicule extends Moyen {
 	 */
 	public JSONObject toJSON() {
 		try {
-			JSONObject jsonobj = super.toJSON();
-			jsonobj.put("etat", this.etat);
+			JSONObject jsonobj = super.toJson();
+			jsonobj.put("etat", this.etat.name());
 			jsonobj.put("groupe", this.groupe);
 			return jsonobj;
 		} catch (Exception e) {

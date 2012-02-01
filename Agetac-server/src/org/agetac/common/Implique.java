@@ -3,7 +3,7 @@ package org.agetac.common;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Implique {
+public class Implique implements IJsonable{
 	private EtatImplique etat;
 
 	public Implique(EtatImplique etat) {
@@ -12,7 +12,7 @@ public class Implique {
 	
 	public Implique (JSONObject json){
 		try {
-			this.etat = new EtatImplique(json.getString("etat"));
+			this.etat = EtatImplique.valueOf(json.getString("etat"));
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -41,13 +41,19 @@ public class Implique {
 	/**
 	 * Convert this object to a JSON object for representation
 	 */
-	public JSONObject toJSON() {
+	public JSONObject toJson() {
 		try {
 			JSONObject jsonobj = new JSONObject();
-			jsonobj.put("etat", etat.toJSON());
+			jsonobj.put("etat", etat.name());
 			return jsonobj;
 		} catch (Exception e) {
 			return null;
 		}
 	}
+
+	@Override
+	public IJsonable fromJson(JSONObject json) {
+		return new Implique(json);
+	}
+
 }

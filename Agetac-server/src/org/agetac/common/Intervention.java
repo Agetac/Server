@@ -7,7 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Intervention {
+public class Intervention implements IJsonable{
 
 	private Position lieu;
 
@@ -111,6 +111,11 @@ public class Intervention {
 		return json;
 	}
 	
+	@Override
+	public IJsonable fromJson(JSONObject json) {
+		return new Intervention(json);
+	}
+	
 	/*
 	 * GETTER & SETTER
 	 */
@@ -175,6 +180,9 @@ public class Intervention {
 	public String getUniqueID() {
 		return this.uniqueID;
 	}
+
+
+
 
 
 }

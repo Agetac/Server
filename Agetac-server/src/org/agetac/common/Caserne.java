@@ -7,7 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Caserne {
+public class Caserne implements IJsonable{
 	
 	private String nom;
 	private List<Moyen> moyens;
@@ -66,6 +66,17 @@ public class Caserne {
 		 sb.append(this.moyens);
 		 return sb.toString();
 		}
+
+	@Override
+	public IJsonable fromJson(JSONObject json) {
+		return new Caserne(json);
+	}
+
+	@Override
+	public JSONObject toJson() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 }

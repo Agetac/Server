@@ -3,7 +3,7 @@ package org.agetac.common;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Position {
+public class Position implements IJsonable{
 	private double longitude;
 	private double latitude;
 
@@ -48,5 +48,10 @@ public class Position {
 			e.printStackTrace();
 		}
 		return json;
+	}
+
+	@Override
+	public IJsonable fromJson(JSONObject json) {
+		return new Position(json);
 	}
 }

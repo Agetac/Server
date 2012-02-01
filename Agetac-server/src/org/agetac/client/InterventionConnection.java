@@ -60,22 +60,14 @@ public class InterventionConnection {
 		try	{
 			representation = new JsonRepresentation(repr);
 			
-			/*JSONObject jsonOb = representation.getJsonObject();
-			JSONArray ar = jsonOb.getJSONArray("messages");
-			if(jsonOb != null){
-				for(int i=0; i<ar.length(); i++){
-					
-					messages.add(new Message(ar.getJSONObject(i)));
-					
-				}
-			}*/
-			JSONArray ar = representation.getJsonArray();
+			JSONArray ar = representation.getJsonArray(); // Récupération de la liste des messages
+			
 			for (int i=0; i<ar.length(); i++){
 				messages.add(new Message(ar.getJSONObject(i)));
 			}
-		}catch(Exception e){
 			
-			System.out.println("Error:" + e.toString());
+		}catch(Exception e){
+			System.out.println("Error: " + e.toString());
 		}
 		
 		
@@ -83,11 +75,17 @@ public class InterventionConnection {
 	}
 
 	public void putMessage(Message msg) {
-
 		Representation r = new JsonRepresentation(msg.toJson());
-
-		serv.putResource("intervention/" + interId + "/message",
-				msg.getUniqueID(), r);
-
+		serv.putResource("intervention/" + interId + "/message", msg.getUniqueID(), r);
 	}
+	
+	
+	public void deleteMessage(String msgId){
+		serv.deleteResource("intervention/"+ interId +"/message", msgId);
+	}
+	
+	
+	
+	
+	
 }

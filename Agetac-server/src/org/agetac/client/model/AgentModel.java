@@ -1,5 +1,6 @@
 package org.agetac.client.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 import org.agetac.common.Agent;
@@ -13,6 +14,7 @@ public class AgentModel extends AbstractTableModel {
 
 	public AgentModel() {
 		super();
+		agents = new ArrayList<Agent>();
 		//agents = InterventionConnection.getAgents();
 	}
 	

@@ -6,7 +6,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Groupe {
+public class Groupe implements IJsonable{
 	private Agent chef;
 	private List<Agent> membre;
 	private List<Moyen> moyens;
@@ -61,7 +61,7 @@ public class Groupe {
 		this.membre = membre;
 	}
 	
-	public String toJson(){
+	public JSONObject toJson(){
 	    JSONObject json = new JSONObject();
 	    try {
 		    json.put("chef", chef);
@@ -73,7 +73,12 @@ public class Groupe {
 		}
 
 		System.out.println("test "+json.toString());
-		return json.toString();
+		return json;
 
+	}
+
+	@Override
+	public IJsonable fromJson(JSONObject json) {
+		return new Groupe(json);
 	}
 }

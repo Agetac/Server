@@ -3,19 +3,20 @@ package org.agetac.common;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Message {
+public class Message implements IJsonable{
 	private String uniqueID;
 	private String message;
 	private String date;
 
 	public Message(String uniqueID, String message, String date) {
-
+		
 		this.uniqueID = uniqueID;
 		this.message = message;
 		this.date = date;
 	}
 
 	public Message(JSONObject json) {
+		
 		try {
 			this.setUniqueID(json.getString("uniqueID"));
 			this.message = json.getString("message");
@@ -51,9 +52,16 @@ public class Message {
 	}
 	
 	/**
-	 * Convert this object to a JSON object for representation
+	 * Crée un Message à partir d'un JSONObject
 	 */
-	public String toJson() {
+	public Message fromJson(JSONObject json) {
+		return new Message(json);
+	}
+	
+	/**
+	 * Crée un JSONObject representant le Message
+	 */
+	public JSONObject toJson() {
 		
 		JSONObject json = new JSONObject();
 		try {
@@ -64,7 +72,7 @@ public class Message {
 			e.printStackTrace();
 		}
 		
-		return json.toString();
+		return json;
 	}
 
 	@Override
@@ -72,4 +80,5 @@ public class Message {
 		return "Message [uniqueID=" + uniqueID + ", message=" + message
 				+ ", date=" + date + "]";
 	}
+
 }

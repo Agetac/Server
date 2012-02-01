@@ -5,7 +5,7 @@ import java.util.List;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Agent {
+public class Agent implements IJsonable{
 
 	private String nom;
 	private Aptitude aptitude;
@@ -99,7 +99,7 @@ public class Agent {
 		try {
 			json.put("uniqueID", this.uniqueID);
 			json.put("nom", this.nom);
-			json.put("aptitude", this.aptitude.toJSON());
+			json.put("aptitude", this.aptitude.toJson());
 			json.put("subordonnes", this.subordonnes);
 			
 		} catch (JSONException e) {
@@ -108,6 +108,11 @@ public class Agent {
 		}
 
 		return json;
+	}
+
+	@Override
+	public IJsonable fromJson(JSONObject json) {
+		return new Agent(json);
 	}
 
 }

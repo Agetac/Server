@@ -3,7 +3,7 @@ package org.agetac.common;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Source {
+public class Source implements IJsonable{
 	private Position position;
 
 	public Source(Position position) {
@@ -43,5 +43,10 @@ public class Source {
 			e.printStackTrace();
 		}
 		return json;
+	}
+
+	@Override
+	public IJsonable fromJson(JSONObject json) {
+		return new Source(json);
 	}
 }

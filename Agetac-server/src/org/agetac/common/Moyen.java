@@ -3,7 +3,7 @@ package org.agetac.common;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Moyen {
+public class Moyen implements IJsonable{
 	private String nom;
 	private Caserne caserne;
 	private Position position;
@@ -64,7 +64,7 @@ public class Moyen {
 	/**
 	 * Convert this object to a JSON object for representation
 	 */
-	public JSONObject toJSON() {
+	public JSONObject toJson() {
 		try {
 			JSONObject jsonobj = new JSONObject();
 			jsonobj.put("nom", this.nom);
@@ -75,4 +75,9 @@ public class Moyen {
 			return null;
 		}
 	}
+	
+	public IJsonable fromJson(JSONObject json) {
+		return new Moyen(json);
+	}
+
 }

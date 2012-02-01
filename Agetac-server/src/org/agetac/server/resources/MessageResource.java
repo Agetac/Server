@@ -16,9 +16,9 @@ import org.restlet.resource.Get;
 import org.restlet.resource.Put;
 import org.restlet.resource.ServerResource;
 
-public class MessageResource extends ServerResource {
+public class MessageResource extends ServerResource implements IServerResource{
 	/**
-	 * Retourne l'instance de l'message demander dans l'url
+	 * Retourne l'instance de du message demander dans l'url
 	 * 
 	 * @return La representation de l'message demander ou
 	 *         CLIENT_ERROR_NOT_ACCEPTABLE si l'id unique n'éxiste pas
@@ -28,7 +28,7 @@ public class MessageResource extends ServerResource {
 	 *             met le bon code status.
 	 */
 	@Get
-	public Representation getMessage() throws Exception {
+	public Representation getResource() throws Exception {
 		// Crée une representation JSON vide
 		JsonRepresentation result = null;
 		// Récupère l'identifiant unique de la ressource demandée.
@@ -58,24 +58,15 @@ public class MessageResource extends ServerResource {
 		// Si on veut tous les messages
 		} else if (msgId == null) {
 			
-			/*JSONObject jsonOb = new JSONObject(); // JsonObject englobant
-			JSONArray ar = new JSONArray(); // JsonArray contenant la liste des messages
-			
+			JSONArray jsonAr = new JSONArray(); //Création d'une liste Json
 			for(int i=0; i< messages.size();i++){
-				ar.put(new JSONObject(messages.get(i).toJson())); // On ajoute la un jsonObject par message dans le jsonArray
-			}
-			jsonOb.put("messages", ar); // On met le JsonArray dans le JsonObject englobant*/
-			
-			JSONArray jsonAr = new JSONArray();
-			for(int i=0; i< messages.size();i++){
-				jsonAr.put(new JSONObject(messages.get(i).toJson())); // On ajoute la un jsonObject par message dans le jsonArray
+				jsonAr.put(new JSONObject(messages.get(i).toJson())); // On ajoute un jsonObject contenant le message dans le jsonArray
 			}
 			
-			result = new JsonRepresentation(jsonAr); // On crée la représentation de l'objet
+			result = new JsonRepresentation(jsonAr); // On crée la représentation de la liste
 		}
 
-		// Retourne la représentation, le code status indique au client si elle
-		// est valide
+		// Retourne la représentation, le code status indique au client si elle est valide
 		return result;
 	}
 
@@ -89,7 +80,7 @@ public class MessageResource extends ServerResource {
 	 *             En cas de problème de lecture de la representation.
 	 */
 	@Put
-	public Representation putMessage(Representation representation)
+	public Representation putResource(Representation representation)
 			throws Exception {
 		// Récupère l'identifiant unique de la ressource demandée.
 		String interId = (String) this.getRequestAttributes().get("interId");
@@ -119,11 +110,24 @@ public class MessageResource extends ServerResource {
 	 * @return null.
 	 */
 	@Delete
-	public Representation deleteMessage() {
+	public Representation deleteResource() {
 		// Récupère l'id dans l'url
-		String uniqueID = (String) this.getRequestAttributes().get("uniqueID");
+		String interId = (String) this.getRequestAttributes().get("interId");
+		String msgId = (String) this.getRequestAttributes().get("messageId");
+		
+		
 		// On s'assure qu'il n'est plus présent en base de données
-		Messages.getInstance().deleteMessage(uniqueID);
+		
+		Intervention inter = Interventions.getInstance().getIntervention(interId);
+		List<Message> messages = inter.getMessages();
+		for (int i = 0; i < messages.size(); i++) {
+			if (messages.get(i).getUniqueID().equals(msgId)) {
+				messages.remove(messages.get(i));
+			}
+		}
+		
 		return null;
 	}
+
+
 }

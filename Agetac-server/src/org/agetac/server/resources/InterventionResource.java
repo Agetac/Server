@@ -10,7 +10,7 @@ import org.restlet.resource.Get;
 import org.restlet.resource.Put;
 import org.restlet.resource.ServerResource;
 
-public class InterventionResource  extends ServerResource {
+public class InterventionResource  extends ServerResource implements IServerResource{
 	/**
 	 * Retourne l'instance de l'intervention demander dans l'url
 	 * 
@@ -22,7 +22,7 @@ public class InterventionResource  extends ServerResource {
 	 *             met le bon code status.
 	 */
 	@Get
-	public Representation getIntervention() throws Exception {
+	public Representation getResource() throws Exception {
 		// Crée une representation JSON vide
 		JsonRepresentation result = null;
 		// Récupère l'identifiant unique de la ressource demandée.
@@ -53,7 +53,7 @@ public class InterventionResource  extends ServerResource {
 	 *             En cas de problème de lecture de la representation.
 	 */
 	@Put
-	public Representation putIntervention(Representation representation)
+	public Representation putResource(Representation representation)
 			throws Exception {
 		// Récupère la représentation JSON de l'intervention
 		JsonRepresentation jsonRepr = new JsonRepresentation(representation);
@@ -71,7 +71,7 @@ public class InterventionResource  extends ServerResource {
 	 * @return null.
 	 */
 	@Delete
-	public Representation deleteIntervention() {
+	public Representation deleteResource() {
 		// Récupère l'id dans l'url
 		String uniqueID = (String) this.getRequestAttributes().get("uniqueID");
 		// On s'assure qu'il n'est plus présent en base de données
