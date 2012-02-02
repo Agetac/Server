@@ -6,20 +6,20 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 
-import org.agetac.client.controler.InterventionControler;
-import org.agetac.client.model.InterventionModel;
+import org.agetac.client.controler.CaserneControler;
+import org.agetac.client.model.CaserneModel;
 
-public class InterventionView extends JFrame {
+public class CaserneView extends JFrame {
 
-	private InterventionControler controler;
-	private InterventionModel model;
+	private CaserneControler controler;
+	private CaserneModel model;
 	
 	private JTable table;
 
-	public InterventionView(InterventionModel model) {
+	public CaserneView(CaserneModel model) {
 		
 		this.model = model;
-		this.controler = new InterventionControler(this, this.model);
+		this.controler = new CaserneControler(this, this.model);
 
 		// Conteneur principal
 		JPanel panel = new JPanel();
@@ -34,12 +34,12 @@ public class InterventionView extends JFrame {
 		panel2.setLayout(new BorderLayout());
 
 		// Ajouter
-		JButton addBut = new JButton("Ajouter une intervention");
+		JButton addBut = new JButton("Ajouter une caserne");
 		addBut.addActionListener(this.controler);
 		panel2.add(addBut);
 
 		// Supprimer
-		JButton delBut = new JButton("Supprimer une intervention");
+		JButton delBut = new JButton("Supprimer une caserne");
 		delBut.addActionListener(this.controler);
 		panel2.add(delBut);
 		
@@ -49,7 +49,7 @@ public class InterventionView extends JFrame {
 		
 		
 		// Config de la JFrame
-		setTitle("Liste des interventions");
+		setTitle("Liste des casernes");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		pack();
@@ -58,7 +58,7 @@ public class InterventionView extends JFrame {
 	}
 	
 	
-	public void refreshInterventions(){
+	public void refreshCasernes(){
 			
 	}
 	

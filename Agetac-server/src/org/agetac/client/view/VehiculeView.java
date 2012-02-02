@@ -6,20 +6,20 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 
-import org.agetac.client.controler.InterventionControler;
-import org.agetac.client.model.InterventionModel;
+import org.agetac.client.controler.VehiculeControler;
+import org.agetac.client.model.VehiculeModel;
 
-public class InterventionView extends JFrame {
+public class VehiculeView extends JFrame {
 
-	private InterventionControler controler;
-	private InterventionModel model;
+	private VehiculeControler controler;
+	private VehiculeModel model;
 	
 	private JTable table;
 
-	public InterventionView(InterventionModel model) {
+	public VehiculeView(VehiculeModel model) {
 		
 		this.model = model;
-		this.controler = new InterventionControler(this, this.model);
+		this.controler = new VehiculeControler(this, this.model);
 
 		// Conteneur principal
 		JPanel panel = new JPanel();
@@ -34,12 +34,12 @@ public class InterventionView extends JFrame {
 		panel2.setLayout(new BorderLayout());
 
 		// Ajouter
-		JButton addBut = new JButton("Ajouter une intervention");
+		JButton addBut = new JButton("Ajouter un vehicule");
 		addBut.addActionListener(this.controler);
 		panel2.add(addBut);
 
 		// Supprimer
-		JButton delBut = new JButton("Supprimer une intervention");
+		JButton delBut = new JButton("Supprimer un vehicule");
 		delBut.addActionListener(this.controler);
 		panel2.add(delBut);
 		
@@ -49,7 +49,7 @@ public class InterventionView extends JFrame {
 		
 		
 		// Config de la JFrame
-		setTitle("Liste des interventions");
+		setTitle("Liste des vehicules");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		pack();
@@ -58,7 +58,7 @@ public class InterventionView extends JFrame {
 	}
 	
 	
-	public void refreshInterventions(){
+	public void refreshVehicules(){
 			
 	}
 	

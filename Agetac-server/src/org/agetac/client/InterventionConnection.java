@@ -112,12 +112,12 @@ public class InterventionConnection{
 		
 		Representation r = new JsonRepresentation(v.toJson());
 		
-		serv.putResource("intervention/"+interId+"/vehicule", v.getUniqueId(), r);
+		serv.putResource("intervention/"+interId+"/vehicule", v.getUniqueID(), r);
 		
 	}
 	
 	public void deleteVehicule(Vehicule v){
-		serv.deleteResource("intervention/"+interId+"/vehicule", v.getUniqueId());
+		serv.deleteResource("intervention/"+interId+"/vehicule", v.getUniqueID());
 	}
 	
 	public Source getSource(String sId){

@@ -71,7 +71,7 @@ public class Vehicule extends Moyen {
 		}
 	}
 	
-	public String getUniqueId() {
+	public String getUniqueID() {
 		return this.uniqueID;
 	}
 

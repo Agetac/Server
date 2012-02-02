@@ -40,7 +40,7 @@ public class MessageView extends JFrame {
 		addBut.addActionListener(this.controler);
 		panel2.add(addBut);
 
-		// Supprimer un message
+		// Supprimer
 		JButton delBut = new JButton("Supprimer un message");
 		delBut.addActionListener(this.controler);
 		panel2.add(delBut);
