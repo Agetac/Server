@@ -38,9 +38,9 @@ public class AgentModel extends AbstractTableModel implements Observer{
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		switch (columnIndex) {
 		case 0:
-			return agents.get(rowIndex).getUniqueId();
+			return agents.get(rowIndex).getUniqueID();
 		case 1:
-			return agents.get(rowIndex).getNom();
+			return agents.get(rowIndex).getName();
 		case 2:
 			return agents.get(rowIndex).getAptitude();
 		case 3:

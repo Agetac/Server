@@ -37,7 +37,7 @@ public class InterventionModel extends AbstractTableModel implements Observer{
 		case 0:
 			return interventions.get(rowIndex).getUniqueID();
 		case 1:
-			return interventions.get(rowIndex).getLieu();
+			return interventions.get(rowIndex).getPosition();
 		case 2:
 			return interventions.get(rowIndex).getVehicules();
 		case 3:

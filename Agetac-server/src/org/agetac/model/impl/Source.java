@@ -4,9 +4,10 @@ import org.agetac.model.sign.IJsonable;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Source implements IJsonable{
-	private Position position;
+public class Source implements IJsonable {
+
 	private String uniqueID;
+	private Position position;
 
 	public Source(String uniqueId, Position position) {
 		this.uniqueID = uniqueId;

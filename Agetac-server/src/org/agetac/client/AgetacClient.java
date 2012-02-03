@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.agetac.client.ServerConnection;
-import org.agetac.client.controler.MessageControler;
-import org.agetac.client.model.MessageModel;
-import org.agetac.client.view.MessageView;
 import org.agetac.model.impl.Agent;
 import org.agetac.model.impl.Aptitude;
 import org.agetac.model.impl.Caserne;

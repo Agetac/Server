@@ -1,24 +1,26 @@
 package org.agetac.model.impl;
 
+import org.agetac.model.impl.EtatImplique;
+import org.agetac.model.sign.AbstractModel;
 import org.agetac.model.sign.IJsonable;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Implique implements IJsonable{
-	private String uniqueID;
+public class Implique extends AbstractModel {
+
 	private EtatImplique etat;
 
-	public Implique(String uniqueId, EtatImplique etat) {
-		this.uniqueID = uniqueId;
+	public Implique(String uid, EtatImplique etat) {
+		super(uid, null, null);
 		this.etat = etat;
 	}
-	
-	public Implique (JSONObject json){
+
+	public Implique(JSONObject json) {
+		super(json);
+		
 		try {
-			this.uniqueID = json.getString("uniqueID");
 			this.etat = EtatImplique.valueOf(json.getString("etat"));
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -38,7 +40,6 @@ public class Implique implements IJsonable{
 		StringBuffer sb = new StringBuffer();
 		sb.append("etat:");
 		sb.append(this.etat);
-
 		return sb.toString();
 	}
 
@@ -46,14 +47,11 @@ public class Implique implements IJsonable{
 	 * Convert this object to a JSON object for representation
 	 */
 	public JSONObject toJson() {
-		JSONObject json = new JSONObject();
+		JSONObject json = super.toJson();
 		try {
-			
-			json.put("uniqueID", this.uniqueID);
 			json.put("etat", etat.name());
-			
+
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return json;
@@ -62,12 +60,5 @@ public class Implique implements IJsonable{
 	@Override
 	public IJsonable fromJson(JSONObject json) {
 		return new Implique(json);
-	}
-	
-	public void setUniqueID(String uniqueId) {
-		this.uniqueID = uniqueId;
-	}
-	public String getUniqueID() {
-		return this.uniqueID;
 	}
 }

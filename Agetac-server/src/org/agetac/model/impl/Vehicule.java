@@ -21,7 +21,7 @@ public class Vehicule extends AbstractModel {
 	
 	public Vehicule(JSONObject json) {
 		super(json);
-		System.out.println("Entree : " + json.toString());
+		//System.out.println("Entree : " + json.toString());
 		try {
 			this.caserne = new Caserne(json.getJSONObject("caserne"));
 			this.etat = EtatVehicule.valueOf(json.getString("etat"));
@@ -83,7 +83,7 @@ public class Vehicule extends AbstractModel {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		System.out.println("Sortie : " + json.toString());
+		//System.out.println("Sortie : " + json.toString());
 		return json;
 	}
 

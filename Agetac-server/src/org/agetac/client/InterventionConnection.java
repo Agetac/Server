@@ -8,8 +8,6 @@ import org.agetac.model.impl.Action;
 import org.agetac.model.impl.Cible;
 import org.agetac.model.impl.Implique;
 import org.agetac.model.impl.Message;
-import org.agetac.model.impl.Moyen;
-import org.agetac.model.impl.Position;
 import org.agetac.model.impl.Source;
 import org.agetac.model.impl.Vehicule;
 import org.json.JSONArray;
@@ -119,18 +117,16 @@ public class InterventionConnection{
 		try {
 			representation = new JsonRepresentation(repr);
 	
-			JSONArray ar = representation.getJsonArray(); // Récupération de la liste des messages
+			JSONArray ar = representation.getJsonArray(); // Récupération de la liste des vehicules
 			
 			for (int i=0; i<ar.length(); i++){
-				System.out.println(ar.getJSONObject(i));
 				vehicules.add(new Vehicule(ar.getJSONObject(i)));
 			}
 
 		}catch(Exception e){
 			System.out.println("Error: " + e.toString());
 		}
-
-
+		
 		return vehicules;
 	}
 	
