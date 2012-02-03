@@ -4,8 +4,8 @@ import static org.junit.Assert.*;
 
 import java.util.Collection;
 
-import org.agetac.common.Agent;
-import org.agetac.common.Aptitude;
+import org.agetac.model.impl.Agent;
+import org.agetac.model.impl.Aptitude;
 import org.junit.Test;
 
 

@@ -2,9 +2,8 @@ package org.agetac.server.resources;
 
 import java.util.List;
 
-import org.agetac.common.Action;
-import org.agetac.common.Intervention;
-import org.agetac.common.Action;
+import org.agetac.model.impl.Action;
+import org.agetac.model.impl.Intervention;
 import org.agetac.server.db.Interventions;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -48,7 +47,7 @@ public class ActionResource extends ServerResource implements IServerResource {
 			
 			JSONArray jsonAr = new JSONArray(); //Création d'une liste Json
 			for(int i=0; i< actions.size();i++){
-				jsonAr.put(new JSONObject(actions.get(i).toJson())); // On ajoute un jsonObject contenant le action dans le jsonArray
+				jsonAr.put(actions.get(i).toJson()); // On ajoute un jsonObject contenant le action dans le jsonArray
 			}
 			
 			result = new JsonRepresentation(jsonAr); // On crée la représentation de la liste

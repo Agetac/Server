@@ -4,14 +4,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.agetac.common.Action;
-import org.agetac.common.Cible;
-import org.agetac.common.Implique;
-import org.agetac.common.Message;
-import org.agetac.common.Moyen;
-import org.agetac.common.Position;
-import org.agetac.common.Source;
-import org.agetac.common.Vehicule;
+import org.agetac.model.impl.Action;
+import org.agetac.model.impl.Cible;
+import org.agetac.model.impl.Implique;
+import org.agetac.model.impl.Message;
+import org.agetac.model.impl.Moyen;
+import org.agetac.model.impl.Position;
+import org.agetac.model.impl.Source;
+import org.agetac.model.impl.Vehicule;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.restlet.ext.json.JsonRepresentation;
@@ -64,11 +64,11 @@ public class InterventionConnection{
 		JSONArray ar = representation.getJsonArray(); // Récupération de la liste des messages
 
 		for (int i=0; i<ar.length(); i++){
-		messages.add(new Message(ar.getJSONObject(i)));
+			messages.add(new Message(ar.getJSONObject(i)));
 		}
 
 		}catch(Exception e){
-		System.out.println("Error: " + e.toString());
+			System.out.println("Error: " + e.toString());
 		}
 
 
@@ -106,6 +106,32 @@ public class InterventionConnection{
 		}
 
 		return v;
+	}
+	
+	public List<Vehicule> getVehicules(){
+
+		List<Vehicule> vehicules = new ArrayList<Vehicule>();
+		JsonRepresentation representation = null;
+
+		// Récupération de la liste des Vehicules
+		Representation repr = serv.getResource("intervention/"+interId+"/vehicule", null);
+
+		try {
+			representation = new JsonRepresentation(repr);
+	
+			JSONArray ar = representation.getJsonArray(); // Récupération de la liste des messages
+			
+			for (int i=0; i<ar.length(); i++){
+				System.out.println(ar.getJSONObject(i));
+				vehicules.add(new Vehicule(ar.getJSONObject(i)));
+			}
+
+		}catch(Exception e){
+			System.out.println("Error: " + e.toString());
+		}
+
+
+		return vehicules;
 	}
 	
 	public void putVehicule(Vehicule v){

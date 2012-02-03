@@ -2,7 +2,7 @@ package org.agetac.server.resources;
 
 import java.util.List;
 
-import org.agetac.common.Caserne;
+import org.agetac.model.impl.Caserne;
 import org.agetac.server.db.Casernes;
 import org.json.JSONArray;
 import org.json.JSONObject;

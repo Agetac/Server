@@ -3,7 +3,7 @@ package org.agetac.server.resources;
 import java.util.List;
 
 import org.agetac.model.impl.Intervention;
-import org.agetac.model.impl.Message;
+import org.agetac.model.impl.Vehicule;
 import org.agetac.server.db.Interventions;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -15,11 +15,11 @@ import org.restlet.resource.Get;
 import org.restlet.resource.Put;
 import org.restlet.resource.ServerResource;
 
-public class MessageResource extends ServerResource implements IServerResource{
+public class VehiculeResource extends ServerResource implements IServerResource{
 	/**
-	 * Retourne l'instance de du message demander dans l'url
+	 * Retourne l'instance de du vehicule demander dans l'url
 	 * 
-	 * @return La representation de l'message demander ou
+	 * @return La representation de l'vehicule demander ou
 	 *         CLIENT_ERROR_NOT_ACCEPTABLE si l'id unique n'éxiste pas
 	 * @throws Exception
 	 *             En cas de problème de génération de représentation. Ne
@@ -32,34 +32,34 @@ public class MessageResource extends ServerResource implements IServerResource{
 		JsonRepresentation result = null;
 		// Récupère l'identifiant unique de la ressource demandée.
 		String interId = (String) this.getRequestAttributes().get("interId");
-		String msgId = (String) this.getRequestAttributes().get("messageId");
+		String vehId = (String) this.getRequestAttributes().get("vehiculeId");
 		
-		// Récupération des messages de l'intervention
-		List<Message> messages = Interventions.getInstance().getIntervention(interId).getMessages();
+		// Récupération des vehicules de l'intervention
+		List<Vehicule> vehicules = Interventions.getInstance().getIntervention(interId).getVehicules();
 
-		Message message = null;
+		Vehicule vehicule = null;
 		
-		// Si on demande un message précis
-		if (msgId != null) {
-			// Recherche du message demandé
-			for (int i = 0; i < messages.size(); i++) {
-				if (messages.get(i).getUniqueID().equals(msgId)) {
-					message = messages.get(i);
+		// Si on demande un vehicule précis
+		if (vehId != null) {
+			// Recherche du vehicule demandé
+			for (int i = 0; i < vehicules.size(); i++) {
+				if (vehicules.get(i).getUniqueID().equals(vehId)) {
+					vehicule = vehicules.get(i);
 				}
 			}
-			// Si le message n'est pas trouvé
-			if (message == null) {
+			// Si le vehicule n'est pas trouvé
+			if (vehicule == null) {
 				result = null;
 				getResponse().setStatus(Status.CLIENT_ERROR_NOT_ACCEPTABLE);
 			} else {
-				result = new JsonRepresentation(message.toJson());
+				result = new JsonRepresentation(vehicule.toJson());
 			}
-		// Si on veut tous les messages
-		} else if (msgId == null) {
+		// Si on veut tous les vehicules
+		} else if (vehId == null) {
 			
 			JSONArray jsonAr = new JSONArray(); //Création d'une liste Json
-			for(int i=0; i< messages.size();i++){
-				jsonAr.put(messages.get(i).toJson()); // On ajoute un jsonObject contenant le message dans le jsonArray
+			for(int i=0; i< vehicules.size();i++){
+				jsonAr.put(vehicules.get(i).toJson()); // On ajoute un jsonObject contenant le vehicule dans le jsonArray
 			}
 			
 			result = new JsonRepresentation(jsonAr); // On crée la représentation de la liste
@@ -70,10 +70,10 @@ public class MessageResource extends ServerResource implements IServerResource{
 	}
 
 	/**
-	 * Ajoute le message transmit à la base de données interne.
+	 * Ajoute le vehicule transmit à la base de données interne.
 	 * 
 	 * @param representation
-	 *            La représentation Json de l'message
+	 *            La représentation Json de l'vehicule
 	 * @return null.
 	 * @throws Exception
 	 *             En cas de problème de lecture de la representation.
@@ -84,26 +84,26 @@ public class MessageResource extends ServerResource implements IServerResource{
 		// Récupère l'identifiant unique de la ressource demandée.
 		String interId = (String) this.getRequestAttributes().get("interId");
 
-		// Récupère la représentation JSON du message
+		// Récupère la représentation JSON du vehicule
 		JsonRepresentation jsonRepr = new JsonRepresentation(representation);
 		// System.out.println("JsonRepresentation : " + jsonRepr.getText());
 
 		// Transforme la representation en objet java
 		JSONObject jsObj = jsonRepr.getJsonObject();
-		Message message = new Message(jsObj);
+		Vehicule vehicule = new Vehicule(jsObj);
 		
 
-		// Ajoute l'message a la base de donnée
+		// Ajoute l'vehicule a la base de donnée
 		Intervention i = Interventions.getInstance().getIntervention(interId);
-		List<Message> lm = i.getMessages();
-		lm.add(message);
-		// Messages.getInstance().addMessage(message);
+		List<Vehicule> lm = i.getVehicules();
+		lm.add(vehicule);
+		// Vehicules.getInstance().addVehicule(vehicule);
 		// Pas besoin de retourner de représentation au client
 		return null;
 	}
 
 	/**
-	 * Supprime le message identifié de la base de données
+	 * Supprime le vehicule identifié de la base de données
 	 * 
 	 * @return null.
 	 */
@@ -111,16 +111,16 @@ public class MessageResource extends ServerResource implements IServerResource{
 	public Representation deleteResource() {
 		// Récupère l'id dans l'url
 		String interId = (String) this.getRequestAttributes().get("interId");
-		String msgId = (String) this.getRequestAttributes().get("messageId");
+		String vehId = (String) this.getRequestAttributes().get("vehiculeId");
 		
 		
 		// On s'assure qu'il n'est plus présent en base de données
 		
 		Intervention inter = Interventions.getInstance().getIntervention(interId);
-		List<Message> messages = inter.getMessages();
-		for (int i = 0; i < messages.size(); i++) {
-			if (messages.get(i).getUniqueID().equals(msgId)) {
-				messages.remove(messages.get(i));
+		List<Vehicule> vehicules = inter.getVehicules();
+		for (int i = 0; i < vehicules.size(); i++) {
+			if (vehicules.get(i).getUniqueID().equals(vehId)) {
+				vehicules.remove(vehicules.get(i));
 			}
 		}
 		

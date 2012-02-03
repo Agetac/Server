@@ -1,5 +1,6 @@
-package org.agetac.common;
+package org.agetac.model.impl;
 
+import org.agetac.model.sign.IJsonable;
 import org.json.JSONException;
 import org.json.JSONObject;
 

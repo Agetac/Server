@@ -1,9 +1,11 @@
-package org.agetac.common;
+package org.agetac.model.impl;
 
+import org.agetac.model.sign.IJsonable;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class Position implements IJsonable{
+public class Position implements IJsonable {
+	
 	private double longitude;
 	private double latitude;
 

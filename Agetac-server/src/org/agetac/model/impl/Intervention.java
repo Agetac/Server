@@ -1,8 +1,9 @@
-package org.agetac.common;
+package org.agetac.model.impl;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import org.agetac.model.sign.IJsonable;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -11,7 +12,7 @@ public class Intervention implements IJsonable{
 
 	private Position lieu;
 
-	private List<Moyen> moyens;
+	private List<Vehicule> vehicules;
 	private List<Cible> cibles;
 	private List<Source> sources;
 	private List<Action> actions;
@@ -25,7 +26,7 @@ public class Intervention implements IJsonable{
 		
 		this.uniqueID = uniqueID;
 		this.lieu = new Position(0,0);
-		this.moyens = new ArrayList<Moyen>();
+		this.vehicules = new ArrayList<Vehicule>();
 		this.cibles = new ArrayList<Cible>();
 		this.sources = new ArrayList<Source>();
 		this.actions = new ArrayList<Action>();
@@ -36,7 +37,7 @@ public class Intervention implements IJsonable{
 	
 	public Intervention(JSONObject json) {
 		
-		this.moyens = new ArrayList<Moyen>();
+		this.vehicules = new ArrayList<Vehicule>();
 		this.cibles = new ArrayList<Cible>();
 		this.sources = new ArrayList<Source>();
 		this.actions = new ArrayList<Action>();
@@ -48,9 +49,9 @@ public class Intervention implements IJsonable{
 			
 			this.lieu = new Position(json.getJSONObject("lieu"));
 			
-			JSONArray jsar = json.getJSONArray("moyens");
+			JSONArray jsar = json.getJSONArray("vehicules");
 			for (int i=0; i< jsar.length(); i++){
-				moyens.add(new Moyen(jsar.getJSONObject(i)));
+				vehicules.add(new Vehicule(jsar.getJSONObject(i)));
 			}
 			
 			jsar = json.getJSONArray("cibles");
@@ -84,12 +85,12 @@ public class Intervention implements IJsonable{
 	}
 
 
-	public void demandeMoyen() {
+	public void demandeVehicule() {
 
 	}
 
 	public String toString() {
-		return "Intervention [moyens=" + moyens + ", lieu=" + lieu + "]";
+		return "Intervention [vehicules=" + vehicules + ", lieu=" + lieu + "]";
 	}
 	public JSONObject toJson() {
 		JSONObject json = new JSONObject();
@@ -97,7 +98,7 @@ public class Intervention implements IJsonable{
 			
 			json.put("uniqueID", this.uniqueID);
 			json.put("lieu", this.lieu.toJson());
-			json.put("moyens", this.moyens);
+			json.put("vehicules", this.vehicules);
 			json.put("cibles", this.cibles);
 			json.put("sources", this.sources);
 			json.put("actions", this.actions);
@@ -128,12 +129,12 @@ public class Intervention implements IJsonable{
 		this.lieu = lieu;
 	}
 
-	public List<Moyen> getMoyens() {
-		return moyens;
+	public List<Vehicule> getVehicules() {
+		return vehicules;
 	}
 
-	public void setMoyens(List<Moyen> moyens) {
-		this.moyens = moyens;
+	public void setVehicules(List<Vehicule> vehicules) {
+		this.vehicules = vehicules;
 	}
 
 	public List<Cible> getCibles() {

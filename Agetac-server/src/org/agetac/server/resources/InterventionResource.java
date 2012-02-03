@@ -1,6 +1,6 @@
 package org.agetac.server.resources;
 
-import org.agetac.common.Intervention;
+import org.agetac.model.impl.Intervention;
 import org.agetac.server.db.Interventions;
 import org.restlet.data.Status;
 import org.restlet.ext.json.JsonRepresentation;
@@ -59,8 +59,16 @@ public class InterventionResource  extends ServerResource implements IServerReso
 		JsonRepresentation jsonRepr = new JsonRepresentation(representation);
 		// Transforme la representation en objet java
 		Intervention intervention = new Intervention(jsonRepr.getJsonObject());
-		// Ajoute l'intervention a la base de donnée
-		Interventions.getInstance().addIntervention(intervention);
+		
+		// On vérifie si l'intervention n'éxiste pas déjà
+		if (Interventions.getInstance().getIntervention(intervention.getUniqueID()) != null) {
+			// Ressource non-trouvé, envois du code status 406
+			getResponse().setStatus(Status.CLIENT_ERROR_NOT_ACCEPTABLE);
+		}
+		else{
+			// Ajoute l'intervention a la base de donnée
+			Interventions.getInstance().addIntervention(intervention);
+		}
 		// Pas besoin de retourner de représentation au client
 		return null;
 	}

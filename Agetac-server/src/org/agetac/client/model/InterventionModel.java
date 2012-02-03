@@ -7,7 +7,7 @@ import java.util.Observer;
 
 import javax.swing.table.AbstractTableModel;
 
-import org.agetac.common.Intervention;
+import org.agetac.model.impl.Intervention;
 import org.agetac.observer.Subject;
 
 public class InterventionModel extends AbstractTableModel implements Observer{
@@ -39,7 +39,7 @@ public class InterventionModel extends AbstractTableModel implements Observer{
 		case 1:
 			return interventions.get(rowIndex).getLieu();
 		case 2:
-			return interventions.get(rowIndex).getMoyens();
+			return interventions.get(rowIndex).getVehicules();
 		case 3:
 			return interventions.get(rowIndex).getCibles();
 		case 4:

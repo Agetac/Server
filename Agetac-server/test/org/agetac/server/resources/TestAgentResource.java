@@ -2,8 +2,8 @@ package org.agetac.server.resources;
 
 import static org.junit.Assert.*;
 
-import org.agetac.common.Agent;
-import org.agetac.common.Aptitude;
+import org.agetac.model.impl.Agent;
+import org.agetac.model.impl.Aptitude;
 import org.agetac.server.AgetacServer;
 import org.junit.BeforeClass;
 import org.junit.Test;

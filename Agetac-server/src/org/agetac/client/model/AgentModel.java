@@ -6,7 +6,8 @@ import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.table.AbstractTableModel;
-import org.agetac.common.Agent;
+
+import org.agetac.model.impl.Agent;
 import org.agetac.observer.Subject;
 
 public class AgentModel extends AbstractTableModel implements Observer{

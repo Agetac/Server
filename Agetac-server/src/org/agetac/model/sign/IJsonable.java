@@ -1,4 +1,4 @@
-package org.agetac.common;
+package org.agetac.model.sign;
 
 import org.json.JSONObject;
 

@@ -1,4 +1,4 @@
-package org.agetac.common;
+package org.agetac.model.impl;
 
 
 public enum Aptitude {

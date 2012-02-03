@@ -7,7 +7,7 @@ import java.util.Observer;
 
 import javax.swing.table.AbstractTableModel;
 
-import org.agetac.common.Vehicule;
+import org.agetac.model.impl.Vehicule;
 import org.agetac.observer.Subject;
 
 public class VehiculeModel extends AbstractTableModel implements Observer{
@@ -37,7 +37,7 @@ public class VehiculeModel extends AbstractTableModel implements Observer{
 		case 0:
 			return vehicules.get(rowIndex).getUniqueID();
 		case 1:
-			return vehicules.get(rowIndex).getNom();
+			return vehicules.get(rowIndex).getName();
 		case 2:
 			return vehicules.get(rowIndex).getPosition();
 		case 3:

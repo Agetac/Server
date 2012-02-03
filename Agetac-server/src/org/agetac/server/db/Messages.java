@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.agetac.common.Message;
+import org.agetac.model.impl.Message;
 import org.agetac.observer.Observer;
 import org.agetac.observer.Subject;
 

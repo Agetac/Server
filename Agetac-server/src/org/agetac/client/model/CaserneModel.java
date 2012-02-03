@@ -7,7 +7,7 @@ import java.util.Observer;
 
 import javax.swing.table.AbstractTableModel;
 
-import org.agetac.common.Caserne;
+import org.agetac.model.impl.Caserne;
 import org.agetac.observer.Subject;
 
 public class CaserneModel extends AbstractTableModel implements Observer{
@@ -37,9 +37,9 @@ public class CaserneModel extends AbstractTableModel implements Observer{
 		case 0:
 			return casernes.get(rowIndex).getUniqueID();
 		case 1:
-			return casernes.get(rowIndex).getNom();
+			return casernes.get(rowIndex).getName();
 		case 2:
-			return casernes.get(rowIndex).getMoyens();			
+			return casernes.get(rowIndex).getVehicules();			
 		default:
 			return null; // Ne devrait jamais arriver
 		}

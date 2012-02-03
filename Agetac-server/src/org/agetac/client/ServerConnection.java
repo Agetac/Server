@@ -25,7 +25,9 @@ public class ServerConnection {
 		if(resUniqueID != null){
 			url +=  "/" + resUniqueID;
 		}
-		System.out.println(url);
+		
+		System.out.println("GET : " + url);
+		
 		ClientResource client = new ClientResource(url);
 		
 		Representation repr = null;
@@ -47,7 +49,7 @@ public class ServerConnection {
 		if(resUniqueID != null){
 			url += "/" + resUniqueID;
 		}
-
+		System.out.println("PUT : " + url);
 		ClientResource client = new ClientResource(url);
 		
 		try {
@@ -65,7 +67,7 @@ public class ServerConnection {
 		if(resUniqueID != null){
 			url += "/" + resUniqueID;
 		}
-
+		System.out.println("DEL : " + url);
 		ClientResource client = new ClientResource(url);
 		
 		try {

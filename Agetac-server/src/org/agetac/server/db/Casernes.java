@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.agetac.common.Caserne;
+import org.agetac.model.impl.Caserne;
 import org.agetac.observer.Observer;
 import org.agetac.observer.Subject;
 

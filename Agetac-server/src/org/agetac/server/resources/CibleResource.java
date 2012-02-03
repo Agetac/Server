@@ -2,8 +2,8 @@ package org.agetac.server.resources;
 
 import java.util.List;
 
-import org.agetac.common.Intervention;
-import org.agetac.common.Cible;
+import org.agetac.model.impl.Cible;
+import org.agetac.model.impl.Intervention;
 import org.agetac.server.db.Interventions;
 import org.json.JSONArray;
 import org.json.JSONObject;

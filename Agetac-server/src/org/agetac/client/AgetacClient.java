@@ -1,13 +1,21 @@
 package org.agetac.client;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.agetac.client.ServerConnection;
 import org.agetac.client.controler.MessageControler;
 import org.agetac.client.model.MessageModel;
 import org.agetac.client.view.MessageView;
-import org.agetac.common.Intervention;
-import org.agetac.common.Message;
+import org.agetac.model.impl.Agent;
+import org.agetac.model.impl.Aptitude;
+import org.agetac.model.impl.Caserne;
+import org.agetac.model.impl.EtatVehicule;
+import org.agetac.model.impl.Groupe;
+import org.agetac.model.impl.Intervention;
+import org.agetac.model.impl.Message;
+import org.agetac.model.impl.Position;
+import org.agetac.model.impl.Vehicule;
 import org.restlet.ext.json.JsonRepresentation;
 
 /**
@@ -39,34 +47,62 @@ public class AgetacClient {
 		ServerConnection serv = new ServerConnection("localhost", "8112", "agetacserver");
 		
 		// Création d'une intervention
-		//Intervention inter = new Intervention("inter");
-		//JsonRepresentation interRepresentation = new JsonRepresentation(inter.toJson());
+		Intervention inter = new Intervention("1");
+		JsonRepresentation interRepresentation = new JsonRepresentation(inter.toJson());
 		
 		// Envoi sur le serveur		
-		//serv.putResource(INTERVENTION, inter.getUniqueID(), interRepresentation);
+		serv.putResource(INTERVENTION, inter.getUniqueID(), interRepresentation);
+		//TODO : Cote serveur, empecher les uniqueID non uniques :)
 		
 		// Maintenant on crée une connexion à cette intervention
-		//InterventionConnection interCon = new InterventionConnection(inter.getUniqueID(), serv);
-		InterventionConnection interCon = new InterventionConnection("inter1", serv);
+		InterventionConnection interCon = new InterventionConnection(inter.getUniqueID(), serv);
 		
+		
+		/**
+		 * MESSAGES
+		 */
 		// Création d'un message 
-		//Message msg = new Message("1", "Bonjour", "1224");
-		
+		Message msg = new Message("4", "Ceci est un message", "1224");
 		// Envoi du message a l'intervention
-		//interCon.putMessage(msg);
+		System.out.println("Envoi d'un message");
+		interCon.putMessage(msg);
 		
 		// Récupération du message
 		System.out.println("Récupération des messages");
 		List<Message> messages = interCon.getMessages();
 		
-		System.out.println("Affichage des messages");
+		System.out.println("Affichage des messages :");
 		
 		for(int i=0; i<messages.size(); i++){
-			System.out.println(messages.get(i).getMessage());
+			System.out.println(" - " + messages.get(i).getUniqueID() + " : " + messages.get(i).getMessage());
 		}
 		
-		System.out.println("Fin affichage des messages");
+		/**
+		 * VEHICULES
+		 */
 		
+		Caserne c = new Caserne("1", "Janzé", null);
+		
+		Agent bob = new Agent("a1", "Bob", Aptitude.CDG, new ArrayList<Agent>());
+		Groupe g1 = new Groupe(bob, new ArrayList<Agent>(), new ArrayList<Vehicule>());
+		
+		
+		
+		// Création d'un vehicule 
+		Vehicule v1 = new Vehicule("v1", "FPT1", new Position(48.12244, 54.24444), c, EtatVehicule.ALERTE, g1);
+		// Envoi du message a l'intervention
+		System.out.println("Envoi d'un vehicule");
+		interCon.putVehicule(v1);
+		
+		// Récupération du message
+		System.out.println("Récupération des vehicules");
+		List<Vehicule> vehicules = interCon.getVehicules();
+		
+		System.out.println("Affichage des vehicules :");
+		
+		for(int i=0; i<messages.size(); i++){
+			System.out.println(" - " + vehicules.get(i).getUniqueID() + " : " + vehicules.get(i).getName());
+		}
 		
 		//Message m = interCon.getMessage("3");
 		//System.out.println(m.getMessage());

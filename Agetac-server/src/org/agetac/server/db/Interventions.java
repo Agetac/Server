@@ -4,7 +4,7 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.agetac.common.Intervention;
+import org.agetac.model.impl.Intervention;
 
 
 /**

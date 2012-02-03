@@ -1,6 +1,6 @@
 package org.agetac.server.resources;
 
-import org.agetac.common.Agent;
+import org.agetac.model.impl.Agent;
 import org.agetac.server.db.Agents;
 import org.restlet.data.Status;
 import org.restlet.ext.json.JsonRepresentation;

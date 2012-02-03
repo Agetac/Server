@@ -2,8 +2,8 @@ package org.agetac.server.resources;
 
 import java.util.List;
 
-import org.agetac.common.Intervention;
-import org.agetac.common.Implique;
+import org.agetac.model.impl.Implique;
+import org.agetac.model.impl.Intervention;
 import org.agetac.server.db.Interventions;
 import org.json.JSONArray;
 import org.json.JSONObject;
