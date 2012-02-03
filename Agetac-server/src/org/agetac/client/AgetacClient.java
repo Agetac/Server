@@ -40,6 +40,11 @@ public class AgetacClient {
 		//MessageModel msgModel = new MessageModel();
 		//MessageView msgView = new MessageView(msgModel);
 		
+		testCommunication();
+
+	}
+	
+	private static void testCommunication(){
 		
 		ServerConnection serv = new ServerConnection("localhost", "8112", "agetacserver");
 		
@@ -83,8 +88,6 @@ public class AgetacClient {
 		Agent bob = new Agent("a1", "Bob", Aptitude.CDG, new ArrayList<Agent>());
 		Groupe g1 = new Groupe(bob, new ArrayList<Agent>(), new ArrayList<Vehicule>());
 		
-		
-		
 		// Création d'un vehicule 
 		Vehicule v1 = new Vehicule("v1", "FPT1", new Position(48.12244, 54.24444), c, EtatVehicule.ALERTE, g1);
 		// Envoi du message a l'intervention
@@ -101,35 +104,6 @@ public class AgetacClient {
 			System.out.println(" - " + vehicules.get(i).getUniqueID() + " : " + vehicules.get(i).getName());
 		}
 		
-		//Message m = interCon.getMessage("3");
-		//System.out.println(m.getMessage());
-		
-		//TODO Coté serveur, enregistrer le message et le rendre accessible seulement pour la bonne intervention
-
-		
-		
-		
-		
-		/*
-		
-		//Création d'un agent 
-		Message msg = new Message("1", "Bonjour", "1224");
-		JsonRepresentation resRepresentation = new JsonRepresentation(msg.toJson());
-		
-		//Envoi sur le serveur
-		serv.putResource("message", msg.getUniqueID(), resRepresentation);
-		
-		//Récupération de la resource
-		JsonRepresentation representation = new JsonRepresentation(serv.getResource("message", "1"));
-		Message m = new Message(representation.getJsonObject());
-		System.out.println(m.toJson());
-		
-		
-		//Suppression de la resource
-		serv.deleteResource("message", "1");
-		
-		//Test suppression
-		serv.getResource("message", "1");
-		 */
+	
 	}
 }
