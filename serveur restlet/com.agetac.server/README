@@ -1,8 +1,0 @@
-Petit test d'un serveur RESTLET.
-Pour l'instant, le serveur affiche en texte les données d'une intervention.
-
-
-Exécuter le main de la classe Server.
-On y accède ensuite à l'adresse 127.0.0.1:8181/agetac/sdis
-
-Reste à implémenter un client qui puisse accéder et modifier les données.
