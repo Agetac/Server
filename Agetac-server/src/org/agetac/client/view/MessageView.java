@@ -1,30 +1,24 @@
 package org.agetac.client.view;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import java.util.Comparator;
 
 import javax.swing.Box;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
-import org.agetac.client.controler.MessageControler;
+import org.agetac.client.controller.MessageController;
 import org.agetac.client.model.MessageModel;
 
 public class MessageView extends JFrame {
 
-	private MessageControler controler;
+	private MessageController controller;
 	private MessageModel model;
 	
 	private JPanel panel;
@@ -35,7 +29,7 @@ public class MessageView extends JFrame {
 	public MessageView(MessageModel model) {
 		
 		this.model = model;
-		this.controler = new MessageControler(this, this.model);
+		this.controller = new MessageController(this, this.model);
 
 		// Conteneur principal
 		panel = new JPanel();
@@ -58,12 +52,14 @@ public class MessageView extends JFrame {
 
 		// Ajouter
 		addBut = new JButton("Ajouter un message");
-		addBut.addActionListener(this.controler);
+		addBut.addActionListener(this.controller);
+		JButton addBut = new JButton("Ajouter un message");
+		addBut.addActionListener(this.controller);
 		panel2.add(addBut);
 
 		// Supprimer
 		JButton delBut = new JButton("Supprimer un message");
-		delBut.addActionListener(this.controler);
+		delBut.addActionListener(this.controller);
 		panel2.add(delBut);
 		
 		//Champs
@@ -90,6 +86,11 @@ public class MessageView extends JFrame {
 		box.add(panel3);
 		box.add(new JScrollPane(table));
 		setContentPane(box);
+
+		//ajout de la table et du panel des boutons
+		panel.add(new JScrollPane(table),BorderLayout.CENTER);
+        panel.add(panel2,BorderLayout.SOUTH);
+		setContentPane(panel);
 		
 		
 		// Config de la JFrame

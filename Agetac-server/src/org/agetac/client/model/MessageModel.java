@@ -7,7 +7,6 @@ import java.util.Observer;
 
 import javax.swing.table.AbstractTableModel;
 
-import org.agetac.client.InterventionConnection;
 import org.agetac.model.impl.Message;
 import org.agetac.observer.Subject;
 import org.agetac.server.db.Messages;
