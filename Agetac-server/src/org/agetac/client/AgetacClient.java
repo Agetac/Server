@@ -4,6 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.agetac.client.ServerConnection;
+import org.agetac.client.model.AgentModel;
+import org.agetac.client.model.CaserneModel;
+import org.agetac.client.model.InterventionModel;
+import org.agetac.client.model.MessageModel;
+import org.agetac.client.model.VehiculeModel;
+import org.agetac.client.view.AgentView;
+import org.agetac.client.view.CaserneView;
+import org.agetac.client.view.InterventionView;
+import org.agetac.client.view.MessageView;
+import org.agetac.client.view.VehiculeView;
 import org.agetac.model.impl.Agent;
 import org.agetac.model.impl.Aptitude;
 import org.agetac.model.impl.Caserne;
@@ -36,9 +46,17 @@ public class AgetacClient {
 	 */
 	public static void main(String[] args) throws Exception {
 
-		//IHM ihm = new IHM();
-		//MessageModel msgModel = new MessageModel();
-		//MessageView msgView = new MessageView(msgModel);
+
+		AgentModel agentModel = new AgentModel();
+		AgentView agentView = new AgentView(agentModel);
+		VehiculeModel vehiculeModel = new VehiculeModel();
+		VehiculeView vehiculeView = new VehiculeView(vehiculeModel);
+		InterventionModel interventionModel = new InterventionModel();
+		InterventionView interventionView = new InterventionView(interventionModel);
+		MessageModel msgModel = new MessageModel();
+		MessageView msgView = new MessageView(msgModel);
+		CaserneModel casModel = new CaserneModel();
+		CaserneView casView = new CaserneView(casModel);
 		
 		testCommunication();
 

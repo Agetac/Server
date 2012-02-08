@@ -1,4 +1,4 @@
-package org.agetac.client.controler;
+package org.agetac.client.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -6,15 +6,15 @@ import java.awt.event.ActionListener;
 import org.agetac.client.model.VehiculeModel;
 import org.agetac.client.view.VehiculeView;
 
-public class VehiculeControler implements ActionListener {
+public class VehiculeController implements ActionListener {
 
 	private VehiculeView view;
 	private VehiculeModel model;
 
 	/**
-	 * Constructeur de VehiculeControler
+	 * Constructeur de VehiculeController
 	 */
-	public VehiculeControler(VehiculeView view, VehiculeModel model) {
+	public VehiculeController(VehiculeView view, VehiculeModel model) {
 		this.view = view;
 		this.model = model;
 	}

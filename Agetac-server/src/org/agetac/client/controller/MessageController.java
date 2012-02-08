@@ -1,27 +1,29 @@
-package org.agetac.client.controler;
+package org.agetac.client.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import org.agetac.client.model.MessageModel;
 import org.agetac.client.view.MessageView;
+import org.agetac.model.impl.Message;
 
-public class MessageControler implements ActionListener {
+public class MessageController implements ActionListener {
 
 	private MessageView view;
 	private MessageModel model;
 
 	/**
-	 * Constructeur de MessageControler
+	 * Constructeur de MessageController
 	 */
-	public MessageControler(MessageView view, MessageModel model) {
+	public MessageController(MessageView view, MessageModel model) {
 		this.view = view;
 		this.model = model;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
+		//exemple
+		model.addMessage(new Message("12", "Mon message", "12345"));
 
 	}
 

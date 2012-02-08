@@ -1,12 +1,12 @@
 package org.agetac.client.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.table.AbstractTableModel;
 
-import org.agetac.client.InterventionConnection;
 import org.agetac.model.impl.Message;
 import org.agetac.observer.Subject;
 import org.agetac.server.db.Messages;
@@ -18,7 +18,7 @@ public class MessageModel extends AbstractTableModel implements Observer{
 
 	public MessageModel() {
 		super();
-		messages = null;
+		messages = new ArrayList<Message>();
 	}
 
 	public int getRowCount() {
