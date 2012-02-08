@@ -1,17 +1,20 @@
 package org.agetac.client.view;
 
 import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
-import org.agetac.client.controler.AgentControler;
+import org.agetac.client.controller.AgentController;
 import org.agetac.client.model.AgentModel;
 
 public class AgentView extends JFrame {
 
-	private AgentControler controler;
+	private AgentController controller;
 	private AgentModel model;
 	
 	private JTable table;
@@ -19,7 +22,7 @@ public class AgentView extends JFrame {
 	public AgentView(AgentModel model) {
 		
 		this.model = model;
-		this.controler = new AgentControler(this, this.model);
+		this.controller = new AgentController(this, this.model);
 
 		// Conteneur principal
 		JPanel panel = new JPanel();
@@ -31,20 +34,21 @@ public class AgentView extends JFrame {
 		// Les boutons
 		
 		JPanel panel2 = new JPanel();
-		panel2.setLayout(new BorderLayout());
+		panel2.setLayout(new FlowLayout());
 
 		// Ajouter
 		JButton addBut = new JButton("Ajouter un agent");
-		addBut.addActionListener(this.controler);
+		addBut.addActionListener(this.controller);
 		panel2.add(addBut);
 
 		// Supprimer
 		JButton delBut = new JButton("Supprimer un agent");
-		delBut.addActionListener(this.controler);
+		delBut.addActionListener(this.controller);
 		panel2.add(delBut);
 		
-		//ajout du panel
-        panel.add(panel2,BorderLayout.CENTER);
+		//ajout de la table et du panel des boutons
+		panel.add(new JScrollPane(table),BorderLayout.CENTER);
+        panel.add(panel2,BorderLayout.SOUTH);
 		setContentPane(panel);
 		
 		
