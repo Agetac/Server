@@ -1,10 +1,11 @@
-package org.agetac.server.resources;
+package org.agetac.server.resources.impl;
 
 import java.util.List;
 
 import org.agetac.model.impl.Action;
 import org.agetac.model.impl.Intervention;
 import org.agetac.server.db.Interventions;
+import org.agetac.server.resources.sign.IServerResource;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.restlet.data.Status;
@@ -73,10 +74,20 @@ public class ActionResource extends ServerResource implements IServerResource {
 		// System.out.println("Action : " + action.toJson());
 
 		// Ajoute l'action a la base de donnée
-		Intervention i = Interventions.getInstance().getIntervention(interId);
-		List<Action> la = i.getActions();
+		Intervention inter = Interventions.getInstance().getIntervention(interId);
+		List<Action> la = inter.getActions();
+		
+		// On vérifie si l'action n'éxiste pas déjà
+		for(int i=0; i<la.size(); i++){
+			if(la.get(i).getUniqueID().equals(action.getUniqueID())){
+				// Ressource déja existante, envois du code status 406
+				getResponse().setStatus(Status.CLIENT_ERROR_NOT_ACCEPTABLE);
+				return null;
+			}
+		}
+		
 		la.add(action);
-		// Actions.getInstance().addAction(action);
+		
 		// Pas besoin de retourner de représentation au client
 		return null;
 	}

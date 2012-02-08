@@ -2,10 +2,10 @@ package org.agetac.server;
 
 import org.agetac.model.impl.Intervention;
 import org.agetac.server.db.Interventions;
-import org.agetac.server.resources.AgentResource;
-import org.agetac.server.resources.InterventionResource;
-import org.agetac.server.resources.MessageResource;
-import org.agetac.server.resources.VehiculeResource;
+import org.agetac.server.resources.impl.AgentResource;
+import org.agetac.server.resources.impl.InterventionResource;
+import org.agetac.server.resources.impl.MessageResource;
+import org.agetac.server.resources.impl.VehiculeResource;
 import org.restlet.*;
 import org.restlet.data.Protocol;
 import org.restlet.routing.Router;
@@ -71,8 +71,8 @@ public class AgetacServer extends Application {
 		router.attach("/intervention/{interId}/message", MessageResource.class); // Tous les messages
 		router.attach("/intervention/{interId}/message/{messageId}", MessageResource.class); // Un seul message
 		
-		router.attach("/intervention/{interId}/vehicule", VehiculeResource.class); // Tous les messages
-		router.attach("/intervention/{interId}/vehicule/{vehiculeId}", VehiculeResource.class); // Un seul message
+		router.attach("/intervention/{interId}/vehicule", VehiculeResource.class); // Tous les vehicules
+		router.attach("/intervention/{interId}/vehicule/{vehiculeId}", VehiculeResource.class); // Un seul vehicule
 		
 		router.attach("/intervention/{interId}/agent/{agentId}", AgentResource.class);
 		// Retourne le routeur.

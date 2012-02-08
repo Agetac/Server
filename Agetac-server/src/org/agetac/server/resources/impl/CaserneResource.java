@@ -1,9 +1,10 @@
-package org.agetac.server.resources;
+package org.agetac.server.resources.impl;
 
 import java.util.List;
 
 import org.agetac.model.impl.Caserne;
 import org.agetac.server.db.Casernes;
+import org.agetac.server.resources.sign.IServerResource;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.restlet.data.Status;

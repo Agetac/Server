@@ -1,4 +1,4 @@
-package org.agetac.server.resources;
+package org.agetac.server.resources.sign;
 
 import org.restlet.representation.Representation;
 import org.restlet.resource.Delete;
