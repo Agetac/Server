@@ -1,5 +1,6 @@
 package org.agetac.client.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -18,7 +19,8 @@ public class MessageModel extends AbstractTableModel implements Observer{
 
 	public MessageModel() {
 		super();
-		messages = null;
+		messages = new ArrayList<Message>();
+		addMessage(new Message("nouveau message","",""));
 	}
 
 	public int getRowCount() {
@@ -69,6 +71,12 @@ public class MessageModel extends AbstractTableModel implements Observer{
 	public void update(Observable arg0, Object arg1) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	@Override
+	public boolean isCellEditable(int rowIndex, int columnIndex) {
+		if (rowIndex == 0 && columnIndex >= 0 && columnIndex <3) return true;
+		return false;
 	}
 
 }

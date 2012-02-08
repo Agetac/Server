@@ -20,8 +20,10 @@ public class AgentControler implements ActionListener {
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
+	public void actionPerformed(ActionEvent e) {
+		if(e.getActionCommand().equals("bouton")) {
+			// c'est le bouton
+		}
 
 	}
 
