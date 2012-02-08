@@ -101,4 +101,11 @@ public class CibleResource extends ServerResource implements IServerResource {
 		return null;
 	}
 
+	@Override
+	public Representation postResource(Representation representation)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

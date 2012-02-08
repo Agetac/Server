@@ -60,6 +60,25 @@ public class ServerConnection {
 		
 	}
 
+	public void postResource(String resType, String resUniqueID, Representation resRepresentation) {
+
+		String url = baseUrl() + resType;
+		
+		if(resUniqueID != null){
+			url += "/" + resUniqueID;
+		}
+		System.out.println("POST : " + url);
+		ClientResource client = new ClientResource(url);
+		
+		try {
+			client.post(resRepresentation);
+		} catch (ResourceException e) {
+			System.out.println("Error: " + e.getStatus());
+		}
+		
+	}
+
+	
 	public void deleteResource(String resType, String resUniqueID) {
 
 		String url = baseUrl() + resType;

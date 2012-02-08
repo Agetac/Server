@@ -3,6 +3,7 @@ package org.agetac.server.resources.impl;
 import java.util.List;
 
 import org.agetac.model.impl.Intervention;
+import org.agetac.model.impl.Message;
 import org.agetac.model.impl.Vehicule;
 import org.agetac.server.db.Interventions;
 import org.agetac.server.resources.sign.IServerResource;
@@ -94,10 +95,26 @@ public class VehiculeResource extends ServerResource implements IServerResource{
 		Vehicule vehicule = new Vehicule(jsObj);
 		
 
-		// Ajoute l'vehicule a la base de donnée
+		
+		
+		
+
+		// Ajoute Vehicule a la base de donnée
 		Intervention i = Interventions.getInstance().getIntervention(interId);
-		List<Vehicule> lm = i.getVehicules();
-		lm.add(vehicule);
+		List<Vehicule> lv = i.getVehicules();
+		
+		// On vérifie si le Vehicule n'éxiste pas déjà
+		for(int ii=0; ii<lv.size(); ii++){
+			if (lv.get(ii).getUniqueID().equals(vehicule.getUniqueID())) {
+				// Vehicule trouvé, envois du code status 406
+				getResponse().setStatus(Status.CLIENT_ERROR_NOT_ACCEPTABLE);
+				return null;
+			}
+		}
+		
+		// Ajoute l'vehicule a la base de donnée
+		lv.add(vehicule);
+		
 		// Vehicules.getInstance().addVehicule(vehicule);
 		// Pas besoin de retourner de représentation au client
 		return null;
@@ -125,6 +142,13 @@ public class VehiculeResource extends ServerResource implements IServerResource{
 			}
 		}
 		
+		return null;
+	}
+
+	@Override
+	public Representation postResource(Representation representation)
+			throws Exception {
+		// TODO Auto-generated method stub
 		return null;
 	}
 

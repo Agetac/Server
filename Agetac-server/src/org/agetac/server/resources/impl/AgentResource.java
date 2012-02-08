@@ -79,4 +79,11 @@ public class AgentResource extends ServerResource implements IServerResource{
 		Agents.getInstance().deleteAgent(uniqueID);
 		return null;
 	}
+
+	@Override
+	public Representation postResource(Representation representation)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

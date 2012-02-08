@@ -81,6 +81,15 @@ public class InterventionConnection{
 		
 	}
 	
+
+	public void postMessage(Message msg){
+		
+		Representation r = new JsonRepresentation(msg.toJson());
+		
+		serv.postResource("intervention/"+interId+"/message", msg.getUniqueID(), r);
+		
+	}
+	
 	public void deleteMessage(Message msg){
 		serv.deleteResource("intervention/"+interId+"/message", msg.getUniqueID());
 	}

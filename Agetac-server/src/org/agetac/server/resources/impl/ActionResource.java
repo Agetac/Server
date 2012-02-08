@@ -22,7 +22,7 @@ public class ActionResource extends ServerResource implements IServerResource {
 		// Récupère l'identifiant unique de la ressource demandée.
 		String interId = (String) this.getRequestAttributes().get("interId");
 		String actId = (String) this.getRequestAttributes().get("actionId");
-		System.out.println(actId);
+		//System.out.println(actId);
 		// Récupération des actions de l'intervention
 		List<Action> actions = Interventions.getInstance().getIntervention(interId).getActions();
 
@@ -91,6 +91,56 @@ public class ActionResource extends ServerResource implements IServerResource {
 		// Pas besoin de retourner de représentation au client
 		return null;
 	}
+	
+	@Override
+	public Representation postResource(Representation representation)
+			throws Exception {
+		
+		// Récupère l'identifiant unique de la ressource demandée.
+		String interId = (String) this.getRequestAttributes().get("interId");
+		String actId = (String) this.getRequestAttributes().get("actionId");
+		
+		// Récupération des actions de l'intervention
+		List<Action> actions = Interventions.getInstance().getIntervention(interId).getActions();
+		
+		Action action = null;
+		
+		// Si on demande un action précis
+		if (actId != null) {
+		
+			// Recherche de l'action demandée
+			for (int i = 0; i < actions.size(); i++) {
+				if (actions.get(i).getUniqueID().equals(actId)) {
+					
+					// Récupère la représentation JSON de l'action a mettre a jour
+					JsonRepresentation jsonRepr = new JsonRepresentation(representation);
+
+					// Transforme la representation en objet json
+					JSONObject jsObj = jsonRepr.getJsonObject();
+					// Transforme en Action
+					action = new Action(jsObj);
+					
+					// Mise a jour de l'action
+					actions.set(i, action);
+					break;
+					
+				}
+			}
+			
+			// Si le action n'est pas trouvé
+			if (action == null) {
+				getResponse().setStatus(Status.CLIENT_ERROR_NOT_ACCEPTABLE);
+			}
+			
+			
+		}else{
+			// Pas d'id -> Erreur
+			getResponse().setStatus(Status.CLIENT_ERROR_NOT_ACCEPTABLE);
+		}
+
+		// Pas besoin de retourner de représentation au client
+		return null;
+	}
 
 	@Override
 	public Representation deleteResource() {
@@ -111,5 +161,7 @@ public class ActionResource extends ServerResource implements IServerResource {
 		
 		return null;
 	}
+
+
 
 }

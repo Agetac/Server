@@ -79,6 +79,21 @@ public class AgetacClient {
 			System.out.println(" - " + messages.get(i).getUniqueID() + " : " + messages.get(i).getMessage());
 		}
 		
+		// Modification d'un message
+		msg.setMessage("Message modifié");
+		msg.setDate("0102");
+		interCon.postMessage(msg);
+		
+		// Récupération du message
+		System.out.println("Récupération des messages");
+		messages = interCon.getMessages();
+		
+		System.out.println("Affichage des messages :");
+		
+		for(int i=0; i<messages.size(); i++){
+			System.out.println(" - " + messages.get(i).getUniqueID() + " : " + messages.get(i).getMessage());
+		}
+		
 		/**
 		 * VEHICULES
 		 */

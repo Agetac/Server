@@ -87,4 +87,11 @@ public class InterventionResource  extends ServerResource implements IServerReso
 		Interventions.getInstance().deleteIntervention(uniqueID);
 		return null;
 	}
+
+	@Override
+	public Representation postResource(Representation representation)
+			throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

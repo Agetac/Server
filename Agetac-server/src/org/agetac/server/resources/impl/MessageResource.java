@@ -2,8 +2,8 @@ package org.agetac.server.resources.impl;
 
 import java.util.List;
 
-import org.agetac.model.impl.Intervention;
 import org.agetac.model.impl.Message;
+import org.agetac.model.impl.Intervention;
 import org.agetac.server.db.Interventions;
 import org.agetac.server.resources.sign.IServerResource;
 import org.json.JSONArray;
@@ -97,8 +97,18 @@ public class MessageResource extends ServerResource implements IServerResource{
 		// Ajoute l'message a la base de donnée
 		Intervention i = Interventions.getInstance().getIntervention(interId);
 		List<Message> lm = i.getMessages();
+		
+		// On vérifie si le message n'éxiste pas déjà
+		for(int ii=0; ii<lm.size(); ii++){
+			if (lm.get(ii).getUniqueID().equals(message.getUniqueID())) {
+				// Message trouvé, envois du code status 406
+				getResponse().setStatus(Status.CLIENT_ERROR_NOT_ACCEPTABLE);
+				return null;
+			}
+		}
+		
+		//Ajout du message
 		lm.add(message);
-		// Messages.getInstance().addMessage(message);
 		// Pas besoin de retourner de représentation au client
 		return null;
 	}
@@ -125,6 +135,56 @@ public class MessageResource extends ServerResource implements IServerResource{
 			}
 		}
 		
+		return null;
+	}
+
+	@Override
+	public Representation postResource(Representation representation)
+			throws Exception {
+		// Récupère l'identifiant unique de la ressource demandée.
+		String interId = (String) this.getRequestAttributes().get("interId");
+		String msgId = (String) this.getRequestAttributes().get("messageId");
+		
+		// Récupération des messages de l'intervention
+		List<Message> messages = Interventions.getInstance().getIntervention(interId).getMessages();
+		
+		Message message = null;
+		
+		// Si on demande un message précis
+		if (msgId != null) {
+		
+			// Recherche de l'message demandée
+			for (int i = 0; i < messages.size(); i++) {
+				if (messages.get(i).getUniqueID().equals(msgId)) {
+					
+					// Récupère la représentation JSON de l'message a mettre a jour
+					JsonRepresentation jsonRepr = new JsonRepresentation(representation);
+
+					// Transforme la representation en objet json
+					JSONObject jsObj = jsonRepr.getJsonObject();
+					
+					// Transforme en Message
+					message = new Message(jsObj);
+					
+					// Mise a jour de l'message
+					messages.set(i, message);
+					break;
+					
+				}
+			}
+			
+			// Si le message n'est pas trouvé
+			if (message == null) {
+				getResponse().setStatus(Status.CLIENT_ERROR_NOT_ACCEPTABLE);
+			}
+			
+			
+		}else{
+			// Pas d'id -> Erreur
+			getResponse().setStatus(Status.CLIENT_ERROR_NOT_ACCEPTABLE);
+		}
+
+		// Pas besoin de retourner de représentation au client
 		return null;
 	}
 
