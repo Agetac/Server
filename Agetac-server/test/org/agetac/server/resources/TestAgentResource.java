@@ -3,7 +3,6 @@ package org.agetac.server.resources;
 import static org.junit.Assert.*;
 
 import org.agetac.model.impl.Agent;
-import org.agetac.model.impl.Aptitude;
 import org.agetac.server.AgetacServer;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -58,7 +57,7 @@ public class TestAgentResource {
 		ClientResource client = new ClientResource(testUrl);
 
 		// On construit la représentation JSON de l'agent
-		Agent agent = new Agent(uniqueID, "Noel", Aptitude.CDG, null);
+		Agent agent = new Agent(uniqueID, "Noel", Agent.Aptitude.CDG, null);
 		JsonRepresentation representation = new JsonRepresentation(agent.toJson());
 
 		// On envoie (put) l'agent au serveur

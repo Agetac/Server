@@ -5,7 +5,6 @@ import static org.junit.Assert.*;
 import java.util.Collection;
 
 import org.agetac.model.impl.Agent;
-import org.agetac.model.impl.Aptitude;
 import org.junit.Test;
 
 
@@ -21,7 +20,7 @@ public class TestAgents {
 
 	    // Add a agent to the repository.
 	    String uniqueID = "np";
-	    Agent agent = new Agent(uniqueID, "Noel", Aptitude.CDG, null);
+	    Agent agent = new Agent(uniqueID, "Noel", Agent.Aptitude.CDG, null);
 	    agents.addAgent(agent);
 
 	    // Get the agent out of the repository and make sure it's the same one.

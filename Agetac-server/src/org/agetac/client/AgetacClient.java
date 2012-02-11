@@ -14,9 +14,7 @@ import org.agetac.client.view.InterventionView;
 import org.agetac.client.view.MessageView;
 import org.agetac.client.view.VehiculeView;
 import org.agetac.model.impl.Agent;
-import org.agetac.model.impl.Aptitude;
 import org.agetac.model.impl.Caserne;
-import org.agetac.model.impl.EtatVehicule;
 import org.agetac.model.impl.Groupe;
 import org.agetac.model.impl.Intervention;
 import org.agetac.model.impl.Message;
@@ -116,11 +114,11 @@ public class AgetacClient {
 		
 		Caserne c = new Caserne("1", "Janzé", null);
 		
-		Agent bob = new Agent("a1", "Bob", Aptitude.CDG, new ArrayList<Agent>());
+		Agent bob = new Agent("a1", "Bob", Agent.Aptitude.CDG, new ArrayList<Agent>());
 		Groupe g1 = new Groupe(bob, new ArrayList<Agent>(), new ArrayList<Vehicule>());
 		
 		// Création d'un vehicule 
-		Vehicule v1 = new Vehicule("v1", "FPT1", new Position(48.12244, 54.24444), c, EtatVehicule.ALERTE, g1);
+		Vehicule v1 = new Vehicule("v1", "FPT1", new Position(48.12244, 54.24444), c, Vehicule.EtatVehicule.ALERTE, g1);
 		// Envoi du message a l'intervention
 		System.out.println("Envoi d'un vehicule");
 		interCon.putVehicule(v1);
