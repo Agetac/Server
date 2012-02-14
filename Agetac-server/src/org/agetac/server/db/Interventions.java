@@ -45,7 +45,9 @@ public class Interventions {
 			tx.begin();
 			pm.makePersistent(intervention);
 			tx.commit();
+
 		} finally {
+
 			if (tx.isActive()) {
 				tx.rollback();
 			}

@@ -8,11 +8,8 @@ import javax.jdo.annotations.PrimaryKey;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-@PersistenceCapable
 public class Moyen {
 	
-	@PrimaryKey
-	@Persistent(valueStrategy=IdGeneratorStrategy.INCREMENT)
 	long id;
 	
 	private String nom;

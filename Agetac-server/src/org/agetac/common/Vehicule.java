@@ -5,7 +5,6 @@ import javax.jdo.annotations.PersistenceCapable;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-@PersistenceCapable
 public class Vehicule extends Moyen {
 
 	private EtatVehicule etat;

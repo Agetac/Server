@@ -4,50 +4,51 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
+import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
+import javax.xml.bind.annotation.XmlAttribute;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-@PersistenceCapable
+@PersistenceCapable(identityType = IdentityType.APPLICATION)
 public class Intervention {
 
-	private Position lieu;
+	/*private Position lieu;
 
 	private List<Moyen> moyens;
 	private List<Cible> cibles;
 	private List<Source> sources;
 	private List<Action> actions;
 	private List<Message> messages;
-	private List<Implique> impliques;
+	private List<Implique> impliques;*/
 
 	@PrimaryKey
-	@Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT)
 	private String uniqueID;
 
 	public Intervention(String uniqueID) {
 		this();
 
 		this.uniqueID = uniqueID;
-		this.lieu = new Position(0, 0);
+		//this.lieu = new Position(0, 0);
 		
 	}
 
 	public Intervention() {
-		this.moyens = new ArrayList<Moyen>();
+		/*this.moyens = new ArrayList<Moyen>();
 		this.cibles = new ArrayList<Cible>();
 		this.sources = new ArrayList<Source>();
 		this.actions = new ArrayList<Action>();
 		this.messages = new ArrayList<Message>();
-		this.impliques = new ArrayList<Implique>();
+		this.impliques = new ArrayList<Implique>();*/
 	}
 
 	public Intervention(JSONObject json) {
 
-		this.moyens = new ArrayList<Moyen>();
+		/*this.moyens = new ArrayList<Moyen>();
 		this.cibles = new ArrayList<Cible>();
 		this.sources = new ArrayList<Source>();
 		this.actions = new ArrayList<Action>();
@@ -91,20 +92,20 @@ public class Intervention {
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 	}
 
 	public void demandeMoyen() {
 
 	}
 
-	public String toString() {
+	/*public String toString() {
 		return "Intervention [moyens=" + moyens + ", lieu=" + lieu + "]";
-	}
+	}*/
 
 	public JSONObject toJson() {
 		JSONObject json = new JSONObject();
-		try {
+		/*try {
 
 			json.put("uniqueID", this.uniqueID);
 			json.put("lieu", this.lieu.toJson());
@@ -117,7 +118,7 @@ public class Intervention {
 
 		} catch (JSONException e) {
 			e.printStackTrace();
-		}
+		}*/
 
 		return json;
 	}
@@ -127,59 +128,59 @@ public class Intervention {
 	 */
 
 	public Position getLieu() {
-		return lieu;
+		return new Position(0, 0);
 	}
 
 	public void setLieu(Position lieu) {
-		this.lieu = lieu;
+		// this.lieu = lieu;
 	}
 
 	public List<Moyen> getMoyens() {
-		return moyens;
+		return null;
 	}
 
 	public void setMoyens(List<Moyen> moyens) {
-		this.moyens = moyens;
+		
 	}
 
 	public List<Cible> getCibles() {
-		return cibles;
+		return null;
 	}
 
 	public void setCibles(List<Cible> cibles) {
-		this.cibles = cibles;
+		
 	}
 
 	public List<Source> getSources() {
-		return sources;
+		return null;
 	}
 
 	public void setSources(List<Source> sources) {
-		this.sources = sources;
+		
 	}
 
 	public List<Action> getActions() {
-		return actions;
+		return null;
 	}
 
 	public void setActions(List<Action> actions) {
-		this.actions = actions;
+		
 	}
 
 	public List<Message> getMessages() {
-		return messages;
+		return null;
 	}
 
 	public void setMessages(List<Message> messages) {
-		this.messages = messages;
+		
 	}
 
 	public List<Implique> getImpliques() {
-		return impliques;
+		return null;
 	}
 
 	public void setImpliques(List<Implique> impliques) {
-		this.impliques = impliques;
+		
 	}
 
 	public String getUniqueID() {
