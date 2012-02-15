@@ -20,8 +20,9 @@ public class SourceModel extends AbstractTableModel implements Observer{
 
 	public SourceModel(InterventionConnection i) {
 		super();
-		sources = new ArrayList<Source>();
+		//sources = new ArrayList<Source>();
 		interCon = i;
+		sources = interCon.getSources();
 	}
 
 	public int getRowCount() {

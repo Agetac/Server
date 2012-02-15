@@ -184,6 +184,33 @@ public class InterventionConnection{
 		serv.deleteResource("intervention/"+interId+"/source", s.getUniqueID());
 	}
 	
+	public List<Source> getSources(){
+
+		List<Source> sources = new ArrayList<Source>();
+		JsonRepresentation representation = null;
+
+		// Récupération de la liste des messages
+		Representation repr = serv.getResource("intervention/"+interId+"/source", null);
+
+		try {
+		representation = new JsonRepresentation(repr);
+
+		JSONArray ar = representation.getJsonArray(); // Récupération de la liste des messages
+
+		for (int i=0; i<ar.length(); i++){
+			Source src = new Source(ar.getJSONObject(i));
+			System.out.println(src.getUniqueID());
+			sources.add(src);
+		}
+
+		}catch(Exception e){
+			System.out.println("Error: " + e.toString());
+		}
+
+
+		return sources;
+	}
+	
 	public Cible getCible(String cId){
 		Cible c = null;
 		JsonRepresentation representation = null;
