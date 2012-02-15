@@ -44,11 +44,12 @@ public class MessageView extends JFrame {
 		
 		// Tri tableau des messages
 		TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(table.getModel());   
-		sorter.setSortable(0, true);
-		sorter.setSortable(1, false);
+		sorter.setSortable(0, false);
+		sorter.setSortable(1, true);
 		sorter.setSortable(2, false);
 		sorter.setSortsOnUpdates(true);
 		table.setRowSorter(sorter);
+		table.getRowSorter().toggleSortOrder(1);
 
 		// Les boutons
 		

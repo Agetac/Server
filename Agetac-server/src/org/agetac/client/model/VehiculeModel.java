@@ -57,8 +57,10 @@ public class VehiculeModel extends AbstractTableModel implements Observer{
 	}
 
 	public void removeVehicule(int rowIndex) {
+		if (rowIndex != -1){
 		vehicules.remove(rowIndex);
 		fireTableRowsDeleted(rowIndex, rowIndex);
+	}
 	}
 
 	

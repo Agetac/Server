@@ -5,6 +5,8 @@ import java.awt.event.ActionListener;
 
 import org.agetac.client.model.InterventionModel;
 import org.agetac.client.view.InterventionView;
+import org.agetac.model.impl.Intervention;
+import org.agetac.model.impl.Message;
 
 public class InterventionController implements ActionListener {
 
@@ -20,9 +22,16 @@ public class InterventionController implements ActionListener {
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
-
+	public void actionPerformed(ActionEvent e) {
+		if (e.getActionCommand().equals("Ajouter un message")) {
+		//	if (!(view.getID().equals("ID")) && !(view.getLieu().equals("Lieu")) && !(view.getMoyens().equals("Moyens")) && !(view.getCibles().equals("Cibles")) && !(view.getSources().equals("Sources")) && !(view.getActions().equals("Actions")) && !(view.getMessages().equals("Messages")) && !(view.getImpliques().equals("Impliques"))){
+			model.addIntervention(new Intervention(view.getID()));
+			view.resetTxtFields();
+			//}
+		}
+		else if (e.getActionCommand().equals("Supprimer un message")) {
+			model.removeIntervention(view.getSelectedLine());
+		}
 	}
 
 }

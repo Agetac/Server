@@ -62,9 +62,12 @@ public class InterventionModel extends AbstractTableModel implements Observer{
 	}
 
 	public void removeIntervention(int rowIndex) {
+		if (rowIndex != -1){
 		interventions.remove(rowIndex);
 
 		fireTableRowsDeleted(rowIndex, rowIndex);
+	}
+		
 	}
 
 	

@@ -10,6 +10,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 import org.agetac.client.controller.AgentController;
 import org.agetac.client.model.AgentModel;
@@ -34,6 +36,15 @@ public class AgentView extends JFrame {
 
 		// Tableau des agents
 		this.table = new JTable(this.model);
+		
+		// Tri tableau des agents
+				TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(table.getModel());   
+				sorter.setSortable(0, true);
+				sorter.setSortable(1, false);
+				sorter.setSortable(2, false);
+				sorter.setSortsOnUpdates(true);
+				table.setRowSorter(sorter);
+				table.getRowSorter().toggleSortOrder(0);
 
 		// Les boutons
 		
