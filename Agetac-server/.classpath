@@ -7,6 +7,6 @@
 	<classpathentry kind="lib" path="lib/restlet/org.json_2.0/org.json.jar"/>
 	<classpathentry kind="lib" path="lib/restlet/org.restlet.jar"/>
 	<classpathentry kind="lib" path="lib/restlet/org.restlet.ext.json.jar"/>
-	<classpathentry kind="lib" path="lib/model/model.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Agetac-model"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

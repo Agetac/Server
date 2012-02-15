@@ -64,7 +64,7 @@ public class AgetacClient {
 		
 		// Création d'une intervention
 		Intervention inter = new Intervention("1");
-		JsonRepresentation interRepresentation = new JsonRepresentation(inter.toJson());
+		JsonRepresentation interRepresentation = new JsonRepresentation(inter.toJSON());
 		
 		// Envoi sur le serveur		
 		serv.putResource(INTERVENTION, inter.getUniqueID(), interRepresentation);
@@ -112,10 +112,10 @@ public class AgetacClient {
 		 * VEHICULES
 		 */
 		
-		Caserne c = new Caserne("1", "Janzé", null);
+		Caserne c = new Caserne("1", "Janze", null);
 		
 		Agent bob = new Agent("a1", "Bob", Agent.Aptitude.CDG, new ArrayList<Agent>());
-		Groupe g1 = new Groupe(bob, new ArrayList<Agent>(), new ArrayList<Vehicule>());
+		Groupe g1 = new Groupe("g", bob, new ArrayList<Agent>(), new ArrayList<Vehicule>());
 		
 		// Création d'un vehicule 
 		Vehicule v1 = new Vehicule("v1", "FPT1", new Position(48.12244, 54.24444), c.getName(), Vehicule.EtatVehicule.ALERTE, g1);

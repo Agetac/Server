@@ -54,14 +54,14 @@ public class VehiculeResource extends ServerResource implements IServerResource{
 				result = null;
 				getResponse().setStatus(Status.CLIENT_ERROR_NOT_ACCEPTABLE);
 			} else {
-				result = new JsonRepresentation(vehicule.toJson());
+				result = new JsonRepresentation(vehicule.toJSON());
 			}
 		// Si on veut tous les vehicules
 		} else if (vehId == null) {
 			
 			JSONArray jsonAr = new JSONArray(); //Création d'une liste Json
 			for(int i=0; i< vehicules.size();i++){
-				jsonAr.put(vehicules.get(i).toJson()); // On ajoute un jsonObject contenant le vehicule dans le jsonArray
+				jsonAr.put(vehicules.get(i).toJSON()); // On ajoute un jsonObject contenant le vehicule dans le jsonArray
 			}
 			
 			result = new JsonRepresentation(jsonAr); // On crée la représentation de la liste
@@ -93,10 +93,6 @@ public class VehiculeResource extends ServerResource implements IServerResource{
 		// Transforme la representation en objet java
 		JSONObject jsObj = jsonRepr.getJsonObject();
 		Vehicule vehicule = new Vehicule(jsObj);
-		
-
-		
-		
 		
 
 		// Ajoute Vehicule a la base de donnée

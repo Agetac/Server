@@ -36,7 +36,7 @@ public class InterventionResource  extends ServerResource implements IServerReso
 			getResponse().setStatus(Status.CLIENT_ERROR_NOT_ACCEPTABLE);
 		} else {
 			// Ressource trouvé, envoie de la représentation Json
-			result = new JsonRepresentation(intervention.toJson());
+			result = new JsonRepresentation(intervention.toJSON());
 			// Le code status par défaut est 200 s'il n'est pas
 		}
 		// Retourne la représentation, le code status indique au client si elle

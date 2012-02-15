@@ -75,7 +75,7 @@ public class InterventionConnection{
 	
 	public void putMessage(Message msg){
 		
-		Representation r = new JsonRepresentation(msg.toJson());
+		Representation r = new JsonRepresentation(msg.toJSON());
 		
 		serv.putResource("intervention/"+interId+"/message", msg.getUniqueID(), r);
 		
@@ -84,7 +84,7 @@ public class InterventionConnection{
 
 	public void postMessage(Message msg){
 		
-		Representation r = new JsonRepresentation(msg.toJson());
+		Representation r = new JsonRepresentation(msg.toJSON());
 		
 		serv.postResource("intervention/"+interId+"/message", msg.getUniqueID(), r);
 		
@@ -141,7 +141,7 @@ public class InterventionConnection{
 	
 	public void putVehicule(Vehicule v){
 		
-		Representation r = new JsonRepresentation(v.toJson());
+		Representation r = new JsonRepresentation(v.toJSON());
 		
 		serv.putResource("intervention/"+interId+"/vehicule", v.getUniqueID(), r);
 		
@@ -174,7 +174,7 @@ public class InterventionConnection{
 	
 	public void putSource(Source s){
 		
-		Representation r = new JsonRepresentation(s.toJson());
+		Representation r = new JsonRepresentation(s.toJSON());
 		
 		serv.putResource("intervention/"+interId+"/source", s.getUniqueID(), r);
 		
@@ -206,7 +206,7 @@ public class InterventionConnection{
 	}
 	
 	public void putCible(Cible c){
-		Representation r = new JsonRepresentation(c.toJson());
+		Representation r = new JsonRepresentation(c.toJSON());
 		serv.putResource("intervention/"+interId+"/cible", c.getUniqueID(), r);
 	}
 	
@@ -236,7 +236,7 @@ public class InterventionConnection{
 	}
 	
 	public void putAction(Action a){
-		Representation r = new JsonRepresentation(a.toJson());
+		Representation r = new JsonRepresentation(a.toJSON());
 		serv.putResource("intervention/"+interId+"/cible", a.getUniqueID(), r);
 	}
 	
@@ -266,7 +266,7 @@ public class InterventionConnection{
 	}
 	
 	public void putImplique(Implique i){
-		Representation r = new JsonRepresentation(i.toJson());
+		Representation r = new JsonRepresentation(i.toJSON());
 		serv.putResource("intervention/"+interId+"/implique", i.getUniqueID(), r);
 	}
 	

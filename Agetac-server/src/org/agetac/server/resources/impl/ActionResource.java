@@ -41,14 +41,14 @@ public class ActionResource extends ServerResource implements IServerResource {
 				result = null;
 				getResponse().setStatus(Status.CLIENT_ERROR_NOT_ACCEPTABLE);
 			} else {
-				result = new JsonRepresentation(action.toJson());
+				result = new JsonRepresentation(action.toJSON());
 			}
 		// Si on veut tous les actions
 		} else if (actId == null) {
 			
 			JSONArray jsonAr = new JSONArray(); //Création d'une liste Json
 			for(int i=0; i< actions.size();i++){
-				jsonAr.put(actions.get(i).toJson()); // On ajoute un jsonObject contenant le action dans le jsonArray
+				jsonAr.put(actions.get(i).toJSON()); // On ajoute un jsonObject contenant le action dans le jsonArray
 			}
 			
 			result = new JsonRepresentation(jsonAr); // On crée la représentation de la liste
@@ -71,7 +71,7 @@ public class ActionResource extends ServerResource implements IServerResource {
 		// Transforme la representation en objet java
 		JSONObject jsObj = jsonRepr.getJsonObject();
 		Action action = new Action(jsObj);
-		// System.out.println("Action : " + action.toJson());
+		// System.out.println("Action : " + action.toJSON());
 
 		// Ajoute l'action a la base de donnée
 		Intervention inter = Interventions.getInstance().getIntervention(interId);
