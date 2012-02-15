@@ -1,27 +1,11 @@
 package org.agetac.client;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.agetac.client.model.AgentModel;
-import org.agetac.client.model.CaserneModel;
-import org.agetac.client.model.InterventionModel;
-import org.agetac.client.model.MessageModel;
 import org.agetac.client.model.SourceModel;
-import org.agetac.client.model.VehiculeModel;
-import org.agetac.client.view.AgentView;
-import org.agetac.client.view.CaserneView;
-import org.agetac.client.view.InterventionView;
-import org.agetac.client.view.MessageView;
 import org.agetac.client.view.SourceView;
-import org.agetac.client.view.VehiculeView;
-import org.agetac.model.impl.Agent;
-import org.agetac.model.impl.Caserne;
-import org.agetac.model.impl.Groupe;
 import org.agetac.model.impl.Intervention;
 import org.agetac.model.impl.Message;
-import org.agetac.model.impl.Position;
-import org.agetac.model.impl.Vehicule;
 import org.restlet.ext.json.JsonRepresentation;
 
 /**
@@ -115,11 +99,13 @@ public class AgetacClient {
 		/**
 		 * VEHICULES
 		 */
+
 		/*
 		Caserne c = new Caserne("1", "Janzé", null);
+
 		
 		Agent bob = new Agent("a1", "Bob", Agent.Aptitude.CDG, new ArrayList<Agent>());
-		Groupe g1 = new Groupe(bob, new ArrayList<Agent>(), new ArrayList<Vehicule>());
+		Groupe g1 = new Groupe("g", bob, new ArrayList<Agent>(), new ArrayList<Vehicule>());
 		
 		// Création d'un vehicule 
 		Vehicule v1 = new Vehicule("v1", "FPT1", new Position(48.12244, 54.24444), c.getName(), Vehicule.EtatVehicule.ALERTE, g1);

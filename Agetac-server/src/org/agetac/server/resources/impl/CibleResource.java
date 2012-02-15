@@ -41,14 +41,14 @@ public class CibleResource extends ServerResource implements IServerResource {
 				result = null;
 				getResponse().setStatus(Status.CLIENT_ERROR_NOT_ACCEPTABLE);
 			} else {
-				result = new JsonRepresentation(cible.toJson());
+				result = new JsonRepresentation(cible.toJSON());
 			}
 		// Si on veut tous les cibles
 		} else if (cibId == null) {
 			
 			JSONArray jsonAr = new JSONArray(); //Création d'une liste Json
 			for(int i=0; i< cibles.size();i++){
-				jsonAr.put(new JSONObject(cibles.get(i).toJson())); // On ajoute un jsonObject contenant le cible dans le jsonArray
+				jsonAr.put(new JSONObject(cibles.get(i).toJSON())); // On ajoute un jsonObject contenant le cible dans le jsonArray
 			}
 			
 			result = new JsonRepresentation(jsonAr); // On crée la représentation de la liste
@@ -71,7 +71,7 @@ public class CibleResource extends ServerResource implements IServerResource {
 		// Transforme la representation en objet java
 		JSONObject jsObj = jsonRepr.getJsonObject();
 		Cible cible = new Cible(jsObj);
-		// System.out.println("Cible : " + cible.toJson());
+		// System.out.println("Cible : " + cible.toJSON());
 
 		// Ajoute l'cible a la base de donnée
 		Intervention i = Interventions.getInstance().getIntervention(interId);

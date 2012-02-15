@@ -53,14 +53,14 @@ public class MessageResource extends ServerResource implements IServerResource{
 				result = null;
 				getResponse().setStatus(Status.CLIENT_ERROR_NOT_ACCEPTABLE);
 			} else {
-				result = new JsonRepresentation(message.toJson());
+				result = new JsonRepresentation(message.toJSON());
 			}
 		// Si on veut tous les messages
 		} else if (msgId == null) {
 			
 			JSONArray jsonAr = new JSONArray(); //Création d'une liste Json
 			for(int i=0; i< messages.size();i++){
-				jsonAr.put(messages.get(i).toJson()); // On ajoute un jsonObject contenant le message dans le jsonArray
+				jsonAr.put(messages.get(i).toJSON()); // On ajoute un jsonObject contenant le message dans le jsonArray
 			}
 			
 			result = new JsonRepresentation(jsonAr); // On crée la représentation de la liste
