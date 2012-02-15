@@ -7,11 +7,13 @@ import org.agetac.client.model.AgentModel;
 import org.agetac.client.model.CaserneModel;
 import org.agetac.client.model.InterventionModel;
 import org.agetac.client.model.MessageModel;
+import org.agetac.client.model.SourceModel;
 import org.agetac.client.model.VehiculeModel;
 import org.agetac.client.view.AgentView;
 import org.agetac.client.view.CaserneView;
 import org.agetac.client.view.InterventionView;
 import org.agetac.client.view.MessageView;
+import org.agetac.client.view.SourceView;
 import org.agetac.client.view.VehiculeView;
 import org.agetac.model.impl.Agent;
 import org.agetac.model.impl.Caserne;
@@ -42,11 +44,11 @@ public class AgetacClient {
 	 *             If problems occur.
 	 */
 	public static void main(String[] args) throws Exception {
-
-		MessageModel msgModel = new MessageModel();
-		MessageView msgView = new MessageView(msgModel);
 		
-		AgetacClient.testCommunication();
+		AgetacClient.testCommunication2();
+
+		/*MessageModel msgModel = new MessageModel();
+		MessageView msgView = new MessageView(msgModel);
 
 		AgentModel agentModel = new AgentModel();
 		AgentView agentView = new AgentView(agentModel);
@@ -56,6 +58,8 @@ public class AgetacClient {
 		InterventionView interventionView = new InterventionView(interventionModel);
 		CaserneModel casModel = new CaserneModel();
 		CaserneView casView = new CaserneView(casModel);
+		SourceModel srcModel = new SourceModel();
+		SourceView srcView = new SourceView(srcModel);*/
 	}
 	
 	private static void testCommunication(){
@@ -64,7 +68,7 @@ public class AgetacClient {
 		
 		// Création d'une intervention
 		Intervention inter = new Intervention("1");
-		JsonRepresentation interRepresentation = new JsonRepresentation(inter.toJson());
+		JsonRepresentation interRepresentation = new JsonRepresentation(inter.toJSON());
 		
 		// Envoi sur le serveur		
 		serv.putResource(INTERVENTION, inter.getUniqueID(), interRepresentation);
@@ -111,7 +115,7 @@ public class AgetacClient {
 		/**
 		 * VEHICULES
 		 */
-		
+		/*
 		Caserne c = new Caserne("1", "Janzé", null);
 		
 		Agent bob = new Agent("a1", "Bob", Agent.Aptitude.CDG, new ArrayList<Agent>());
@@ -132,7 +136,27 @@ public class AgetacClient {
 		for(int i=0; i<messages.size(); i++){
 			System.out.println(" - " + vehicules.get(i).getUniqueID() + " : " + vehicules.get(i).getName());
 		}
-		
+		*/
 	
+	}
+	
+	private static void testCommunication2(){
+		
+		ServerConnection serv = new ServerConnection("localhost", "8112", "agetacserver");
+		
+		// Création d'une intervention
+		Intervention inter = new Intervention("1");
+		JsonRepresentation interRepresentation = new JsonRepresentation(inter.toJSON());
+		
+		// Envoi sur le serveur		
+		serv.putResource(INTERVENTION, inter.getUniqueID(), interRepresentation);
+		//TODO : Cote serveur, empecher les uniqueID non uniques :)
+		
+		// Maintenant on crée une connexion à cette intervention
+		InterventionConnection interCon = new InterventionConnection(inter.getUniqueID(), serv);
+		
+		SourceModel srcModel = new SourceModel(interCon);
+		SourceView srcView = new SourceView(srcModel);
+		
 	}
 }

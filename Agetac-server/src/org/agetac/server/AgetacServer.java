@@ -5,6 +5,7 @@ import org.agetac.server.db.Interventions;
 import org.agetac.server.resources.impl.AgentResource;
 import org.agetac.server.resources.impl.InterventionResource;
 import org.agetac.server.resources.impl.MessageResource;
+import org.agetac.server.resources.impl.SourceResource;
 import org.agetac.server.resources.impl.VehiculeResource;
 import org.restlet.*;
 import org.restlet.data.Protocol;
@@ -70,6 +71,9 @@ public class AgetacServer extends Application {
 		router.attach("/intervention/{interId}", InterventionResource.class);
 		router.attach("/intervention/{interId}/message", MessageResource.class); // Tous les messages
 		router.attach("/intervention/{interId}/message/{messageId}", MessageResource.class); // Un seul message
+		
+		router.attach("/intervention/{interId}/source", SourceResource.class); // Tous les messages
+		router.attach("/intervention/{interId}/source/{sourceId}", SourceResource.class); // Un seul message
 		
 		router.attach("/intervention/{interId}/vehicule", VehiculeResource.class); // Tous les vehicules
 		router.attach("/intervention/{interId}/vehicule/{vehiculeId}", VehiculeResource.class); // Un seul vehicule
