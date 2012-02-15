@@ -2,12 +2,14 @@ package org.agetac.client.view;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 
 import org.agetac.client.controller.AgentController;
 import org.agetac.client.model.AgentModel;
@@ -18,6 +20,8 @@ public class AgentView extends JFrame {
 	private AgentModel model;
 	
 	private JTable table;
+	private JTextField txtId, txtNom, txtAptitudes, txtSubordonnes;
+	private JButton addBut, delBut;
 
 	public AgentView(AgentModel model) {
 		
@@ -33,22 +37,49 @@ public class AgentView extends JFrame {
 
 		// Les boutons
 		
-		JPanel panel2 = new JPanel();
-		panel2.setLayout(new FlowLayout());
+		JPanel panelButton = new JPanel();
+		panelButton.setLayout(new GridLayout());
 
 		// Ajouter
-		JButton addBut = new JButton("Ajouter un agent");
+		addBut = new JButton("Ajouter un agent");
 		addBut.addActionListener(this.controller);
-		panel2.add(addBut);
+		panelButton.add(addBut);
 
 		// Supprimer
-		JButton delBut = new JButton("Supprimer un agent");
+		delBut = new JButton("Supprimer un agent");
 		delBut.addActionListener(this.controller);
-		panel2.add(delBut);
+		panelButton.add(delBut);
+		
+		//Champs
+		JPanel panelChamps = new JPanel();
+		panelChamps.setLayout(new GridLayout());
+				
+		// Champ ID
+		txtId = new JTextField("ID");
+		panelChamps.add(txtId);
+				
+		// Champ Nom
+		txtNom = new JTextField("Nom");
+		panelChamps.add(txtNom);
+				
+		// Champ Aptitudes
+		txtAptitudes = new JTextField("Aptitudes");
+		panelChamps.add(txtAptitudes);
+
+		// Champ Subordonnes
+		txtSubordonnes = new JTextField("Subordonnes");
+		panelChamps.add(txtSubordonnes);
+
+		// Panel Champs & Buttons
+		JPanel CandB = new JPanel();
+		CandB.setLayout(new BorderLayout());
+		CandB.add(panelButton,BorderLayout.NORTH);
+		CandB.add(panelChamps,BorderLayout.SOUTH);
+		
 		
 		//ajout de la table et du panel des boutons
 		panel.add(new JScrollPane(table),BorderLayout.CENTER);
-        panel.add(panel2,BorderLayout.SOUTH);
+        panel.add(CandB,BorderLayout.SOUTH);
 		setContentPane(panel);
 		
 		
@@ -61,9 +92,31 @@ public class AgentView extends JFrame {
 		
 	}
 	
+	public String getID(){
+		return txtId.getText();
+	}
 	
-	public void refreshAgents(){
-			
+	public String getNom(){
+		return txtNom.getText();
+	}
+	
+	public String getAptitudes(){
+		return txtAptitudes.getText();
+	}
+	
+	public String getSubordonnes(){
+		return txtSubordonnes.getText();
+	}
+	
+	public void resetTxtFields(){
+		txtId.setText("ID");
+		txtNom.setText("Nom");
+		txtAptitudes.setText("Aptitudes");
+		txtSubordonnes.setText("Subordonnes");
+	}
+	
+	public int getSelectedLine(){
+		return table.getSelectedRow();
 	}
 	
 	
