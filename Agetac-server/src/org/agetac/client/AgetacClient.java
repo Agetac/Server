@@ -118,7 +118,7 @@ public class AgetacClient {
 		Groupe g1 = new Groupe(bob, new ArrayList<Agent>(), new ArrayList<Vehicule>());
 		
 		// Création d'un vehicule 
-		Vehicule v1 = new Vehicule("v1", "FPT1", new Position(48.12244, 54.24444), c, Vehicule.EtatVehicule.ALERTE, g1);
+		Vehicule v1 = new Vehicule("v1", "FPT1", new Position(48.12244, 54.24444), c.getName(), Vehicule.EtatVehicule.ALERTE, g1);
 		// Envoi du message a l'intervention
 		System.out.println("Envoi d'un vehicule");
 		interCon.putVehicule(v1);
