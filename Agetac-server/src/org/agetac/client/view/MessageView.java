@@ -2,6 +2,10 @@ package org.agetac.client.view;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.Box;
 import javax.swing.JButton;
@@ -24,7 +28,7 @@ public class MessageView extends JFrame {
 	private JPanel panel;
 	private JTable table;
 	private JTextField txtId, txtGroupeHoraire, txtMessage;
-	private JButton addBut;
+	private JButton addBut, delBut;
 
 	public MessageView(MessageModel model) {
 		
@@ -33,11 +37,12 @@ public class MessageView extends JFrame {
 
 		// Conteneur principal
 		panel = new JPanel();
-		Box box = Box.createVerticalBox();
-		box.add(panel);
+		panel.setLayout(new BorderLayout());
 
 		// Tableau des messages
 		this.table = new JTable(this.model);
+		
+		// Tri tableau des messages
 		TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(table.getModel());   
 		sorter.setSortable(0, true);
 		sorter.setSortable(1, false);
@@ -47,49 +52,49 @@ public class MessageView extends JFrame {
 
 		// Les boutons
 		
-		JPanel panel2 = new JPanel();
-		panel2.setLayout(new FlowLayout());
+		JPanel panelButton = new JPanel();
+		panelButton.setLayout(new GridLayout());
 
 		// Ajouter
 		addBut = new JButton("Ajouter un message");
 		addBut.addActionListener(this.controller);
-		JButton addBut = new JButton("Ajouter un message");
-		addBut.addActionListener(this.controller);
-		panel2.add(addBut);
+		panelButton.add(addBut);
 
 		// Supprimer
-		JButton delBut = new JButton("Supprimer un message");
+		delBut = new JButton("Supprimer un message");
 		delBut.addActionListener(this.controller);
-		panel2.add(delBut);
+		panelButton.add(delBut);
+		
+		
 		
 		//Champs
-		// -> Création Jpanel
-		JPanel panel3 = new JPanel();
-		Box boxChamps = Box.createVerticalBox();
-		panel3.add(boxChamps);
+		JPanel panelChamps = new JPanel();
+		panelChamps.setLayout(new GridLayout());
 		
-		txtId = new JTextField("Id");
-		//txtId.setPreferredSize(new Dimension(100,50));
-		boxChamps.add(txtId);
+		// Champ ID
+		txtId = new JTextField("ID");
+		panelChamps.add(txtId);
 		
-		txtGroupeHoraire = new JTextField("Groupe horaire");
-		//txtGroupeHoraire.setPreferredSize(new Dimension(100,50));
-		boxChamps.add(txtGroupeHoraire);
+		// Champ GH
+		txtGroupeHoraire = new JTextField("Groupe Horaire");
+		panelChamps.add(txtGroupeHoraire);
 		
-		txtMessage = new JTextField("Messages");
-		//txtMessage.setPreferredSize(new Dimension(100,50));
-		boxChamps.add(txtMessage);
+		// Champ Message
+		txtMessage = new JTextField("Message");
+		panelChamps.add(txtMessage);
 		
-		//ajout du panel
-		
-		box.add(panel2);
-		box.add(panel3);
-		box.add(new JScrollPane(table));
-		setContentPane(box);
 
+		// Panel Champs & Buttons
+		JPanel CandB = new JPanel();
+		CandB.setLayout(new BorderLayout());
+		CandB.add(panelButton,BorderLayout.NORTH);
+        CandB.add(panelChamps,BorderLayout.SOUTH);
+		
+		
 		//ajout de la table et du panel des boutons
 		panel.add(new JScrollPane(table),BorderLayout.CENTER);
-        panel.add(panel2,BorderLayout.SOUTH);
+		panel.add(CandB,BorderLayout.SOUTH);
+        
 		setContentPane(panel);
 		
 		
@@ -102,19 +107,27 @@ public class MessageView extends JFrame {
 		
 	}
 	
-	public void openMenAjouter(){
-		addBut.setEnabled(false);
-		txtId.setVisible(true);
-		txtGroupeHoraire.setVisible(true);
-		txtMessage.setVisible(true);
-		panel.validate();
+	
+	public String getID(){
+		return txtId.getText();
+	}
+	
+	public String getGH(){
+		return txtGroupeHoraire.getText();
+	}
+	
+	public String getMessage(){
+		return txtMessage.getText();
+	}
+	
+	public void resetTxtFields(){
+		txtId.setText("ID");
+		txtGroupeHoraire.setText("Groupe Horaire");
+		txtMessage.setText("Message");
+	}
+	
+	public int getSelectedLine(){
+		return table.getSelectedRow();
+	}
 		
-	}
-	
-	
-	public void refreshMessages(){
-			
-	}
-	
-	
 }

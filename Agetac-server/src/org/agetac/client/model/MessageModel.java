@@ -19,7 +19,6 @@ public class MessageModel extends AbstractTableModel implements Observer{
 	public MessageModel() {
 		super();
 		messages = new ArrayList<Message>();
-		addMessage(new Message("nouveau message","",""));
 	}
 
 	public int getRowCount() {
@@ -50,14 +49,15 @@ public class MessageModel extends AbstractTableModel implements Observer{
 
 	public void addMessage(Message msg) {
 		messages.add(msg);
-		//Messages.getInstance().addMessage(msg);
 		fireTableRowsInserted(messages.size() - 1, messages.size() - 1);
 	}
 
 	public void removeMessage(int rowIndex) {
+		if (rowIndex != -1){
 		messages.remove(rowIndex);
 
 		fireTableRowsDeleted(rowIndex, rowIndex);
+		}
 	}
 
 	
@@ -72,10 +72,5 @@ public class MessageModel extends AbstractTableModel implements Observer{
 		
 	}
 	
-	@Override
-	public boolean isCellEditable(int rowIndex, int columnIndex) {
-		if (rowIndex == 0 && columnIndex >= 0 && columnIndex <3) return true;
-		return false;
-	}
 
 }
