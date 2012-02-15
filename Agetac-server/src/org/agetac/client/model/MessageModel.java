@@ -49,6 +49,7 @@ public class MessageModel extends AbstractTableModel implements Observer{
 
 	public void addMessage(Message msg) {
 		messages.add(msg);
+		
 		fireTableRowsInserted(messages.size() - 1, messages.size() - 1);
 	}
 

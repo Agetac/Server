@@ -2,12 +2,14 @@ package org.agetac.client.view;
 
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextField;
 
 import org.agetac.client.controller.VehiculeController;
 import org.agetac.client.model.VehiculeModel;
@@ -18,6 +20,8 @@ public class VehiculeView extends JFrame {
 	private VehiculeModel model;
 	
 	private JTable table;
+	private JTextField txtId, txtNom, txtPosition, txtCaserne,txtEtat,txtGroupe;
+	private JButton addBut, delBut;
 
 	public VehiculeView(VehiculeModel model) {
 		
@@ -33,22 +37,59 @@ public class VehiculeView extends JFrame {
 
 		// Les boutons
 		
-		JPanel panel2 = new JPanel();
-		panel2.setLayout(new FlowLayout());
+		JPanel panelButton = new JPanel();
+		panelButton.setLayout(new GridLayout());
 
 		// Ajouter
-		JButton addBut = new JButton("Ajouter un vehicule");
+		addBut = new JButton("Ajouter un vehicule");
 		addBut.addActionListener(this.controller);
-		panel2.add(addBut);
+		panelButton.add(addBut);
 
 		// Supprimer
-		JButton delBut = new JButton("Supprimer un vehicule");
+		delBut = new JButton("Supprimer un vehicule");
 		delBut.addActionListener(this.controller);
-		panel2.add(delBut);
+		panelButton.add(delBut);
+		
+		
+
+		//Champs
+		JPanel panelChamps = new JPanel();
+		panelChamps.setLayout(new GridLayout());
+		
+		// Champ ID
+		txtId = new JTextField("ID");
+		panelChamps.add(txtId);
+		
+		// Champ Nom
+		txtNom = new JTextField("Nom");
+		panelChamps.add(txtNom);
+		
+		// Champ Position
+		txtPosition = new JTextField("Position");
+		panelChamps.add(txtPosition);
+
+		// Champ CaserneName
+		txtCaserne = new JTextField("Caserne");
+		panelChamps.add(txtCaserne);
+
+		// Champ Etat
+		txtEtat = new JTextField("Etat");
+		panelChamps.add(txtEtat);
+
+		// Champ Groupe
+		txtGroupe = new JTextField("Groupe");
+		panelChamps.add(txtGroupe);
+
+		// Panel Champs & Buttons
+		JPanel CandB = new JPanel();
+		CandB.setLayout(new BorderLayout());
+		CandB.add(panelButton,BorderLayout.NORTH);
+        CandB.add(panelChamps,BorderLayout.SOUTH);
+
 		
 		//ajout de la table et du panel des boutons
 		panel.add(new JScrollPane(table),BorderLayout.CENTER);
-        panel.add(panel2,BorderLayout.SOUTH);
+        panel.add(CandB,BorderLayout.SOUTH);
 		setContentPane(panel);
 		
 		
@@ -62,9 +103,43 @@ public class VehiculeView extends JFrame {
 	}
 	
 	
-	public void refreshVehicules(){
-			
+	public String getID(){
+		return txtId.getText();
 	}
+	
+	public String getNom(){
+		return txtNom.getText();
+	}
+	
+	public String getPosition(){
+		return txtPosition.getText();
+	}
+	
+	public String getCaserne(){
+		return txtCaserne.getText();
+	}
+	
+	public String getEtat(){
+		return txtEtat.getText();
+	}
+	
+	public String getGroupe(){
+		return txtGroupe.getText();
+	}
+	
+	public void resetTxtFields(){
+		txtId.setText("ID");
+		txtNom.setText("Nom");
+		txtPosition.setText("Position");
+		txtCaserne.setText("Caserne");
+		txtEtat.setText("Etat");
+		txtGroupe.setText("Groupe");
+	}
+	
+	public int getSelectedLine(){
+		return table.getSelectedRow();
+	}
+	
 	
 	
 }
