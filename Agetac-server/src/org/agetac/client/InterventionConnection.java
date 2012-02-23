@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.agetac.model.exception.InvalidJSONException;
 import org.agetac.model.impl.Action;
 import org.agetac.model.impl.Cible;
 import org.agetac.model.impl.Implique;
@@ -73,7 +74,7 @@ public class InterventionConnection{
 		return messages;
 	}
 	
-	public void putMessage(Message msg){
+	public void putMessage(Message msg) throws JSONException{
 		
 		Representation r = new JsonRepresentation(msg.toJSON());
 		
@@ -82,7 +83,7 @@ public class InterventionConnection{
 	}
 	
 
-	public void postMessage(Message msg){
+	public void postMessage(Message msg) throws JSONException{
 		
 		Representation r = new JsonRepresentation(msg.toJSON());
 		
@@ -94,7 +95,7 @@ public class InterventionConnection{
 		serv.deleteResource("intervention/"+interId+"/message", msg.getUniqueID());
 	}
 	
-	public Vehicule getVehicule(String vId){
+	public Vehicule getVehicule(String vId) throws InvalidJSONException{
 		Vehicule v = null;
 		JsonRepresentation representation = null;
 		
@@ -139,7 +140,7 @@ public class InterventionConnection{
 		return vehicules;
 	}
 	
-	public void putVehicule(Vehicule v){
+	public void putVehicule(Vehicule v) throws JSONException{
 		
 		Representation r = new JsonRepresentation(v.toJSON());
 		
@@ -151,7 +152,7 @@ public class InterventionConnection{
 		serv.deleteResource("intervention/"+interId+"/vehicule", v.getUniqueID());
 	}
 	
-	public Source getSource(String sId){
+	public Source getSource(String sId) throws InvalidJSONException{
 		Source s = null;
 		JsonRepresentation representation = null;
 		
@@ -172,7 +173,7 @@ public class InterventionConnection{
 		return s;
 	}
 	
-	public void putSource(Source s){
+	public void putSource(Source s) throws JSONException{
 		
 		Representation r = new JsonRepresentation(s.toJSON());
 		
@@ -211,7 +212,7 @@ public class InterventionConnection{
 		return sources;
 	}
 	
-	public Cible getCible(String cId){
+	public Cible getCible(String cId) throws InvalidJSONException{
 		Cible c = null;
 		JsonRepresentation representation = null;
 		
@@ -232,7 +233,7 @@ public class InterventionConnection{
 		return c;
 	}
 	
-	public void putCible(Cible c){
+	public void putCible(Cible c) throws JSONException{
 		Representation r = new JsonRepresentation(c.toJSON());
 		serv.putResource("intervention/"+interId+"/cible", c.getUniqueID(), r);
 	}
@@ -241,7 +242,7 @@ public class InterventionConnection{
 		serv.deleteResource("intervention/"+interId+"/cible", c.getUniqueID());
 	}
 	
-	public Action getAction(String aId){
+	public Action getAction(String aId) throws InvalidJSONException{
 		Action a = null;
 		JsonRepresentation representation = null;
 		
@@ -262,7 +263,7 @@ public class InterventionConnection{
 		return a;
 	}
 	
-	public void putAction(Action a){
+	public void putAction(Action a) throws JSONException{
 		Representation r = new JsonRepresentation(a.toJSON());
 		serv.putResource("intervention/"+interId+"/cible", a.getUniqueID(), r);
 	}
@@ -271,7 +272,7 @@ public class InterventionConnection{
 		serv.deleteResource("intervention/"+interId+"/cible", a.getUniqueID());
 	}
 	
-	public Implique getImplique(String iId){
+	public Implique getImplique(String iId) throws InvalidJSONException{
 		Implique i = null;
 		JsonRepresentation representation = null;
 		
@@ -292,7 +293,7 @@ public class InterventionConnection{
 		return i;
 	}
 	
-	public void putImplique(Implique i){
+	public void putImplique(Implique i) throws JSONException{
 		Representation r = new JsonRepresentation(i.toJSON());
 		serv.putResource("intervention/"+interId+"/implique", i.getUniqueID(), r);
 	}

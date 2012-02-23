@@ -6,6 +6,7 @@ import org.agetac.client.model.SourceModel;
 import org.agetac.client.view.SourceView;
 import org.agetac.model.impl.Intervention;
 import org.agetac.model.impl.Message;
+import org.json.JSONException;
 import org.restlet.ext.json.JsonRepresentation;
 
 /**
@@ -46,7 +47,7 @@ public class AgetacClient {
 		SourceView srcView = new SourceView(srcModel);*/
 	}
 	
-	private static void testCommunication(){
+	private static void testCommunication() throws JSONException{
 		
 		ServerConnection serv = new ServerConnection("localhost", "8112", "agetacserver");
 		
@@ -126,7 +127,7 @@ public class AgetacClient {
 	
 	}
 	
-	private static void testCommunication2(){
+	private static void testCommunication2() throws JSONException{
 		
 		ServerConnection serv = new ServerConnection("localhost", "8112", "agetacserver");
 		

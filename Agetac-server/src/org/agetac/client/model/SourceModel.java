@@ -11,6 +11,7 @@ import org.agetac.client.InterventionConnection;
 import org.agetac.model.impl.Source;
 import org.agetac.observer.Subject;
 import org.agetac.server.db.Sources;
+import org.json.JSONException;
 
 public class SourceModel extends AbstractTableModel implements Observer{
 	
@@ -50,7 +51,12 @@ public class SourceModel extends AbstractTableModel implements Observer{
 
 	public void addSource(Source src) {
 		sources.add(src);
-		interCon.putSource(src);
+		try {
+			interCon.putSource(src);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		fireTableRowsInserted(sources.size() - 1, sources.size() - 1);
 	}
 
