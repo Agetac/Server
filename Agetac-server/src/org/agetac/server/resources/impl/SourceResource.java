@@ -22,7 +22,7 @@ public class SourceResource extends ServerResource implements IServerResource {
 		// Récupère l'identifiant unique de la ressource demandée.
 		String interId = (String) this.getRequestAttributes().get("interId");
 		String srcId = (String) this.getRequestAttributes().get("sourceId");
-		System.out.println(srcId);
+		//System.out.println(srcId);
 		// Récupération des sources de l'intervention
 		List<Source> sources = Interventions.getInstance().getIntervention(interId).getSources();
 

@@ -7,18 +7,22 @@ import java.util.Observer;
 
 import javax.swing.table.AbstractTableModel;
 
+import org.agetac.client.InterventionConnection;
 import org.agetac.model.impl.Message;
 import org.agetac.observer.Subject;
 import org.agetac.server.db.Messages;
+import org.json.JSONException;
 
 public class MessageModel extends AbstractTableModel implements Observer{
 	
 	private List<Message> messages;
 	private final String[] entetes = { "ID", "Groupe Horaire", "Message" };
+	private InterventionConnection interCon;
 
-	public MessageModel() {
+	public MessageModel(InterventionConnection i) {
 		super();
-		messages = new ArrayList<Message>();
+		interCon = i;
+		messages = interCon.getMessages();
 	}
 
 	public int getRowCount() {
@@ -49,15 +53,20 @@ public class MessageModel extends AbstractTableModel implements Observer{
 
 	public void addMessage(Message msg) {
 		messages.add(msg);
-		
+		try {
+			interCon.putMessage(msg);
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		fireTableRowsInserted(messages.size() - 1, messages.size() - 1);
 	}
 
 	public void removeMessage(int rowIndex) {
 		if (rowIndex != -1){
-		messages.remove(rowIndex);
-
-		fireTableRowsDeleted(rowIndex, rowIndex);
+			interCon.deleteMessage(messages.get(rowIndex));
+			messages.remove(rowIndex);
+			fireTableRowsDeleted(rowIndex, rowIndex);
 		}
 	}
 

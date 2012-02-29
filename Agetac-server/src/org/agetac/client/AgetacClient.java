@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.agetac.client.model.MessageModel;
 import org.agetac.client.model.SourceModel;
+import org.agetac.client.view.MessageView;
 import org.agetac.client.view.SourceView;
 import org.agetac.model.exception.InvalidJSONException;
 import org.agetac.model.impl.Intervention;
@@ -36,7 +38,7 @@ public class AgetacClient {
 	 */
 	public static void main(String[] args) throws Exception {
 		
-		AgetacClient.testCommunication3();
+		AgetacClient.testCommunication2();
 
 		/*MessageModel msgModel = new MessageModel();
 		MessageView msgView = new MessageView(msgModel);
@@ -140,39 +142,32 @@ public class AgetacClient {
 		// Création d'une intervention
 		Intervention inter = new Intervention("1");
 		JsonRepresentation interRepresentation = new JsonRepresentation(inter.toJSON());
-		serv.putResource(INTERVENTION, inter.getUniqueID(), interRepresentation);
 		
 		// Envoi sur le serveur
-		ArrayList<Intervention> interv = new ArrayList<Intervention>();
-		JsonRepresentation js = null;
-		Intervention i = null;
-		Representation repr = null;
+		Representation repr = serv.getResource(INTERVENTION, null);
+		JsonRepresentation representation = new JsonRepresentation(repr);
+		JSONArray ar = representation.getJsonArray();
+		System.out.println(ar.toString());
 		
-		try {
-			repr = serv.getResource(INTERVENTION, "1");
-			js = new JsonRepresentation(repr);
-		} catch (IOException e) {
-			e.printStackTrace();
+		List<Intervention> interventions = new ArrayList<Intervention>();
+		for (int i=0; i< ar.length(); i++){
+			interventions.add(new Intervention(ar.getJSONObject(i)));
 		}
 		
-		try {
-			if ( js.getText() == "null") i = new Intervention(js.getJsonObject());
-		} catch (Exception e) {
-			e.printStackTrace();
+		boolean doublon = false;
+		for (Intervention inte : interventions ){
+			doublon = inte.getUniqueID().equals(inter.getUniqueID()) || doublon;
 		}
 
-		//System.out.println(js.getText());
-		if ( js.getText() != "null") interv.add(i);
-
-		if ( js.getText() == "null") serv.putResource(INTERVENTION, inter.getUniqueID(), interRepresentation);
+		if (!doublon) serv.putResource(INTERVENTION, inter.getUniqueID(), interRepresentation);
 		
 		//TODO : Cote serveur, empecher les uniqueID non uniques :)
 		
 		// Maintenant on crée une connexion à cette intervention
 		InterventionConnection interCon = new InterventionConnection(inter.getUniqueID(), serv);
 		
-		SourceModel srcModel = new SourceModel(interCon);
-		SourceView srcView = new SourceView(srcModel);
+		MessageModel srcModel = new MessageModel(interCon);
+		MessageView srcView = new MessageView(srcModel);
 		
 	}
 	

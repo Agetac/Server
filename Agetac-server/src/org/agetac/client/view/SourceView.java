@@ -36,7 +36,6 @@ public class SourceView extends JFrame{
 
 		// Tableau des messages
 		this.table = new JTable(this.model);
-		
 		// Tri tableau des messages
 		TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(table.getModel());   
 		sorter.setSortable(0, true);
