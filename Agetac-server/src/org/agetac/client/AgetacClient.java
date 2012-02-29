@@ -1,13 +1,18 @@
 package org.agetac.client;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.agetac.client.model.SourceModel;
 import org.agetac.client.view.SourceView;
+import org.agetac.model.exception.InvalidJSONException;
 import org.agetac.model.impl.Intervention;
 import org.agetac.model.impl.Message;
+import org.agetac.model.impl.Source;
 import org.json.JSONException;
 import org.restlet.ext.json.JsonRepresentation;
+import org.restlet.representation.Representation;
 
 /**
  * A simple example of a "client" class for the AgetacServer.
@@ -127,16 +132,39 @@ public class AgetacClient {
 	
 	}
 	
-	private static void testCommunication2() throws JSONException{
+	private static void testCommunication2() throws JSONException, IOException, InvalidJSONException{
 		
 		ServerConnection serv = new ServerConnection("localhost", "8112", "agetacserver");
 		
 		// Création d'une intervention
 		Intervention inter = new Intervention("1");
 		JsonRepresentation interRepresentation = new JsonRepresentation(inter.toJSON());
-		
-		// Envoi sur le serveur		
 		serv.putResource(INTERVENTION, inter.getUniqueID(), interRepresentation);
+		
+		// Envoi sur le serveur
+		ArrayList<Intervention> interv = new ArrayList<Intervention>();
+		JsonRepresentation js = null;
+		Intervention i = null;
+		Representation repr = null;
+		
+		try {
+			repr = serv.getResource(INTERVENTION, "1");
+			js = new JsonRepresentation(repr);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			if ( js.getText() == "null") i = new Intervention(js.getJsonObject());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		//System.out.println(js.getText());
+		if ( js.getText() != "null") interv.add(i);
+
+		if ( js.getText() == "null") serv.putResource(INTERVENTION, inter.getUniqueID(), interRepresentation);
+		
 		//TODO : Cote serveur, empecher les uniqueID non uniques :)
 		
 		// Maintenant on crée une connexion à cette intervention
