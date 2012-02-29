@@ -32,11 +32,7 @@ public class ServerConnection {
 		
 		Representation repr = null;
 		
-		try {
-			repr = client.get();
-		} catch (ResourceException e) {
-			System.out.println("Error: " + e.getStatus());
-		}
+		repr = client.get();
 		
 		return repr;
 	}

@@ -68,6 +68,7 @@ public class AgetacServer extends Application {
 		// Crée un routeur restlet.
 		Router router = new Router(getContext());
 		// Attache les ressources au routeur.
+		router.attach("/intervention", InterventionResource.class);
 		router.attach("/intervention/{interId}", InterventionResource.class);
 		router.attach("/intervention/{interId}/message", MessageResource.class); // Tous les messages
 		router.attach("/intervention/{interId}/message/{messageId}", MessageResource.class); // Un seul message

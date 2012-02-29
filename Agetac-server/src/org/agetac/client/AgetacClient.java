@@ -1,13 +1,18 @@
 package org.agetac.client;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.agetac.client.model.SourceModel;
 import org.agetac.client.view.SourceView;
+import org.agetac.model.exception.InvalidJSONException;
 import org.agetac.model.impl.Intervention;
 import org.agetac.model.impl.Message;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.restlet.ext.json.JsonRepresentation;
+import org.restlet.representation.Representation;
 
 /**
  * A simple example of a "client" class for the AgetacServer.
@@ -30,7 +35,7 @@ public class AgetacClient {
 	 */
 	public static void main(String[] args) throws Exception {
 		
-		AgetacClient.testCommunication2();
+		AgetacClient.testCommunication3();
 
 		/*MessageModel msgModel = new MessageModel();
 		MessageView msgView = new MessageView(msgModel);
@@ -145,5 +150,33 @@ public class AgetacClient {
 		SourceModel srcModel = new SourceModel(interCon);
 		SourceView srcView = new SourceView(srcModel);
 		
+	}
+	
+private static void testCommunication3() throws JSONException, IOException, InvalidJSONException{
+		
+		ServerConnection serv = new ServerConnection("localhost", "8112", "agetacserver");
+		
+		// Création d'une intervention
+		Intervention inter = new Intervention("1");
+		JsonRepresentation interRepresentation = new JsonRepresentation(inter.toJSON());
+		
+		// Envoi sur le serveur		
+		serv.putResource(INTERVENTION, inter.getUniqueID(), interRepresentation);
+		//TODO : Cote serveur, empecher les uniqueID non uniques :)
+		
+		Representation repr = serv.getResource(INTERVENTION, null);
+		
+		JsonRepresentation representation = new JsonRepresentation(repr);
+		JSONArray ar = representation.getJsonArray();
+		
+		List<Intervention> interventions = new ArrayList<Intervention>();
+		for(int i=0; i< ar.length(); i++){
+			
+			interventions.add(new Intervention(ar.getJSONObject(i)));
+		}
+		
+		for(int i=0; i<interventions.size(); i++){
+			System.out.println(interventions.get(i).toString());
+		}
 	}
 }

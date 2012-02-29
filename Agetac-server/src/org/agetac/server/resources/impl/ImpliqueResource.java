@@ -19,10 +19,10 @@ public class ImpliqueResource extends ServerResource implements IServerResource 
 	public Representation getResource() throws Exception {
 		// Crée une representation JSON vide
 		JsonRepresentation result = null;
-		// Récupère l'identifiant unique de la resimplique demandée.
+		// Récupère l'identifiant unique de la resource demandée.
 		String interId = (String) this.getRequestAttributes().get("interId");
 		String impId = (String) this.getRequestAttributes().get("impliqueId");
-		System.out.println(impId);
+	
 		// Récupération des impliques de l'intervention
 		List<Implique> impliques = Interventions.getInstance().getIntervention(interId).getImpliques();
 
