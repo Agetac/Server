@@ -48,7 +48,7 @@ public class CibleResource extends ServerResource implements IServerResource {
 			
 			JSONArray jsonAr = new JSONArray(); //Création d'une liste Json
 			for(int i=0; i< cibles.size();i++){
-				jsonAr.put(new JSONObject(cibles.get(i).toJSON())); // On ajoute un jsonObject contenant le cible dans le jsonArray
+				jsonAr.put(cibles.get(i).toJSON()); // On ajoute un jsonObject contenant le cible dans le jsonArray
 			}
 			
 			result = new JsonRepresentation(jsonAr); // On crée la représentation de la liste

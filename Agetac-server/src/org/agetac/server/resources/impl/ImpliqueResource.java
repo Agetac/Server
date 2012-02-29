@@ -48,7 +48,7 @@ public class ImpliqueResource extends ServerResource implements IServerResource 
 			
 			JSONArray jsonAr = new JSONArray(); //Création d'une liste Json
 			for(int i=0; i< impliques.size();i++){
-				jsonAr.put(new JSONObject(impliques.get(i).toJSON())); // On ajoute un jsonObject contenant le implique dans le jsonArray
+				jsonAr.put(impliques.get(i).toJSON()); // On ajoute un jsonObject contenant le implique dans le jsonArray
 			}
 			
 			result = new JsonRepresentation(jsonAr); // On crée la représentation de la liste

@@ -46,7 +46,7 @@ public class CaserneResource extends ServerResource implements IServerResource {
 			JSONArray jsonAr = new JSONArray(); // Création d'une liste Json
 			for (int i = 0; i < casernes.size(); i++) {
 				// On ajoute un jsonObject contenant la caserne dans le jsonArray
-				jsonAr.put(new JSONObject(casernes.get(i).toJSON()));
+				jsonAr.put(casernes.get(i).toJSON());
 			}
 			// On crée la représentation de la liste
 			result = new JsonRepresentation(jsonAr);

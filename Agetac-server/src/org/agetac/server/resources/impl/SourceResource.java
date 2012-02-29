@@ -48,7 +48,7 @@ public class SourceResource extends ServerResource implements IServerResource {
 			
 			JSONArray jsonAr = new JSONArray(); //Création d'une liste Json
 			for(int i=0; i< sources.size();i++){
-				jsonAr.put(new JSONObject(sources.get(i).toJSON())); // On ajoute un jsonObject contenant le source dans le jsonArray
+				jsonAr.put(sources.get(i).toJSON()); // On ajoute un jsonObject contenant le source dans le jsonArray
 			}
 			
 			result = new JsonRepresentation(jsonAr); // On crée la représentation de la liste
