@@ -5,6 +5,10 @@ import java.awt.event.ActionListener;
 
 import org.agetac.client.model.AgentModel;
 import org.agetac.client.view.AgentView;
+import org.agetac.model.impl.Agent;
+import org.agetac.model.impl.Groupe;
+import org.agetac.model.impl.Position;
+import org.agetac.model.impl.Vehicule;
 
 public class AgentController implements ActionListener {
 
@@ -21,8 +25,14 @@ public class AgentController implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getActionCommand().equals("bouton")) {
-			// c'est le bouton
+		if (e.getActionCommand().equals("Ajouter un agent")) {
+			if (!(view.getID().equals("ID")) && !(view.getNom().equals("Nom")) && !(view.getAptitudes().equals("Aptitudes")) && !(view.getSubordonnes().equals("Subordonnes"))){
+			model.addAgent(new Agent(view.getID(), view.getNom(),null,null));
+			view.resetTxtFields();
+			}
+		}
+		else if (e.getActionCommand().equals("Supprimer un agent")) {
+			model.removeAgent(view.getSelectedLine());
 		}
 
 	}

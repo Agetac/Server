@@ -41,14 +41,14 @@ public class ImpliqueResource extends ServerResource implements IServerResource 
 				result = null;
 				getResponse().setStatus(Status.CLIENT_ERROR_NOT_ACCEPTABLE);
 			} else {
-				result = new JsonRepresentation(implique.toJson());
+				result = new JsonRepresentation(implique.toJSON());
 			}
 		// Si on veut tous les impliques
 		} else if (impId == null) {
 			
 			JSONArray jsonAr = new JSONArray(); //Création d'une liste Json
 			for(int i=0; i< impliques.size();i++){
-				jsonAr.put(new JSONObject(impliques.get(i).toJson())); // On ajoute un jsonObject contenant le implique dans le jsonArray
+				jsonAr.put(new JSONObject(impliques.get(i).toJSON())); // On ajoute un jsonObject contenant le implique dans le jsonArray
 			}
 			
 			result = new JsonRepresentation(jsonAr); // On crée la représentation de la liste
@@ -71,7 +71,7 @@ public class ImpliqueResource extends ServerResource implements IServerResource 
 		// Transforme la representation en objet java
 		JSONObject jsObj = jsonRepr.getJsonObject();
 		Implique implique = new Implique(jsObj);
-		// System.out.println("Implique : " + implique.toJson());
+		// System.out.println("Implique : " + implique.toJSON());
 
 		// Ajoute l'implique a la base de donnée
 		Intervention i = Interventions.getInstance().getIntervention(interId);

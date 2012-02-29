@@ -41,14 +41,14 @@ public class SourceResource extends ServerResource implements IServerResource {
 				result = null;
 				getResponse().setStatus(Status.CLIENT_ERROR_NOT_ACCEPTABLE);
 			} else {
-				result = new JsonRepresentation(source.toJson());
+				result = new JsonRepresentation(source.toJSON());
 			}
 		// Si on veut tous les sources
 		} else if (srcId == null) {
 			
 			JSONArray jsonAr = new JSONArray(); //Création d'une liste Json
 			for(int i=0; i< sources.size();i++){
-				jsonAr.put(new JSONObject(sources.get(i).toJson())); // On ajoute un jsonObject contenant le source dans le jsonArray
+				jsonAr.put(new JSONObject(sources.get(i).toJSON())); // On ajoute un jsonObject contenant le source dans le jsonArray
 			}
 			
 			result = new JsonRepresentation(jsonAr); // On crée la représentation de la liste
@@ -71,7 +71,7 @@ public class SourceResource extends ServerResource implements IServerResource {
 		// Transforme la representation en objet java
 		JSONObject jsObj = jsonRepr.getJsonObject();
 		Source source = new Source(jsObj);
-		// System.out.println("Source : " + source.toJson());
+		// System.out.println("Source : " + source.toJSON());
 
 		// Ajoute l'source a la base de donnée
 		Intervention i = Interventions.getInstance().getIntervention(interId);

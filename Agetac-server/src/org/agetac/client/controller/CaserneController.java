@@ -5,6 +5,8 @@ import java.awt.event.ActionListener;
 
 import org.agetac.client.model.CaserneModel;
 import org.agetac.client.view.CaserneView;
+import org.agetac.model.impl.Caserne;
+import org.agetac.model.impl.Message;
 
 public class CaserneController implements ActionListener {
 
@@ -20,9 +22,16 @@ public class CaserneController implements ActionListener {
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
-
+	public void actionPerformed(ActionEvent e) {
+		if (e.getActionCommand().equals("Ajouter une caserne")) {
+			if (!(view.getID().equals("ID")) && !(view.getNom().equals("Nom")) && !(view.getMoyens().equals("Moyens"))){
+			model.addCaserne(new Caserne(view.getID(), view.getNom(), null));
+			view.resetTxtFields();
+			}
+		}
+		else if (e.getActionCommand().equals("Supprimer une caserne")) {
+			model.removeCaserne(view.getSelectedLine());
+		}
 	}
 
 }

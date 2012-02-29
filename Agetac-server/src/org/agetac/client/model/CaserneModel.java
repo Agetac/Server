@@ -51,8 +51,10 @@ public class CaserneModel extends AbstractTableModel implements Observer{
 	}
 
 	public void removeCaserne(int rowIndex) {
+		if (rowIndex != -1){
 		casernes.remove(rowIndex);
 		fireTableRowsDeleted(rowIndex, rowIndex);
+	}
 	}
 
 	

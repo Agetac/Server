@@ -57,9 +57,11 @@ public class AgentModel extends AbstractTableModel implements Observer{
 	}
 
 	public void removeAgent(int rowIndex) {
+		if (rowIndex != -1){
 		agents.remove(rowIndex);
 		// InterventionConnection.removerowIndex);
 		fireTableRowsDeleted(rowIndex, rowIndex);
+	}
 	}
 
 	

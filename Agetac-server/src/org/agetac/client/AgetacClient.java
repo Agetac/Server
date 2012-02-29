@@ -1,25 +1,12 @@
 package org.agetac.client;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import org.agetac.client.model.AgentModel;
-import org.agetac.client.model.CaserneModel;
-import org.agetac.client.model.InterventionModel;
-import org.agetac.client.model.MessageModel;
-import org.agetac.client.model.VehiculeModel;
-import org.agetac.client.view.AgentView;
-import org.agetac.client.view.CaserneView;
-import org.agetac.client.view.InterventionView;
-import org.agetac.client.view.MessageView;
-import org.agetac.client.view.VehiculeView;
-import org.agetac.model.impl.Agent;
-import org.agetac.model.impl.Caserne;
-import org.agetac.model.impl.Groupe;
+import org.agetac.client.model.SourceModel;
+import org.agetac.client.view.SourceView;
 import org.agetac.model.impl.Intervention;
 import org.agetac.model.impl.Message;
-import org.agetac.model.impl.Position;
-import org.agetac.model.impl.Vehicule;
+import org.json.JSONException;
 import org.restlet.ext.json.JsonRepresentation;
 
 /**
@@ -42,11 +29,11 @@ public class AgetacClient {
 	 *             If problems occur.
 	 */
 	public static void main(String[] args) throws Exception {
-
-		MessageModel msgModel = new MessageModel();
-		MessageView msgView = new MessageView(msgModel);
 		
-		AgetacClient.testCommunication();
+		AgetacClient.testCommunication2();
+
+		/*MessageModel msgModel = new MessageModel();
+		MessageView msgView = new MessageView(msgModel);
 
 		AgentModel agentModel = new AgentModel();
 		AgentView agentView = new AgentView(agentModel);
@@ -56,15 +43,17 @@ public class AgetacClient {
 		InterventionView interventionView = new InterventionView(interventionModel);
 		CaserneModel casModel = new CaserneModel();
 		CaserneView casView = new CaserneView(casModel);
+		SourceModel srcModel = new SourceModel();
+		SourceView srcView = new SourceView(srcModel);*/
 	}
 	
-	private static void testCommunication(){
+	private static void testCommunication() throws JSONException{
 		
 		ServerConnection serv = new ServerConnection("localhost", "8112", "agetacserver");
 		
 		// Création d'une intervention
 		Intervention inter = new Intervention("1");
-		JsonRepresentation interRepresentation = new JsonRepresentation(inter.toJson());
+		JsonRepresentation interRepresentation = new JsonRepresentation(inter.toJSON());
 		
 		// Envoi sur le serveur		
 		serv.putResource(INTERVENTION, inter.getUniqueID(), interRepresentation);
@@ -111,14 +100,16 @@ public class AgetacClient {
 		/**
 		 * VEHICULES
 		 */
-		
+
+		/*
 		Caserne c = new Caserne("1", "Janzé", null);
+
 		
 		Agent bob = new Agent("a1", "Bob", Agent.Aptitude.CDG, new ArrayList<Agent>());
-		Groupe g1 = new Groupe(bob, new ArrayList<Agent>(), new ArrayList<Vehicule>());
+		Groupe g1 = new Groupe("g", bob, new ArrayList<Agent>(), new ArrayList<Vehicule>());
 		
 		// Création d'un vehicule 
-		Vehicule v1 = new Vehicule("v1", "FPT1", new Position(48.12244, 54.24444), c, Vehicule.EtatVehicule.ALERTE, g1);
+		Vehicule v1 = new Vehicule("v1", "FPT1", new Position(48.12244, 54.24444), c.getName(), Vehicule.EtatVehicule.ALERTE, g1);
 		// Envoi du message a l'intervention
 		System.out.println("Envoi d'un vehicule");
 		interCon.putVehicule(v1);
@@ -132,7 +123,27 @@ public class AgetacClient {
 		for(int i=0; i<messages.size(); i++){
 			System.out.println(" - " + vehicules.get(i).getUniqueID() + " : " + vehicules.get(i).getName());
 		}
-		
+		*/
 	
+	}
+	
+	private static void testCommunication2() throws JSONException{
+		
+		ServerConnection serv = new ServerConnection("localhost", "8112", "agetacserver");
+		
+		// Création d'une intervention
+		Intervention inter = new Intervention("1");
+		JsonRepresentation interRepresentation = new JsonRepresentation(inter.toJSON());
+		
+		// Envoi sur le serveur		
+		serv.putResource(INTERVENTION, inter.getUniqueID(), interRepresentation);
+		//TODO : Cote serveur, empecher les uniqueID non uniques :)
+		
+		// Maintenant on crée une connexion à cette intervention
+		InterventionConnection interCon = new InterventionConnection(inter.getUniqueID(), serv);
+		
+		SourceModel srcModel = new SourceModel(interCon);
+		SourceView srcView = new SourceView(srcModel);
+		
 	}
 }
