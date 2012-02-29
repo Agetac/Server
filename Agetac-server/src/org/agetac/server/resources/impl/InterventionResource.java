@@ -1,14 +1,14 @@
 package org.agetac.server.resources.impl;
 
+import java.util.List;
+
 import org.agetac.model.impl.Intervention;
 import org.agetac.server.db.Interventions;
 import org.agetac.server.resources.sign.IServerResource;
+import org.json.JSONArray;
 import org.restlet.data.Status;
 import org.restlet.ext.json.JsonRepresentation;
 import org.restlet.representation.Representation;
-import org.restlet.resource.Delete;
-import org.restlet.resource.Get;
-import org.restlet.resource.Put;
 import org.restlet.resource.ServerResource;
 
 public class InterventionResource  extends ServerResource implements IServerResource{
@@ -22,23 +22,43 @@ public class InterventionResource  extends ServerResource implements IServerReso
 	 *             devrait pas arriver en pratique mais si c'est le cas, Restlet
 	 *             met le bon code status.
 	 */
-	@Get
+	@Override
 	public Representation getResource() throws Exception {
 		// Crée une representation JSON vide
 		JsonRepresentation result = null;
 		// Récupère l'identifiant unique de la ressource demandée.
 		String uniqueID = (String) this.getRequestAttributes().get("uniqueID");
-		// System.out.println(uniqueID);
-		// La recherche dans la base de données.
-		Intervention intervention = Interventions.getInstance().getIntervention(uniqueID);
-		if (intervention == null) {
-			// Ressource non-trouvé, envois du code status 406
-			getResponse().setStatus(Status.CLIENT_ERROR_NOT_ACCEPTABLE);
-		} else {
-			// Ressource trouvé, envoie de la représentation Json
-			result = new JsonRepresentation(intervention.toJSON());
-			// Le code status par défaut est 200 s'il n'est pas
+		
+		if(uniqueID != null){
+			
+			Intervention intervention = null;
+			
+			// La recherche dans la base de données.
+			intervention = Interventions.getInstance().getIntervention(uniqueID);
+			if (intervention == null) {
+				// Ressource non-trouvé, envois du code status 406
+				getResponse().setStatus(Status.CLIENT_ERROR_NOT_ACCEPTABLE);
+			} else {
+				// Ressource trouvé, envoie de la représentation Json
+				result = new JsonRepresentation(intervention.toJSON());
+				// Le code status par défaut est 200 s'il n'est pas
+			}
+
+			
+		// Si on veut toutes les interventions
+		} else if (uniqueID == null) {
+			
+			List<Intervention> interventions = Interventions.getInstance().getInterventions();
+			
+			JSONArray jsonAr = new JSONArray(); //Création d'une liste Json
+			for(int i=0; i < interventions.size(); i++){
+				jsonAr.put(interventions.get(i).toJSON()); // On ajoute un jsonObject contenant le implique dans le jsonArray
+			}
+			
+			result = new JsonRepresentation(jsonAr); // On crée la représentation de la liste
+			
 		}
+		
 		// Retourne la représentation, le code status indique au client si elle
 		// est valide
 		return result;
@@ -53,7 +73,7 @@ public class InterventionResource  extends ServerResource implements IServerReso
 	 * @throws Exception
 	 *             En cas de problème de lecture de la representation.
 	 */
-	@Put
+	@Override
 	public Representation putResource(Representation representation)
 			throws Exception {
 		// Récupère la représentation JSON de l'intervention
@@ -79,7 +99,7 @@ public class InterventionResource  extends ServerResource implements IServerReso
 	 * 
 	 * @return null.
 	 */
-	@Delete
+	@Override
 	public Representation deleteResource() {
 		// Récupère l'id dans l'url
 		String uniqueID = (String) this.getRequestAttributes().get("uniqueID");
