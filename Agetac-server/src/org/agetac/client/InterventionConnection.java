@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.agetac.client.api.InterventionApi;
 import org.agetac.client.exception.BadResponseException;
 import org.agetac.model.exception.InvalidJSONException;
 import org.agetac.model.impl.Action;
@@ -17,7 +18,7 @@ import org.json.JSONException;
 import org.restlet.ext.json.JsonRepresentation;
 import org.restlet.representation.Representation;
 
-public class InterventionConnection {
+public class InterventionConnection implements InterventionApi{
 
 	private String interId;
 	private ServerConnection serv;
@@ -342,5 +343,55 @@ public class InterventionConnection {
 	public void deleteImplique(Implique i) throws BadResponseException {
 		serv.deleteResource("intervention/" + interId + "/implique",
 				i.getUniqueID());
+	}
+
+	@Override
+	public void postVehicule(Vehicule v) throws JSONException,
+			BadResponseException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void postSource(Source s) throws JSONException, BadResponseException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<Cible> getCibles() throws BadResponseException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void postCible(Cible c) throws JSONException, BadResponseException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<Action> getActions() throws BadResponseException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void postAction(Action c) throws JSONException, BadResponseException {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<Implique> getImpliques() throws BadResponseException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void postImplique(Implique c) throws JSONException,
+			BadResponseException {
+		// TODO Auto-generated method stub
+		
 	}
 }

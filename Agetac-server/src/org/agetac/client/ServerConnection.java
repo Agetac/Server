@@ -1,11 +1,12 @@
 package org.agetac.client;
 
+import org.agetac.client.api.ServerApi;
 import org.agetac.client.exception.BadResponseException;
 import org.restlet.representation.Representation;
 import org.restlet.resource.ClientResource;
 import org.restlet.resource.ResourceException;
 
-public class ServerConnection {
+public class ServerConnection implements ServerApi{
 
 	private String host;
 	private String contextRoot;
