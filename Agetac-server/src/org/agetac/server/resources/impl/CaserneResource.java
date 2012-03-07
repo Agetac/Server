@@ -19,7 +19,6 @@ public class CaserneResource extends ServerResource implements IServerResource {
 		JsonRepresentation result = null;
 		// Récupère l'identifiant unique de la ressource demandée.
 		String casId = (String) this.getRequestAttributes().get("caserneId");
-		System.out.println(casId);
 		// Récupération des casernes de l'intervention
 		List<Caserne> casernes = Casernes.getInstance().getCasernes();
 
@@ -77,18 +76,10 @@ public class CaserneResource extends ServerResource implements IServerResource {
 	@Override
 	public Representation deleteResource() {
 		// Récupère l'id dans l'url
-		String interId = (String) this.getRequestAttributes().get("interId");
 		String casId = (String) this.getRequestAttributes().get("caserneId");
-		
 		
 		// On s'assure qu'il n'est plus présent en base de données
 		Casernes.getInstance().deleteCaserne(casId);
-		
-		//for (int i = 0; i < casernes.size(); i++) {
-		//	if (casernes.get(i).getUniqueID().equals(casId)) {
-		//		casernes.remove(casernes.get(i));
-		//	}
-		//}
 		
 		return null;
 	}

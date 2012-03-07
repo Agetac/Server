@@ -19,10 +19,11 @@ public class ActionResource extends ServerResource implements IServerResource {
 	public Representation getResource() throws Exception {
 		// Crée une representation JSON vide
 		JsonRepresentation result = null;
+		
 		// Récupère l'identifiant unique de la ressource demandée.
 		String interId = (String) this.getRequestAttributes().get("interId");
 		String actId = (String) this.getRequestAttributes().get("actionId");
-		//System.out.println(actId);
+		
 		// Récupération des actions de l'intervention
 		List<Action> actions = Interventions.getInstance().getIntervention(interId).getActions();
 
@@ -36,14 +37,14 @@ public class ActionResource extends ServerResource implements IServerResource {
 					action = actions.get(i);
 				}
 			}
-			// Si le action n'est pas trouvé
+			// Si l'action n'est pas trouvé
 			if (action == null) {
 				result = null;
 				getResponse().setStatus(Status.CLIENT_ERROR_NOT_ACCEPTABLE);
 			} else {
 				result = new JsonRepresentation(action.toJSON());
 			}
-		// Si on veut tous les actions
+		// Si on veut toutes les actions
 		} else if (actId == null) {
 			
 			JSONArray jsonAr = new JSONArray(); //Création d'une liste Json
@@ -66,12 +67,10 @@ public class ActionResource extends ServerResource implements IServerResource {
 
 		// Récupère la représentation JSON du action
 		JsonRepresentation jsonRepr = new JsonRepresentation(representation);
-		// System.out.println("JsonRepresentation : " + jsonRepr.getText());
 
 		// Transforme la representation en objet java
 		JSONObject jsObj = jsonRepr.getJsonObject();
 		Action action = new Action(jsObj);
-		// System.out.println("Action : " + action.toJSON());
 
 		// Ajoute l'action a la base de donnée
 		Intervention inter = Interventions.getInstance().getIntervention(interId);
@@ -82,6 +81,9 @@ public class ActionResource extends ServerResource implements IServerResource {
 			if(la.get(i).getUniqueID().equals(action.getUniqueID())){
 				// Ressource déja existante, envois du code status 406
 				getResponse().setStatus(Status.CLIENT_ERROR_NOT_ACCEPTABLE);
+				
+				// TODO : Envoie d'une exception signalant l'erreur
+				
 				return null;
 			}
 		}

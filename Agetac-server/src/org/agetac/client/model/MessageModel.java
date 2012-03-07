@@ -8,9 +8,9 @@ import java.util.Observer;
 import javax.swing.table.AbstractTableModel;
 
 import org.agetac.client.InterventionConnection;
+import org.agetac.client.exception.BadResponseException;
 import org.agetac.model.impl.Message;
 import org.agetac.observer.Subject;
-import org.agetac.server.db.Messages;
 import org.json.JSONException;
 
 public class MessageModel extends AbstractTableModel implements Observer{
@@ -22,7 +22,12 @@ public class MessageModel extends AbstractTableModel implements Observer{
 	public MessageModel(InterventionConnection i) {
 		super();
 		interCon = i;
-		messages = interCon.getMessages();
+		try {
+			messages = interCon.getMessages();
+		} catch (BadResponseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public int getRowCount() {
@@ -58,22 +63,30 @@ public class MessageModel extends AbstractTableModel implements Observer{
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (BadResponseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		fireTableRowsInserted(messages.size() - 1, messages.size() - 1);
 	}
 
 	public void removeMessage(int rowIndex) {
 		if (rowIndex != -1){
-			interCon.deleteMessage(messages.get(rowIndex));
-			messages.remove(rowIndex);
-			fireTableRowsDeleted(rowIndex, rowIndex);
+			try {
+				interCon.deleteMessage(messages.get(rowIndex));
+				messages.remove(rowIndex);
+				fireTableRowsDeleted(rowIndex, rowIndex);
+			} catch (BadResponseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
 		}
 	}
 
 	
 	public void update(Subject s) {
 		System.out.println("MessageTableModel.update");
-		messages = Messages.getInstance().getMessages();
 	}
 
 	@Override

@@ -27,7 +27,7 @@ public class InterventionResource  extends ServerResource implements IServerReso
 		// Crée une representation JSON vide
 		JsonRepresentation result = null;
 		// Récupère l'identifiant unique de la ressource demandée.
-		String uniqueID = (String) this.getRequestAttributes().get("uniqueID");
+		String uniqueID = (String) this.getRequestAttributes().get("interId");
 		
 		if(uniqueID != null){
 			
@@ -102,7 +102,7 @@ public class InterventionResource  extends ServerResource implements IServerReso
 	@Override
 	public Representation deleteResource() {
 		// Récupère l'id dans l'url
-		String uniqueID = (String) this.getRequestAttributes().get("uniqueID");
+		String uniqueID = (String) this.getRequestAttributes().get("interId");
 		// On s'assure qu'il n'est plus présent en base de données
 		Interventions.getInstance().deleteIntervention(uniqueID);
 		return null;

@@ -8,6 +8,7 @@ import java.util.Observer;
 import javax.swing.table.AbstractTableModel;
 
 import org.agetac.client.InterventionConnection;
+import org.agetac.client.exception.BadResponseException;
 import org.agetac.model.impl.Source;
 import org.agetac.observer.Subject;
 import org.agetac.server.db.Sources;
@@ -22,7 +23,12 @@ public class SourceModel extends AbstractTableModel implements Observer{
 	public SourceModel(InterventionConnection i) {
 		super();
 		interCon = i;
-		sources = interCon.getSources();
+		try {
+			sources = interCon.getSources();
+		} catch (BadResponseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public int getRowCount() {
@@ -55,15 +61,24 @@ public class SourceModel extends AbstractTableModel implements Observer{
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (BadResponseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		fireTableRowsInserted(sources.size() - 1, sources.size() - 1);
 	}
 
 	public void removeSource(int rowIndex) {
 		if (rowIndex != -1){
-			interCon.deleteSource(sources.get(rowIndex));
-			sources.remove(rowIndex);
-			fireTableRowsDeleted(rowIndex, rowIndex);
+			try {
+				interCon.deleteSource(sources.get(rowIndex));
+				sources.remove(rowIndex);
+				fireTableRowsDeleted(rowIndex, rowIndex);
+			} catch (BadResponseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 		}
 	}
 

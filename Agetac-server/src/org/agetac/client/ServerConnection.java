@@ -1,5 +1,6 @@
 package org.agetac.client;
 
+import org.agetac.client.exception.BadResponseException;
 import org.restlet.representation.Representation;
 import org.restlet.resource.ClientResource;
 import org.restlet.resource.ResourceException;
@@ -18,7 +19,7 @@ public class ServerConnection {
 
 	}
 
-	public Representation getResource(String resType, String resUniqueID) {
+	public Representation getResource(String resType, String resUniqueID) throws BadResponseException{
 		
 		String url = baseUrl() + resType;
 		
@@ -32,13 +33,17 @@ public class ServerConnection {
 		
 		Representation repr = null;
 		
-		repr = client.get();
+		try {
+			repr = client.get();
+		} catch (Exception e) {
+			throw(new BadResponseException(client.getResponse()));
+		}
 		
 		return repr;
 	}
 
 
-	public void putResource(String resType, String resUniqueID,	Representation resRepresentation) {
+	public void putResource(String resType, String resUniqueID,	Representation resRepresentation) throws BadResponseException {
 
 		String url = baseUrl() + resType;
 		
@@ -51,12 +56,12 @@ public class ServerConnection {
 		try {
 			client.put(resRepresentation);
 		} catch (ResourceException e) {
-			System.out.println("Error: " + e.getStatus());
+			throw(new BadResponseException(client.getResponse()));
 		}
 		
 	}
 
-	public void postResource(String resType, String resUniqueID, Representation resRepresentation) {
+	public void postResource(String resType, String resUniqueID, Representation resRepresentation) throws BadResponseException {
 
 		String url = baseUrl() + resType;
 		
@@ -69,13 +74,13 @@ public class ServerConnection {
 		try {
 			client.post(resRepresentation);
 		} catch (ResourceException e) {
-			System.out.println("Error: " + e.getStatus());
+			throw(new BadResponseException(client.getResponse()));
 		}
 		
 	}
 
 	
-	public void deleteResource(String resType, String resUniqueID) {
+	public void deleteResource(String resType, String resUniqueID) throws BadResponseException {
 
 		String url = baseUrl() + resType;
 		
@@ -88,7 +93,7 @@ public class ServerConnection {
 		try {
 			client.delete();
 		} catch (ResourceException e) {
-			System.out.println("Error: " + e.getStatus());
+			throw(new BadResponseException(client.getResponse()));
 		}
 		
 	}

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.agetac.client.exception.BadResponseException;
 import org.agetac.client.model.MessageModel;
 import org.agetac.client.model.SourceModel;
 import org.agetac.client.view.MessageView;
@@ -55,7 +56,7 @@ public class AgetacClient {
 		SourceView srcView = new SourceView(srcModel);*/
 	}
 	
-	private static void testCommunication() throws JSONException{
+	private static void testCommunication() throws BadResponseException, JSONException {
 		
 		ServerConnection serv = new ServerConnection("localhost", "8112", "agetacserver");
 		
@@ -135,7 +136,7 @@ public class AgetacClient {
 	
 	}
 	
-	private static void testCommunication2() throws JSONException, IOException, InvalidJSONException{
+	private static void testCommunication2() throws JSONException, IOException, InvalidJSONException, BadResponseException{
 		
 		ServerConnection serv = new ServerConnection("localhost", "8112", "agetacserver");
 		
@@ -171,7 +172,7 @@ public class AgetacClient {
 		
 	}
 	
-private static void testCommunication3() throws JSONException, IOException, InvalidJSONException{
+private static void testCommunication3() throws JSONException, IOException, InvalidJSONException, BadResponseException{
 		
 		ServerConnection serv = new ServerConnection("localhost", "8112", "agetacserver");
 		
