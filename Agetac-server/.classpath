@@ -8,5 +8,12 @@
 	<classpathentry kind="lib" path="lib/restlet/org.restlet.jar"/>
 	<classpathentry kind="lib" path="lib/restlet/org.restlet.ext.json.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/Agetac-model"/>
+	<classpathentry kind="lib" path="/Agetac-model/lib/jdo/asm-3.3.jar"/>
+	<classpathentry kind="lib" path="/Agetac-model/lib/jdo/datanucleus-api-jdo-3.0.5.jar"/>
+	<classpathentry kind="lib" path="/Agetac-model/lib/jdo/datanucleus-core-3.0.6.jar"/>
+	<classpathentry kind="lib" path="/Agetac-model/lib/jdo/datanucleus-enhancer-3.0.1.jar"/>
+	<classpathentry kind="lib" path="/Agetac-model/lib/jdo/jdo-api-3.1-SNAPSHOT-20110926.jar"/>
+	<classpathentry kind="lib" path="lib/jdo/datanucleus-rdbms-3.0.6.jar"/>
+	<classpathentry kind="lib" path="lib/jdo/hsqldb-1.8.0.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

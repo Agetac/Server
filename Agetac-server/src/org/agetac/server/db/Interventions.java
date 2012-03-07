@@ -1,11 +1,13 @@
 package org.agetac.server.db;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
+
+import javax.jdo.PersistenceManager;
+import javax.jdo.Transaction;
 
 import org.agetac.model.impl.Intervention;
+
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 /**
  * Représentation mémoire de toutes les interventions Aucun stockage persistant.
@@ -13,8 +15,6 @@ import org.agetac.model.impl.Intervention;
  */
 
 public class Interventions {
-	/** Table des intervention indicés par leur uniqueID */
-	private Map<String, Intervention> uniqueID2Intervention = new ConcurrentHashMap<String, Intervention>();
 
 	/** Singleton */
 	private static Interventions theInstance = new Interventions();
@@ -41,7 +41,19 @@ public class Interventions {
 	 *            L'intervention à ajouter.
 	 */
 	public synchronized void addIntervention(Intervention intervention) {
-		uniqueID2Intervention.put(intervention.getUniqueID(), intervention);
+		PersistenceManager pm = PersistenceManagerUtils.getPM();
+
+		Transaction tx = pm.currentTransaction();
+		try {
+			tx.begin();
+			pm.makePersistent(intervention);
+			tx.commit();
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			pm.close();
+		}
 	}
 
 	/**
@@ -52,8 +64,18 @@ public class Interventions {
 	 *            L'uniqueID à trouver
 	 * @return L'instance de l'intervention ou null.
 	 */
-	public synchronized Intervention getIntervention(String uniqueID) {
-		return uniqueID2Intervention.get(uniqueID);
+	public synchronized Intervention getIntervention(String uid) {
+		PersistenceManager pm = PersistenceManagerUtils.getPM();
+
+		try {
+			Object idInstance = pm.newObjectIdInstance(Intervention.class, uid);
+			Intervention intervention = (Intervention) pm
+					.getObjectById(idInstance);
+			return intervention;
+		} catch (Exception ex) {
+			return null;
+		}
+
 	}
 
 	/**
@@ -64,7 +86,29 @@ public class Interventions {
 	 *            l'uniqueID a supprimer si présent.
 	 */
 	public synchronized void deleteIntervention(String uniqueID) {
-		uniqueID2Intervention.remove(uniqueID);
+		PersistenceManager pm = PersistenceManagerUtils.getPM();
+
+		Transaction tx = pm.currentTransaction();
+		try {
+			tx.begin();
+
+			Object idInstance = pm.newObjectIdInstance(Intervention.class,
+					uniqueID);
+			Intervention intervention = (Intervention) pm
+					.getObjectById(idInstance);
+			if (intervention == null)
+				return;
+
+			pm.deletePersistent(intervention);
+
+			tx.commit();
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+
+			pm.close();
+		}
 	}
 
 	/**
@@ -73,7 +117,6 @@ public class Interventions {
 	 * @return Collection d'instance d'intervention
 	 */
 	public synchronized List<Intervention> getInterventions() {
-		List<Intervention> interventions = new ArrayList<Intervention>(uniqueID2Intervention.values());
-		return interventions;
+		throw new NotImplementedException();
 	}
 }

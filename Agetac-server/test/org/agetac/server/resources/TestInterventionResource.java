@@ -55,7 +55,22 @@ public class TestInterventionResource {
 				uniqueID);
 		ClientResource client = new ClientResource(testUrl);
 
-		// On construit la représentation JSON de la ressource testée 
+		// On construit la représentation JSON de la ressource testée
+		/*
+		 * FIXME This is the wrong way (I think). Normally, *no* client should put/add new
+		 * interventions (why? see bellow). Clients play with what they get from the server. For example,
+		 * if a client wants to add a new "Cible", it should call http://agetac.org/intervention/new
+		 * which would return him a new Intervention (with a uniqueId generated).
+		 * 
+		 * The problem is that a client cannot generate a uniqueId for any model object. Imagine we
+		 * have a bunch of clients, everyone on a different location, everyone trying to add a new 
+		 * intervention with uniqueId = 25653224.
+		 * 
+		 * I'm not sure what I propose (above) is the best solution to this problem, but this is 
+		 * something we need to think of. This is why we need a "communication protocol" that is
+		 * supposed to solve this kind of problems.
+		 *  - George
+		 */
 		Intervention test_inter1 = new Intervention("test");
 		JsonRepresentation representation = new JsonRepresentation(test_inter1.toJSON());
 
