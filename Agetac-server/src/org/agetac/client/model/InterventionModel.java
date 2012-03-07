@@ -8,13 +8,13 @@ import java.util.Observer;
 import javax.swing.table.AbstractTableModel;
 
 import org.agetac.model.impl.Intervention;
-import org.agetac.observer.Subject;
 
-public class InterventionModel extends AbstractTableModel implements Observer{
-	
+public class InterventionModel extends AbstractTableModel {
+
 	private List<Intervention> interventions;
-	private final String[] entetes = { "ID", "Lieu", "Moyens", "Cibles","Sources", "Actions", "Messages", "Impliques" };
-	
+	private final String[] entetes = { "ID", "Lieu", "Moyens", "Cibles",
+			"Sources", "Actions", "Messages", "Impliques" };
+
 	public InterventionModel() {
 		super();
 		interventions = new ArrayList<Intervention>();
@@ -50,7 +50,7 @@ public class InterventionModel extends AbstractTableModel implements Observer{
 			return interventions.get(rowIndex).getMessages();
 		case 7:
 			return interventions.get(rowIndex).getImpliques();
-			
+
 		default:
 			return null; // Ne devrait jamais arriver
 		}
@@ -58,28 +58,17 @@ public class InterventionModel extends AbstractTableModel implements Observer{
 
 	public void addIntervention(Intervention inter) {
 		interventions.add(inter);
-		fireTableRowsInserted(interventions.size() - 1, interventions.size() - 1);
+		fireTableRowsInserted(interventions.size() - 1,
+				interventions.size() - 1);
 	}
 
 	public void removeIntervention(int rowIndex) {
-		if (rowIndex != -1){
-		interventions.remove(rowIndex);
+		if (rowIndex != -1) {
+			interventions.remove(rowIndex);
 
-		fireTableRowsDeleted(rowIndex, rowIndex);
-	}
-		
-	}
+			fireTableRowsDeleted(rowIndex, rowIndex);
+		}
 
-	
-	public void update(Subject s) {
-		System.out.println("InterventionModel.update");
-		//interventions = Interventions.getInstance().getInterventions(); // meme pb que pr agentModel
-	}
-
-	@Override
-	public void update(Observable arg0, Object arg1) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }

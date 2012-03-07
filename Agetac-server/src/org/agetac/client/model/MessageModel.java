@@ -10,11 +10,10 @@ import javax.swing.table.AbstractTableModel;
 import org.agetac.client.InterventionConnection;
 import org.agetac.client.exception.BadResponseException;
 import org.agetac.model.impl.Message;
-import org.agetac.observer.Subject;
 import org.json.JSONException;
 
-public class MessageModel extends AbstractTableModel implements Observer{
-	
+public class MessageModel extends AbstractTableModel implements Observer {
+
 	private List<Message> messages;
 	private final String[] entetes = { "ID", "Groupe Horaire", "Message" };
 	private InterventionConnection interCon;
@@ -57,21 +56,21 @@ public class MessageModel extends AbstractTableModel implements Observer{
 	}
 
 	public void addMessage(Message msg) {
-		messages.add(msg);
+
 		try {
 			interCon.putMessage(msg);
+			messages.add(msg);
+			fireTableRowsInserted(messages.size() - 1, messages.size() - 1);
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (BadResponseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		fireTableRowsInserted(messages.size() - 1, messages.size() - 1);
+
 	}
 
 	public void removeMessage(int rowIndex) {
-		if (rowIndex != -1){
+		if (rowIndex != -1) {
 			try {
 				interCon.deleteMessage(messages.get(rowIndex));
 				messages.remove(rowIndex);
@@ -80,20 +79,14 @@ public class MessageModel extends AbstractTableModel implements Observer{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		
-		}
-	}
 
-	
-	public void update(Subject s) {
-		System.out.println("MessageTableModel.update");
+		}
 	}
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
 
 }

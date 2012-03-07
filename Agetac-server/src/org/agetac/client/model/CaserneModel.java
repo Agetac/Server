@@ -2,19 +2,15 @@ package org.agetac.client.model;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
-
 import javax.swing.table.AbstractTableModel;
 
 import org.agetac.model.impl.Caserne;
-import org.agetac.observer.Subject;
 
-public class CaserneModel extends AbstractTableModel implements Observer{
-	
+public class CaserneModel extends AbstractTableModel {
+
 	private List<Caserne> casernes;
-	private final String[] entetes = { "ID", "Nom", "Moyens"};
-	
+	private final String[] entetes = { "ID", "Nom", "Moyens" };
+
 	public CaserneModel() {
 		super();
 		casernes = new ArrayList<Caserne>();
@@ -39,7 +35,7 @@ public class CaserneModel extends AbstractTableModel implements Observer{
 		case 1:
 			return casernes.get(rowIndex).getName();
 		case 2:
-			return casernes.get(rowIndex).getVehicules();			
+			return casernes.get(rowIndex).getVehicules();
 		default:
 			return null; // Ne devrait jamais arriver
 		}
@@ -51,22 +47,10 @@ public class CaserneModel extends AbstractTableModel implements Observer{
 	}
 
 	public void removeCaserne(int rowIndex) {
-		if (rowIndex != -1){
-		casernes.remove(rowIndex);
-		fireTableRowsDeleted(rowIndex, rowIndex);
-	}
-	}
-
-	
-	public void update(Subject s) {
-		System.out.println("CaserneModel.update");
-		//casernes = Casernes.getInstance().getCasernes(); // meme pb que pr agentModel
-	}
-
-	@Override
-	public void update(Observable arg0, Object arg1) {
-		// TODO Auto-generated method stub
-		
+		if (rowIndex != -1) {
+			casernes.remove(rowIndex);
+			fireTableRowsDeleted(rowIndex, rowIndex);
+		}
 	}
 
 }

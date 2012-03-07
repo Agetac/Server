@@ -10,14 +10,13 @@ import javax.swing.table.AbstractTableModel;
 import org.agetac.client.InterventionConnection;
 import org.agetac.client.exception.BadResponseException;
 import org.agetac.model.impl.Source;
-import org.agetac.observer.Subject;
 import org.agetac.server.db.Sources;
 import org.json.JSONException;
 
-public class SourceModel extends AbstractTableModel implements Observer{
-	
+public class SourceModel extends AbstractTableModel implements Observer {
+
 	private List<Source> sources;
-	private final String[] entetes = { "ID", "Position"};
+	private final String[] entetes = { "ID", "Position" };
 	private InterventionConnection interCon;
 
 	public SourceModel(InterventionConnection i) {
@@ -69,7 +68,7 @@ public class SourceModel extends AbstractTableModel implements Observer{
 	}
 
 	public void removeSource(int rowIndex) {
-		if (rowIndex != -1){
+		if (rowIndex != -1) {
 			try {
 				interCon.deleteSource(sources.get(rowIndex));
 				sources.remove(rowIndex);
@@ -78,21 +77,14 @@ public class SourceModel extends AbstractTableModel implements Observer{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
-		}
-	}
 
-	
-	public void update(Subject s) {
-		System.out.println("MessageTableModel.update");
-		sources = Sources.getInstance().getSources();
+		}
 	}
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
 
 }

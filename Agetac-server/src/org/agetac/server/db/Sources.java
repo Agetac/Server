@@ -1,20 +1,15 @@
 package org.agetac.server.db;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.agetac.model.impl.Source;
-import org.agetac.observer.Observer;
-import org.agetac.observer.Subject;
 
-public class Sources implements Subject{
+public class Sources{
 	
-	/** Liste des observer **/
-	private Collection<Observer> observers = new ArrayList<Observer>();
 	
 	/** Table des intervention indicés par leur uniqueID */
 	private Map<String, Source> uniqueID2Source = new ConcurrentHashMap<String, Source>();
@@ -45,8 +40,6 @@ public class Sources implements Subject{
 	 */
 	public synchronized void addSource(Source source) {
 		uniqueID2Source.put(source.getUniqueID(), source);
-		notifyObserver();
-		System.out.println("DB add :" + this.getSources().toString());
 	}
 
 	/**
@@ -74,8 +67,6 @@ public class Sources implements Subject{
 	 */
 	public synchronized void deleteSource(String uniqueID) {
 		uniqueID2Source.remove(uniqueID);
-		notifyObserver();
-		System.out.println(this.getSources().toString());
 	}
 
 	/**
@@ -90,25 +81,6 @@ public class Sources implements Subject{
 			ls.add(it.next());
 		}
 		return ls;
-	}
-
-	@Override
-	public void attach(Observer o) {
-		observers.add(o);
-
-	}
-
-	@Override
-	public void detach(Observer o) {
-		observers.remove(o);
-
-	}
-
-	@Override
-	public void notifyObserver() {
-		for(Observer o:observers){
-			o.update(this);
-		}
 	}
 
 }

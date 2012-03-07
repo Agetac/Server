@@ -1,19 +1,15 @@
 package org.agetac.server.db;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.agetac.model.impl.Caserne;
-import org.agetac.observer.Observer;
-import org.agetac.observer.Subject;
 
-public class Casernes implements Subject{
-	/** Liste des observer **/
-	private Collection<Observer> observers = new ArrayList<Observer>();
+public class Casernes{
+
 	
 	/** Table des intervention indicés par leur uniqueID */
 	private Map<String, Caserne> uniqueID2Caserne = new ConcurrentHashMap<String, Caserne>();
@@ -44,7 +40,6 @@ public class Casernes implements Subject{
 	 */
 	public synchronized void addCaserne(Caserne caserne) {
 		uniqueID2Caserne.put(caserne.getUniqueID(), caserne);
-		notifyObserver();
 	}
 
 	/**
@@ -68,7 +63,6 @@ public class Casernes implements Subject{
 	 */
 	public synchronized void deleteCaserne(String uniqueID) {
 		uniqueID2Caserne.remove(uniqueID);
-		notifyObserver();
 	}
 
 	/**
@@ -85,14 +79,4 @@ public class Casernes implements Subject{
 		return lm;
 	}
 
-	@Override
-	public void attach(Observer o) { observers.add(o); }
-	@Override
-	public void detach(Observer o) { observers.remove(o); }
-	@Override
-	public void notifyObserver() {
-		for(Observer o:observers){
-			o.update(this);
-		}
-	}
 }

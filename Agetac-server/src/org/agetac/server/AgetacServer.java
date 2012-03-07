@@ -39,10 +39,10 @@ public class AgetacServer extends Application {
 	 */
 	public static void main(String[] args) throws Exception {
 		runServer(8112);
-		/*Interventions interventions = Interventions.getInstance();
+		Interventions interventions = Interventions.getInstance();
 		
-		Intervention inter1 = new Intervention("inter1");
-		Intervention inter2 = new Intervention("inter2");
+		Intervention inter1 = new Intervention("1");
+		/*Intervention inter2 = new Intervention("inter2");
 		Intervention inter3 = new Intervention("inter3");
 
 		inter1.getMessages().add(new org.agetac.model.impl.Message("1", "message1 inter1", "0102"));
@@ -52,10 +52,10 @@ public class AgetacServer extends Application {
 		inter2.getMessages().add(new org.agetac.model.impl.Message("4", "message1 inter2", "0102"));
 		inter2.getMessages().add(new org.agetac.model.impl.Message("5", "message2 inter2", "0103"));
 		inter2.getMessages().add(new org.agetac.model.impl.Message("6", "message3 inter2", "0104"));
-		
+		*/
 
 		interventions.addIntervention(inter1);
-		interventions.addIntervention(inter2);*/
+		/*interventions.addIntervention(inter2);*/
 	}
 
 	/**

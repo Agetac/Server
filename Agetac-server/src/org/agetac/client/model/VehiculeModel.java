@@ -8,13 +8,13 @@ import java.util.Observer;
 import javax.swing.table.AbstractTableModel;
 
 import org.agetac.model.impl.Vehicule;
-import org.agetac.observer.Subject;
 
-public class VehiculeModel extends AbstractTableModel implements Observer{
-	
+public class VehiculeModel extends AbstractTableModel implements Observer {
+
 	private List<Vehicule> vehicules;
-	private final String[] entetes = { "ID", "Nom", "Position", "Caserne", "Etat", "Groupe"};
-	
+	private final String[] entetes = { "ID", "Nom", "Position", "Caserne",
+			"Etat", "Groupe" };
+
 	public VehiculeModel() {
 		super();
 		vehicules = new ArrayList<Vehicule>();
@@ -57,22 +57,16 @@ public class VehiculeModel extends AbstractTableModel implements Observer{
 	}
 
 	public void removeVehicule(int rowIndex) {
-		if (rowIndex != -1){
-		vehicules.remove(rowIndex);
-		fireTableRowsDeleted(rowIndex, rowIndex);
-	}
-	}
-
-	
-	public void update(Subject s) {
-		System.out.println("VehiculeModel.update");
-		//Vehicules = Vehicules.getInstance().getVehicules(); // meme pb que pr agentModel
+		if (rowIndex != -1) {
+			vehicules.remove(rowIndex);
+			fireTableRowsDeleted(rowIndex, rowIndex);
+		}
 	}
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
