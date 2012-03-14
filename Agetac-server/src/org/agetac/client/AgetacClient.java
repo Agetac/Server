@@ -41,7 +41,7 @@ public class AgetacClient {
 	 */
 	public static void main(String[] args) throws Exception {
 		
-		AgetacClient.testCommunication2();
+		AgetacClient.testCommunication();
 
 		/*MessageModel msgModel = new MessageModel();
 		MessageView msgView = new MessageView(msgModel);
@@ -58,17 +58,17 @@ public class AgetacClient {
 		SourceView srcView = new SourceView(srcModel);*/
 	}
 	
-	private static void testCommunication() throws BadResponseException, JSONException {
+	private static void testCommunication() throws BadResponseException, JSONException, IOException, InvalidJSONException {
 		
 		ServerConnection serv = new ServerConnection("localhost", "8112", "agetacserver");
 		
 		// Création d'une intervention
-		Intervention inter = new Intervention("1");
+		Intervention inter = new Intervention();
 		JsonRepresentation interRepresentation = new JsonRepresentation(inter.toJSON());
 		
 		// Envoi sur le serveur		
-		serv.putResource(INTERVENTION, inter.getUniqueID(), interRepresentation);
-		//TODO : Cote serveur, empecher les uniqueID non uniques :)
+		interRepresentation = new JsonRepresentation(serv.putResource(INTERVENTION, null, interRepresentation));
+		inter = new Intervention(interRepresentation.getJsonObject());
 		
 		// Maintenant on crée une connexion à cette intervention
 		InterventionConnection interCon = new InterventionConnection(inter.getUniqueID(), serv);
@@ -78,10 +78,11 @@ public class AgetacClient {
 		 * MESSAGES
 		 */
 		// Création d'un message 
-		Message msg = new Message("4", "Ceci est un message", "1224");
+		Message msg = new Message(null, "Ceci est un message", "1224");
+		
 		// Envoi du message a l'intervention
 		System.out.println("Envoi d'un message");
-		interCon.putMessage(msg);
+		msg = interCon.putMessage(msg);
 		
 		// Récupération du message
 		System.out.println("Récupération des messages");

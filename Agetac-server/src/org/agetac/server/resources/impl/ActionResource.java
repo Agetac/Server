@@ -72,39 +72,27 @@ public class ActionResource extends ServerResource implements IServerResource {
 
 		Action action;
 		JsonRepresentation jsonRepr;
+			
+		// Nouvel ID
+		String uid = (la.size() + 1) + "";
 		
-		// Si l'id est egal à "new" on crée un nouvel objet
-		if (interId.equals("new")) {
-			
-			// Nouvel ID
-			String uid = (la.size() + 1) + "";
-			action = new Action(uid, new Position(0, 0), ActionType.FIRE,new Position(0, 0),new Position(0, 0));
-			jsonRepr = new JsonRepresentation(action.toJSON());
-		}
-		else{
-			// Récupère la représentation JSON du action
-			jsonRepr = new JsonRepresentation(representation);
-			// System.out.println("JsonRepresentation : " + jsonRepr.getText());
-	
-			// Transforme la representation en objet java
-			JSONObject jsObj = jsonRepr.getJsonObject();
-			action = new Action(jsObj);
+		// Récupère la représentation JSON du action
+		jsonRepr = new JsonRepresentation(representation);
 
-			
-			// On vérifie si le action n'éxiste pas déjà
-			for(int ii=0; ii<la.size(); ii++){
-				if (la.get(ii).getUniqueID().equals(action.getUniqueID())) {
-					// Action trouvé, envois du code status 406
-					getResponse().setStatus(Status.CLIENT_ERROR_NOT_ACCEPTABLE);
-					return null;
-				}
-			}
-		}
+		// Transforme la representation en objet java
+		JSONObject jsObj = jsonRepr.getJsonObject();
+		action = new Action(jsObj);
+		action.setUniqueID(uid);
 		
 		//Ajout du action
 		la.add(action);
+
+		// On retourne la nouvelle représentation au client
+		jsonRepr = new JsonRepresentation(action.toJSON());
+		
 		// On retourne la représentation au client
 		return jsonRepr;
+		
 	}
 	
 	@Override

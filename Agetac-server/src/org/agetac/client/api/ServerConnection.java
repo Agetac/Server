@@ -44,8 +44,9 @@ public class ServerConnection implements ServerApi{
 	}
 
 
-	public void putResource(String resType, String resUniqueID,	Representation resRepresentation) throws BadResponseException {
+	public Representation putResource(String resType, String resUniqueID,	Representation resRepresentation) throws BadResponseException {
 
+		
 		String url = baseUrl() + resType;
 		
 		if(resUniqueID != null){
@@ -55,10 +56,11 @@ public class ServerConnection implements ServerApi{
 		ClientResource client = new ClientResource(url);
 		
 		try {
-			client.put(resRepresentation);
+			return client.put(resRepresentation);
 		} catch (ResourceException e) {
 			throw(new BadResponseException(client.getResponse()));
 		}
+		
 		
 	}
 
