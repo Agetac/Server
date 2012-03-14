@@ -22,7 +22,32 @@ public class ServerConnection implements ServerApi{
 		this.contextRoot = contextRoot;
 
 	}
+	
 
+	public Representation getResource(String resType, String resUniqueID) throws BadResponseException{
+		
+		String url = baseUrl() + resType;
+		
+		if(resUniqueID != null){
+			url +=  "/" + resUniqueID;
+		}
+		
+		System.out.println("GET : " + url);
+		
+		ClientResource client = new ClientResource(url);
+		
+		Representation repr = null;
+		
+		try {
+			repr = client.get();
+		} catch (Exception e) {
+			throw(new BadResponseException(client.getResponse()));
+		}
+		
+		return repr;
+	}
+	
+/*
 	public Representation getResource(String resType, String resUniqueID) throws BadResponseException{
 		
 		String url = baseUrl() + resType;
@@ -62,6 +87,7 @@ public class ServerConnection implements ServerApi{
         // its requests.
         client.setChallengeResponse(new ChallengeResponse(c1, client.getResponse(), "login", "secret".toCharArray()));
         // Try authenticated request
+        
 		try {
 		    repr = client.get();
 		}
@@ -73,8 +99,27 @@ public class ServerConnection implements ServerApi{
 		
 		return repr;
 	}
+*/
+	public Representation putResource(String resType, String resUniqueID,	Representation resRepresentation) throws BadResponseException {
 
-
+		
+		String url = baseUrl() + resType;
+		
+		if(resUniqueID != null){
+			url += "/" + resUniqueID;
+		}
+		System.out.println("PUT : " + url);
+		ClientResource client = new ClientResource(url);
+		
+		try {
+			return client.put(resRepresentation);
+		} catch (ResourceException e) {
+			throw(new BadResponseException(client.getResponse()));
+		}
+		
+		
+	}
+	/*
 	public void putResource(String resType, String resUniqueID,	Representation resRepresentation) throws BadResponseException {
 
 		String url = baseUrl() + resType;
@@ -118,7 +163,7 @@ public class ServerConnection implements ServerApi{
         System.out.println(client.getStatus());
 		
 	}
-
+*/
 	public void postResource(String resType, String resUniqueID, Representation resRepresentation) throws BadResponseException {
 
 		String url = baseUrl() + resType;

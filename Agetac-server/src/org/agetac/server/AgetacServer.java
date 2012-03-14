@@ -2,16 +2,13 @@ package org.agetac.server;
 
 import org.agetac.common.model.impl.Intervention;
 import org.agetac.server.db.Interventions;
-import org.agetac.server.resources.impl.AgentResource;
 import org.agetac.server.resources.impl.InterventionResource;
 import org.agetac.server.resources.impl.MessageResource;
 import org.agetac.server.resources.impl.SourceResource;
 import org.agetac.server.resources.impl.VehiculeResource;
 import org.restlet.*;
 import org.restlet.data.Protocol;
-import org.restlet.resource.Directory;
 import org.restlet.routing.Router;
-import org.restlet.security.ChallengeAuthenticator;
 import org.restlet.security.MapVerifier;
 import org.restlet.ext.crypto.DigestAuthenticator;
 
@@ -32,20 +29,7 @@ public class AgetacServer extends Application {
 		// Attach the application to the component with a defined contextRoot.
 		String contextRoot = "/agetacserver";
 		component.getDefaultHost().attach(contextRoot, application);
-		
-		/*DigestAuthenticator guard = new DigestAuthenticator(null, "TestRealm", "mySecretServerKey");
-		
-		// Instantiates a Verifier of identifier/secret couples based on a simple Map.
-		MapVerifier mapVerifier = new MapVerifier();
-		// Load a single static login/secret pair.
-		mapVerifier.getLocalSecrets().put("login", "secret".toCharArray());
-		guard.setWrappedVerifier(mapVerifier);
 
-		// Guard the application
-		guard.setNext(application);
-
-		component.getDefaultHost().attachDefault(guard);
-		*/
 		component.start();
 	}
 
@@ -91,14 +75,7 @@ public class AgetacServer extends Application {
 		intervention_router.attach("/intervention", InterventionResource.class);
 		intervention_router.attach("/intervention/{interId}", InterventionResource.class);
 		
-		DigestAuthenticator guard = new DigestAuthenticator(intervention_router.getContext(), "TestRealm", "mySecretServerKey");
 		
-		// Instantiates a Verifier of identifier/secret couples based on a simple Map.
-		MapVerifier mapVerifier = new MapVerifier();
-		// Load a single static login/secret pair.
-		mapVerifier.getLocalSecrets().put("login", "secret".toCharArray());
-		guard.setWrappedVerifier(mapVerifier);
-
 		Router message_router = new Router(intervention_router.getContext());
 		message_router.attach("/intervention/{interId}/message", MessageResource.class); // Tous les messages
 		message_router.attach("/intervention/{interId}/message/{messageId}", MessageResource.class); // Un seul message
@@ -120,11 +97,25 @@ public class AgetacServer extends Application {
 		intervention_router.attach(cible_router);
 		
 		Router login_router = new Router(intervention_router.getContext());
-		login_router.attach("/intervention/{interId}/message", MessageResource.class);
+		login_router.attach("/login", MessageResource.class);
 		
+		// Authentification (En cours)
+		/*
+		DigestAuthenticator guard = new DigestAuthenticator(intervention_router.getContext(), "TestRealm", "mySecretServerKey");
+		
+		// Instantiates a Verifier of identifier/secret couples based on a simple Map.
+		MapVerifier mapVerifier = new MapVerifier();
+		// Load a single static login/secret pair.
+		mapVerifier.getLocalSecrets().put("login", "secret".toCharArray());
+		guard.setWrappedVerifier(mapVerifier);
+
 		guard.setNext(intervention_router);
 		
+		// Authentification (En cours)
+		
 		server_router.attach(guard);
+		*/
+		server_router.attach(intervention_router);
 		server_router.attach(login_router);
 		
 		// Retourne le routeur.

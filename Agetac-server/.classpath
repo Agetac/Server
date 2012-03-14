@@ -15,5 +15,6 @@
 	<classpathentry kind="lib" path="/Agetac-model/lib/jdo/jdo-api-3.1-SNAPSHOT-20110926.jar"/>
 	<classpathentry kind="lib" path="lib/jdo/datanucleus-rdbms-3.0.6.jar"/>
 	<classpathentry kind="lib" path="lib/jdo/hsqldb-1.8.0.4.jar"/>
+	<classpathentry kind="lib" path="lib/restlet/org.restlet.ext.crypto.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -69,39 +69,26 @@ public class SourceResource extends ServerResource implements IServerResource {
 	public /*synchronized*/ Representation putResource(Representation representation)
 			throws Exception {
 		
-		//TODO : Supprimer le code de traitement du cas ou l'objet est défini par le client
-		
 		// Récupère l'identifiant unique de la ressource demandée.
 		String interId = (String) this.getRequestAttributes().get("interId");
 
 		Intervention i = Interventions.getInstance().getIntervention(interId);
 		List<Source> lm = i.getSources();
 
-		Source source;
-		JsonRepresentation jsonRepr;
+		JsonRepresentation jsonRepr = new JsonRepresentation(representation);
+		Source source = new Source(jsonRepr.getJsonObject());
 		
-		// Si l'id est egal à "new" on crée un nouvel objet
-		if (interId.equals("new")) {
-			
-			// Nouvel ID
-			String uid = (lm.size() + 1) + "";
-			source = new Source(uid, new Position(0, 0));
-			jsonRepr = new JsonRepresentation(source.toJSON());
-			
-		} else {
-			
-			// Récupère la représentation JSON du source
-			jsonRepr = new JsonRepresentation(representation);
-			// Transforme la representation en objet java
-			JSONObject jsObj = jsonRepr.getJsonObject();
-			source = new Source(jsObj);
-			
-		}
+		
+		// Nouvel ID
+		String uid = (lm.size() + 1) + "";
+		source.setUniqueID(uid);
+		
 
 		// Ajoute la source a la base de donnée
 		lm.add(source);
 		
 		// On retourne représentation au client
+		jsonRepr = new JsonRepresentation(source.toJSON());
 		return jsonRepr;
 	}
 

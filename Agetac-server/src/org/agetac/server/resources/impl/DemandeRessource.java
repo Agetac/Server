@@ -2,8 +2,8 @@ package org.agetac.server.resources.impl;
 
 import java.util.List;
 
+import org.agetac.common.model.impl.Action;
 import org.agetac.common.model.impl.Intervention;
-import org.agetac.common.model.impl.Message;
 import org.agetac.server.db.Interventions;
 import org.agetac.server.resources.sign.IServerResource;
 import org.json.JSONArray;
@@ -11,47 +11,45 @@ import org.json.JSONObject;
 import org.restlet.data.Status;
 import org.restlet.ext.json.JsonRepresentation;
 import org.restlet.representation.Representation;
-import org.restlet.resource.Delete;
-import org.restlet.resource.Get;
-import org.restlet.resource.Put;
 import org.restlet.resource.ServerResource;
 
-public class MessageResource extends ServerResource implements IServerResource{
+public class DemandeRessource extends ServerResource implements IServerResource {
 
-	@Get
+	@Override
 	public Representation getResource() throws Exception {
 		// Crée une representation JSON vide
 		JsonRepresentation result = null;
+		
 		// Récupère l'identifiant unique de la ressource demandée.
 		String interId = (String) this.getRequestAttributes().get("interId");
-		String msgId = (String) this.getRequestAttributes().get("messageId");
+		String actId = (String) this.getRequestAttributes().get("actionId");
 		
-		// Récupération des messages de l'intervention
-		List<Message> messages = Interventions.getInstance().getIntervention(interId).getMessages();
+		// Récupération des actions de l'intervention
+		List<Action> actions = Interventions.getInstance().getIntervention(interId).getActions();
 
-		Message message = null;
+		Action action = null;
 		
-		// Si on demande un message précis
-		if (msgId != null) {
-			// Recherche du message demandé
-			for (int i = 0; i < messages.size(); i++) {
-				if (messages.get(i).getUniqueID().equals(msgId)) {
-					message = messages.get(i);
+		// Si on demande un action précis
+		if (actId != null) {
+			// Recherche du action demandé
+			for (int i = 0; i < actions.size(); i++) {
+				if (actions.get(i).getUniqueID().equals(actId)) {
+					action = actions.get(i);
 				}
 			}
-			// Si le message n'est pas trouvé
-			if (message == null) {
+			// Si l'action n'est pas trouvé
+			if (action == null) {
 				result = null;
 				getResponse().setStatus(Status.CLIENT_ERROR_NOT_ACCEPTABLE);
 			} else {
-				result = new JsonRepresentation(message.toJSON());
+				result = new JsonRepresentation(action.toJSON());
 			}
-		// Si on veut tous les messages
-		} else if (msgId == null) {
+		// Si on veut toutes les actions
+		} else if (actId == null) {
 			
 			JSONArray jsonAr = new JSONArray(); //Création d'une liste Json
-			for(int i=0; i< messages.size();i++){
-				jsonAr.put(messages.get(i).toJSON()); // On ajoute un jsonObject contenant le message dans le jsonArray
+			for(int i=0; i< actions.size();i++){
+				jsonAr.put(actions.get(i).toJSON()); // On ajoute un jsonObject contenant le action dans le jsonArray
 			}
 			
 			result = new JsonRepresentation(jsonAr); // On crée la représentation de la liste
@@ -61,48 +59,54 @@ public class MessageResource extends ServerResource implements IServerResource{
 		return result;
 	}
 
-
-	@Put
+	@Override
 	public Representation putResource(Representation representation)
 			throws Exception {
 		// Récupère l'identifiant unique de la ressource demandée.
 		String interId = (String) this.getRequestAttributes().get("interId");
-
+		
 		Intervention i = Interventions.getInstance().getIntervention(interId);
-		List<Message> lm = i.getMessages();
+		List<Action> la = i.getActions();
 
-		JsonRepresentation jsonRepr = new JsonRepresentation(representation);
-		Message message = new Message(jsonRepr.getJsonObject());
-		
-	
+		Action action;
+		JsonRepresentation jsonRepr;
+			
 		// Nouvel ID
-		String uid = (lm.size() + 1) + "";
-		message.setUniqueID(uid);
+		String uid = (la.size() + 1) + "";
 		
-		//Ajout du message
-		lm.add(message);
+		// Récupère la représentation JSON du action
+		jsonRepr = new JsonRepresentation(representation);
+
+		// Transforme la representation en objet java
+		JSONObject jsObj = jsonRepr.getJsonObject();
+		action = new Action(jsObj);
+		action.setUniqueID(uid);
 		
-		
-		jsonRepr = new JsonRepresentation(message.toJSON());
+		//Ajout du action
+		la.add(action);
+
+		// On retourne la nouvelle représentation au client
+		jsonRepr = new JsonRepresentation(action.toJSON());
 		
 		// On retourne la représentation au client
 		return jsonRepr;
+		
 	}
-
-	@Delete
+	
+	@Override
 	public Representation deleteResource() {
 		// Récupère l'id dans l'url
 		String interId = (String) this.getRequestAttributes().get("interId");
-		String msgId = (String) this.getRequestAttributes().get("messageId");
+		String actId = (String) this.getRequestAttributes().get("actId");
 		
 		
 		// On s'assure qu'il n'est plus présent en base de données
 		
 		Intervention inter = Interventions.getInstance().getIntervention(interId);
-		List<Message> messages = inter.getMessages();
-		for (int i = 0; i < messages.size(); i++) {
-			if (messages.get(i).getUniqueID().equals(msgId)) {
-				messages.remove(messages.get(i));
+		List<Action> actions = inter.getActions();
+		for (int i = 0; i < actions.size(); i++) {
+			if (actions.get(i).getUniqueID().equals(actId)) {
+				actions.remove(actions.get(i));
 			}
 		}
 		
@@ -112,40 +116,40 @@ public class MessageResource extends ServerResource implements IServerResource{
 	@Override
 	public Representation postResource(Representation representation)
 			throws Exception {
+		
 		// Récupère l'identifiant unique de la ressource demandée.
 		String interId = (String) this.getRequestAttributes().get("interId");
-		String msgId = (String) this.getRequestAttributes().get("messageId");
+		String actId = (String) this.getRequestAttributes().get("actionId");
 		
-		// Récupération des messages de l'intervention
-		List<Message> messages = Interventions.getInstance().getIntervention(interId).getMessages();
+		// Récupération des actions de l'intervention
+		List<Action> actions = Interventions.getInstance().getIntervention(interId).getActions();
 		
-		Message message = null;
+		Action action = null;
 		
-		// Si on demande un message précis
-		if (msgId != null) {
+		// Si on demande un action précis
+		if (actId != null) {
 		
-			// Recherche de l'message demandée
-			for (int i = 0; i < messages.size(); i++) {
-				if (messages.get(i).getUniqueID().equals(msgId)) {
+			// Recherche de l'action demandée
+			for (int i = 0; i < actions.size(); i++) {
+				if (actions.get(i).getUniqueID().equals(actId)) {
 					
-					// Récupère la représentation JSON de l'message a mettre a jour
+					// Récupère la représentation JSON de l'action a mettre a jour
 					JsonRepresentation jsonRepr = new JsonRepresentation(representation);
 
 					// Transforme la representation en objet json
 					JSONObject jsObj = jsonRepr.getJsonObject();
+					// Transforme en Action
+					action = new Action(jsObj);
 					
-					// Transforme en Message
-					message = new Message(jsObj);
-					
-					// Mise a jour de l'message
-					messages.set(i, message);
+					// Mise a jour de l'action
+					actions.set(i, action);
 					break;
 					
 				}
 			}
 			
-			// Si le message n'est pas trouvé
-			if (message == null) {
+			// Si le action n'est pas trouvé
+			if (action == null) {
 				getResponse().setStatus(Status.CLIENT_ERROR_NOT_ACCEPTABLE);
 			}
 			
@@ -158,6 +162,5 @@ public class MessageResource extends ServerResource implements IServerResource{
 		// Pas besoin de retourner de représentation au client
 		return null;
 	}
-
 
 }

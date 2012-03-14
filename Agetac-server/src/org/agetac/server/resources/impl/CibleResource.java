@@ -74,28 +74,17 @@ public class CibleResource extends ServerResource implements IServerResource {
 		Intervention i = Interventions.getInstance().getIntervention(interId);
 		List<Cible> lm = i.getCibles();
 
-		Cible cible;
-		JsonRepresentation jsonRepr;
+		JsonRepresentation jsonRepr = new JsonRepresentation(representation);
+		Cible cible = new Cible (jsonRepr.getJsonObject());
 
-		// Si l'id est egal à "new" on crée un nouvel objet
-		if (interId.equals("new")) {
-
-			// Nouvel ID
-			String uid = (lm.size() + 1) + "";
-			cible = new Cible(uid, new Position(0, 0));
-			jsonRepr = new JsonRepresentation(cible.toJSON());
-
-		} else {
-
-			// Récupère la représentation JSON du cible
-			jsonRepr = new JsonRepresentation(representation);
-
-			// Transforme la representation en objet java
-			JSONObject jsObj = jsonRepr.getJsonObject();
-			cible = new Cible(jsObj);
-		}
-
+		// Nouvel ID
+		String uid = (lm.size() + 1) + "";
+		
+		cible.setUniqueID(uid);
+		
 		lm.add(cible);
+		
+		jsonRepr = new JsonRepresentation(cible.toJSON());
 		
 		// On retourne la représentation au client
 		return jsonRepr;
