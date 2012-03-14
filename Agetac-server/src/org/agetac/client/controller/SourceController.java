@@ -5,8 +5,8 @@ import java.awt.event.ActionListener;
 
 import org.agetac.client.model.SourceModel;
 import org.agetac.client.view.SourceView;
-import org.agetac.model.impl.Position;
-import org.agetac.model.impl.Source;
+import org.agetac.common.model.impl.Position;
+import org.agetac.common.model.impl.Source;
 
 public class SourceController implements ActionListener {
 

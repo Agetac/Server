@@ -5,7 +5,7 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
-import org.agetac.model.impl.Agent;
+import org.agetac.common.model.impl.Agent;
 
 public class AgentModel extends AbstractTableModel {
 

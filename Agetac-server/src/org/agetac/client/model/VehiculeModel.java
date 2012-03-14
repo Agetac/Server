@@ -7,7 +7,7 @@ import java.util.Observer;
 
 import javax.swing.table.AbstractTableModel;
 
-import org.agetac.model.impl.Vehicule;
+import org.agetac.common.model.impl.Vehicule;
 
 public class VehiculeModel extends AbstractTableModel implements Observer {
 

@@ -1,6 +1,6 @@
 package org.agetac.server;
 
-import org.agetac.model.impl.Intervention;
+import org.agetac.common.model.impl.Intervention;
 import org.agetac.server.db.Interventions;
 import org.agetac.server.resources.impl.AgentResource;
 import org.agetac.server.resources.impl.InterventionResource;

@@ -5,10 +5,10 @@ import java.awt.event.ActionListener;
 
 import org.agetac.client.model.AgentModel;
 import org.agetac.client.view.AgentView;
-import org.agetac.model.impl.Agent;
-import org.agetac.model.impl.Groupe;
-import org.agetac.model.impl.Position;
-import org.agetac.model.impl.Vehicule;
+import org.agetac.common.model.impl.Agent;
+import org.agetac.common.model.impl.Groupe;
+import org.agetac.common.model.impl.Position;
+import org.agetac.common.model.impl.Vehicule;
 
 public class AgentController implements ActionListener {
 

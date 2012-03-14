@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
-import org.agetac.model.impl.Caserne;
+import org.agetac.common.model.impl.Caserne;
 
 public class CaserneModel extends AbstractTableModel {
 

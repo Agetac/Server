@@ -2,9 +2,8 @@ package org.agetac.server.resources.impl;
 
 import java.util.List;
 
-import org.agetac.model.impl.Intervention;
-import org.agetac.model.impl.Message;
-import org.agetac.model.impl.Vehicule;
+import org.agetac.common.model.impl.Intervention;
+import org.agetac.common.model.impl.Vehicule;
 import org.agetac.server.db.Interventions;
 import org.agetac.server.resources.sign.IServerResource;
 import org.json.JSONArray;

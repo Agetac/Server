@@ -4,7 +4,7 @@ import static org.junit.Assert.*;
 
 import java.util.Collection;
 
-import org.agetac.model.impl.Agent;
+import org.agetac.common.model.impl.Agent;
 import org.junit.Test;
 
 

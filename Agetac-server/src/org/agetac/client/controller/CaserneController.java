@@ -5,8 +5,8 @@ import java.awt.event.ActionListener;
 
 import org.agetac.client.model.CaserneModel;
 import org.agetac.client.view.CaserneView;
-import org.agetac.model.impl.Caserne;
-import org.agetac.model.impl.Message;
+import org.agetac.common.model.impl.Caserne;
+import org.agetac.common.model.impl.Message;
 
 public class CaserneController implements ActionListener {
 

@@ -7,7 +7,7 @@ import java.util.Observer;
 
 import javax.swing.table.AbstractTableModel;
 
-import org.agetac.model.impl.Intervention;
+import org.agetac.common.model.impl.Intervention;
 
 public class InterventionModel extends AbstractTableModel {
 

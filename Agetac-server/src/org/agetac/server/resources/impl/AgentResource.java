@@ -1,6 +1,6 @@
 package org.agetac.server.resources.impl;
 
-import org.agetac.model.impl.Agent;
+import org.agetac.common.model.impl.Agent;
 import org.agetac.server.db.Agents;
 import org.agetac.server.resources.sign.IServerResource;
 import org.restlet.data.Status;

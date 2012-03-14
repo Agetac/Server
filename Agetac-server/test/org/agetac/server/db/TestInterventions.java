@@ -1,6 +1,6 @@
 package org.agetac.server.db;
 
-import org.agetac.model.impl.Intervention;
+import org.agetac.common.model.impl.Intervention;
 import org.junit.Test;
 
 public class TestInterventions {

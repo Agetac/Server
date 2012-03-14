@@ -10,9 +10,10 @@ import java.io.Writer;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.channels.WritableByteChannel;
 
-import org.agetac.client.exception.BadResponseException;
-import org.agetac.model.exception.InvalidJSONException;
-import org.agetac.model.impl.Intervention;
+import org.agetac.common.api.ServerConnection;
+import org.agetac.common.exception.BadResponseException;
+import org.agetac.common.exception.InvalidJSONException;
+import org.agetac.common.model.impl.Intervention;
 import org.agetac.server.AgetacServer;
 import org.json.JSONException;
 import org.json.JSONObject;

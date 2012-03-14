@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import org.agetac.client.model.MessageModel;
 import org.agetac.client.view.MessageView;
-import org.agetac.model.impl.Message;
+import org.agetac.common.model.impl.Message;
 
 public class MessageController implements ActionListener {
 

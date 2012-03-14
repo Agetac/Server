@@ -2,8 +2,8 @@ package org.agetac.server.resources;
 
 import static org.junit.Assert.*;
 
-import org.agetac.model.impl.Agent;
-import org.agetac.model.impl.Intervention;
+import org.agetac.common.model.impl.Intervention;
+import org.agetac.common.model.impl.Message;
 import org.agetac.server.AgetacServer;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -47,12 +47,10 @@ public class TestInterventionResource {
 	 *             En cas de problème.
 	 */
 	@Test
-	public void testAddIntervention() throws Exception {
+	public void testIntervention() throws Exception {
 		// Construction de l'url de test
-		String uniqueID = "test";
-		String testUrl = String.format(
-				"http://localhost:%s/agetacserver/intervention/%s", testPort,
-				uniqueID);
+		String uniqueID = "new";
+		String testUrl = String.format("http://localhost:%s/agetacserver/intervention/%s", testPort, uniqueID);
 		ClientResource client = new ClientResource(testUrl);
 
 		// On construit la représentation JSON de la ressource testée
@@ -70,21 +68,32 @@ public class TestInterventionResource {
 		 * something we need to think of. This is why we need a "communication protocol" that is
 		 * supposed to solve this kind of problems.
 		 *  - George
+		 *  
+		 * Done
+		 *  - Clément
 		 */
-		Intervention test_inter1 = new Intervention("test");
-		JsonRepresentation representation = new JsonRepresentation(test_inter1.toJSON());
 
-		// On envoie (put) la ressource au serveur
-		client.put(representation);
 
+		// On demande (put) une nouvelle ressource au serveur
+		JsonRepresentation jsonrepr1 = new JsonRepresentation(client.put(null));
+		
+		// On récupère et modifie cette intervention
+		Intervention inter1 = new Intervention(jsonrepr1.getJsonObject());
+		inter1.getMessages().add(new Message("1", "mon message", "0000"));
+		
+		//On met a jour sur le serveur
+		uniqueID = inter1.getUniqueID();
+		testUrl = String.format("http://localhost:%s/agetacserver/intervention/%s", testPort, uniqueID);
+		client = new ClientResource(testUrl);
+		client.post(new JsonRepresentation(inter1.toJSON()));
+		
 		
 		// Maintenant ont essaye de récupérer cette meme ressource
-		JsonRepresentation representation2 = new JsonRepresentation(client.get());
+		JsonRepresentation jsonrepr2 = new JsonRepresentation(client.get());
+		Intervention inter2 = new Intervention(jsonrepr2.getJsonObject());
 		
-		Intervention test_inter2 = new Intervention(representation2.getJsonObject());
-		
-		assertEquals("Vérification de l'id de la ressource récupérée", uniqueID, test_inter2.getUniqueID());
-
+		assertEquals("Vérification de l'id de la ressource récupérée", uniqueID, inter2.getUniqueID());
+		assertEquals("Vérification de la modification", 1, inter2.getMessages().size());
 		// On le supprime.
 		client.delete();
 

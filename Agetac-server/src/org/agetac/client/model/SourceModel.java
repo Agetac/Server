@@ -7,10 +7,9 @@ import java.util.Observer;
 
 import javax.swing.table.AbstractTableModel;
 
-import org.agetac.client.InterventionConnection;
-import org.agetac.client.exception.BadResponseException;
-import org.agetac.model.impl.Source;
-import org.agetac.server.db.Sources;
+import org.agetac.common.api.InterventionConnection;
+import org.agetac.common.exception.BadResponseException;
+import org.agetac.common.model.impl.Source;
 import org.json.JSONException;
 
 public class SourceModel extends AbstractTableModel implements Observer {

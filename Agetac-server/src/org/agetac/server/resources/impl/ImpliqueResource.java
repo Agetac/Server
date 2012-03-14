@@ -2,8 +2,8 @@ package org.agetac.server.resources.impl;
 
 import java.util.List;
 
-import org.agetac.model.impl.Implique;
-import org.agetac.model.impl.Intervention;
+import org.agetac.common.model.impl.Implique;
+import org.agetac.common.model.impl.Intervention;
 import org.agetac.server.db.Interventions;
 import org.agetac.server.resources.sign.IServerResource;
 import org.json.JSONArray;
@@ -63,23 +63,33 @@ public class ImpliqueResource extends ServerResource implements IServerResource 
 			throws Exception {
 		// Récupère l'identifiant unique de la resimplique demandée.
 		String interId = (String) this.getRequestAttributes().get("interId");
-
-		// Récupère la représentation JSON du implique
-		JsonRepresentation jsonRepr = new JsonRepresentation(representation);
-		// System.out.println("JsonRepresentation : " + jsonRepr.getText());
-
-		// Transforme la representation en objet java
-		JSONObject jsObj = jsonRepr.getJsonObject();
-		Implique implique = new Implique(jsObj);
-		// System.out.println("Implique : " + implique.toJSON());
-
-		// Ajoute l'implique a la base de donnée
 		Intervention i = Interventions.getInstance().getIntervention(interId);
 		List<Implique> lm = i.getImpliques();
+
+		Implique implique;
+		JsonRepresentation jsonRepr;
+		
+		// Si l'id est egal à "new" on crée un nouvel objet
+		if (interId.equals("new")) {
+			
+			// Nouvel ID
+			String uid = (lm.size() + 1) + "";
+			implique = new Implique(uid,Implique.EtatImplique.INDEMNE);
+			jsonRepr = new JsonRepresentation(implique.toJSON());
+			
+		} else {
+			
+			// Récupère la représentation JSON du implique
+			jsonRepr = new JsonRepresentation(representation);
+			// Transforme la representation en objet java
+			JSONObject jsObj = jsonRepr.getJsonObject();
+			implique = new Implique(jsObj);
+
+		}
 		lm.add(implique);
 		// Impliques.getInstance().addImplique(implique);
 		// Pas besoin de retourner de représentation au client
-		return null;
+		return jsonRepr;
 	}
 
 	@Override
@@ -104,7 +114,51 @@ public class ImpliqueResource extends ServerResource implements IServerResource 
 	@Override
 	public Representation postResource(Representation representation)
 			throws Exception {
-		// TODO Auto-generated method stub
+		// Récupère l'identifiant unique de la ressource demandée.
+		String interId = (String) this.getRequestAttributes().get("interId");
+		String impId = (String) this.getRequestAttributes().get("sourceId");
+
+		// Récupération des messages de l'intervention
+		List<Implique> impliques = Interventions.getInstance().getIntervention(interId).getImpliques();
+
+		Implique implique = null;
+
+		// Si on demande un message précis
+		if (impId != null) {
+
+			// Recherche de l'message demandée
+			for (int i = 0; i < impliques.size(); i++) {
+				if (impliques.get(i).getUniqueID().equals(impId)) {
+
+					// Récupère la représentation JSON de l'message a mettre a
+					// jour
+					JsonRepresentation jsonRepr = new JsonRepresentation(
+							representation);
+
+					// Transforme la representation en objet json
+					JSONObject jsObj = jsonRepr.getJsonObject();
+
+					// Transforme en Implique
+					implique = new Implique(jsObj);
+
+					// Mise a jour de l'message
+					impliques.set(i, implique);
+					break;
+
+				}
+			}
+
+			// Si le message n'est pas trouvé
+			if (implique == null) {
+				getResponse().setStatus(Status.CLIENT_ERROR_NOT_ACCEPTABLE);
+			}
+
+		} else {
+			// Pas d'id -> Erreur
+			getResponse().setStatus(Status.CLIENT_ERROR_NOT_ACCEPTABLE);
+		}
+
+		// Pas besoin de retourner de représentation au client
 		return null;
 	}
 

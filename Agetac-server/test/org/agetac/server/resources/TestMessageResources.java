@@ -2,7 +2,7 @@ package org.agetac.server.resources;
 
 import static org.junit.Assert.*;
 
-import org.agetac.model.impl.Agent;
+import org.agetac.common.model.impl.Agent;
 import org.agetac.server.AgetacServer;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -27,7 +27,7 @@ public class TestMessageResources {
 	}
 
 	/**
-	 * Test qu'on ne peut pas récupérer de message inconnue sans lancer d'exception.
+	 * Test qu'on ne peut pas récupérer de message inconnu sans lancer d'exception.
 	 * 
 	 * @throws Exception
 	 *             Si pas d'exception, on a un problème.

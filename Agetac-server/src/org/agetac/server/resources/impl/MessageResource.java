@@ -2,8 +2,8 @@ package org.agetac.server.resources.impl;
 
 import java.util.List;
 
-import org.agetac.model.impl.Message;
-import org.agetac.model.impl.Intervention;
+import org.agetac.common.model.impl.Intervention;
+import org.agetac.common.model.impl.Message;
 import org.agetac.server.db.Interventions;
 import org.agetac.server.resources.sign.IServerResource;
 import org.json.JSONArray;
@@ -17,16 +17,7 @@ import org.restlet.resource.Put;
 import org.restlet.resource.ServerResource;
 
 public class MessageResource extends ServerResource implements IServerResource{
-	/**
-	 * Retourne l'instance de du message demander dans l'url
-	 * 
-	 * @return La representation de l'message demander ou
-	 *         CLIENT_ERROR_NOT_ACCEPTABLE si l'id unique n'éxiste pas
-	 * @throws Exception
-	 *             En cas de problème de génération de représentation. Ne
-	 *             devrait pas arriver en pratique mais si c'est le cas, Restlet
-	 *             met le bon code status.
-	 */
+
 	@Get
 	public Representation getResource() throws Exception {
 		// Crée une representation JSON vide
@@ -70,54 +61,53 @@ public class MessageResource extends ServerResource implements IServerResource{
 		return result;
 	}
 
-	/**
-	 * Ajoute le message transmit à la base de données interne.
-	 * 
-	 * @param representation
-	 *            La représentation Json de l'message
-	 * @return null.
-	 * @throws Exception
-	 *             En cas de problème de lecture de la representation.
-	 */
+
 	@Put
 	public Representation putResource(Representation representation)
 			throws Exception {
 		// Récupère l'identifiant unique de la ressource demandée.
 		String interId = (String) this.getRequestAttributes().get("interId");
 
-		// Récupère la représentation JSON du message
-		JsonRepresentation jsonRepr = new JsonRepresentation(representation);
-		// System.out.println("JsonRepresentation : " + jsonRepr.getText());
-
-		// Transforme la representation en objet java
-		JSONObject jsObj = jsonRepr.getJsonObject();
-		Message message = new Message(jsObj);
-		
-
-		// Ajoute l'message a la base de donnée
 		Intervention i = Interventions.getInstance().getIntervention(interId);
 		List<Message> lm = i.getMessages();
+
+		Message message;
+		JsonRepresentation jsonRepr;
 		
-		// On vérifie si le message n'éxiste pas déjà
-		for(int ii=0; ii<lm.size(); ii++){
-			if (lm.get(ii).getUniqueID().equals(message.getUniqueID())) {
-				// Message trouvé, envois du code status 406
-				getResponse().setStatus(Status.CLIENT_ERROR_NOT_ACCEPTABLE);
-				return null;
+		// Si l'id est egal à "new" on crée un nouvel objet
+		if (interId.equals("new")) {
+			
+			// Nouvel ID
+			String uid = (lm.size() + 1) + "";
+			message = new Message(uid,"","9999");
+			jsonRepr = new JsonRepresentation(message.toJSON());
+		}
+		else{
+			// Récupère la représentation JSON du message
+			jsonRepr = new JsonRepresentation(representation);
+			// System.out.println("JsonRepresentation : " + jsonRepr.getText());
+	
+			// Transforme la representation en objet java
+			JSONObject jsObj = jsonRepr.getJsonObject();
+			message = new Message(jsObj);
+
+			
+			// On vérifie si le message n'éxiste pas déjà
+			for(int ii=0; ii<lm.size(); ii++){
+				if (lm.get(ii).getUniqueID().equals(message.getUniqueID())) {
+					// Message trouvé, envois du code status 406
+					getResponse().setStatus(Status.CLIENT_ERROR_NOT_ACCEPTABLE);
+					return null;
+				}
 			}
 		}
 		
 		//Ajout du message
 		lm.add(message);
-		// Pas besoin de retourner de représentation au client
-		return null;
+		// On retourne la représentation au client
+		return jsonRepr;
 	}
 
-	/**
-	 * Supprime le message identifié de la base de données
-	 * 
-	 * @return null.
-	 */
 	@Delete
 	public Representation deleteResource() {
 		// Récupère l'id dans l'url

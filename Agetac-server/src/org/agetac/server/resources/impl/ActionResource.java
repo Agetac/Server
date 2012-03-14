@@ -2,8 +2,10 @@ package org.agetac.server.resources.impl;
 
 import java.util.List;
 
-import org.agetac.model.impl.Action;
-import org.agetac.model.impl.Intervention;
+import org.agetac.common.model.impl.Action;
+import org.agetac.common.model.impl.Intervention;
+import org.agetac.common.model.impl.Position;
+import org.agetac.common.model.impl.Action.ActionType;
 import org.agetac.server.db.Interventions;
 import org.agetac.server.resources.sign.IServerResource;
 import org.json.JSONArray;
@@ -64,36 +66,67 @@ public class ActionResource extends ServerResource implements IServerResource {
 			throws Exception {
 		// Récupère l'identifiant unique de la ressource demandée.
 		String interId = (String) this.getRequestAttributes().get("interId");
-
-		// Récupère la représentation JSON du action
-		JsonRepresentation jsonRepr = new JsonRepresentation(representation);
-
-		// Transforme la representation en objet java
-		JSONObject jsObj = jsonRepr.getJsonObject();
-		Action action = new Action(jsObj);
-
-		// Ajoute l'action a la base de donnée
-		Intervention inter = Interventions.getInstance().getIntervention(interId);
-		List<Action> la = inter.getActions();
 		
-		// On vérifie si l'action n'éxiste pas déjà
-		for(int i=0; i<la.size(); i++){
-			if(la.get(i).getUniqueID().equals(action.getUniqueID())){
-				// Ressource déja existante, envois du code status 406
-				getResponse().setStatus(Status.CLIENT_ERROR_NOT_ACCEPTABLE);
-				
-				// TODO : Envoie d'une exception signalant l'erreur
-				
-				return null;
+		Intervention i = Interventions.getInstance().getIntervention(interId);
+		List<Action> la = i.getActions();
+
+		Action action;
+		JsonRepresentation jsonRepr;
+		
+		// Si l'id est egal à "new" on crée un nouvel objet
+		if (interId.equals("new")) {
+			
+			// Nouvel ID
+			String uid = (la.size() + 1) + "";
+			action = new Action(uid, new Position(0, 0), ActionType.FIRE,new Position(0, 0),new Position(0, 0));
+			jsonRepr = new JsonRepresentation(action.toJSON());
+		}
+		else{
+			// Récupère la représentation JSON du action
+			jsonRepr = new JsonRepresentation(representation);
+			// System.out.println("JsonRepresentation : " + jsonRepr.getText());
+	
+			// Transforme la representation en objet java
+			JSONObject jsObj = jsonRepr.getJsonObject();
+			action = new Action(jsObj);
+
+			
+			// On vérifie si le action n'éxiste pas déjà
+			for(int ii=0; ii<la.size(); ii++){
+				if (la.get(ii).getUniqueID().equals(action.getUniqueID())) {
+					// Action trouvé, envois du code status 406
+					getResponse().setStatus(Status.CLIENT_ERROR_NOT_ACCEPTABLE);
+					return null;
+				}
 			}
 		}
 		
+		//Ajout du action
 		la.add(action);
-		
-		// Pas besoin de retourner de représentation au client
-		return null;
+		// On retourne la représentation au client
+		return jsonRepr;
 	}
 	
+	@Override
+	public Representation deleteResource() {
+		// Récupère l'id dans l'url
+		String interId = (String) this.getRequestAttributes().get("interId");
+		String actId = (String) this.getRequestAttributes().get("actId");
+		
+		
+		// On s'assure qu'il n'est plus présent en base de données
+		
+		Intervention inter = Interventions.getInstance().getIntervention(interId);
+		List<Action> actions = inter.getActions();
+		for (int i = 0; i < actions.size(); i++) {
+			if (actions.get(i).getUniqueID().equals(actId)) {
+				actions.remove(actions.get(i));
+			}
+		}
+		
+		return null;
+	}
+
 	@Override
 	public Representation postResource(Representation representation)
 			throws Exception {
@@ -143,27 +176,6 @@ public class ActionResource extends ServerResource implements IServerResource {
 		// Pas besoin de retourner de représentation au client
 		return null;
 	}
-
-	@Override
-	public Representation deleteResource() {
-		// Récupère l'id dans l'url
-		String interId = (String) this.getRequestAttributes().get("interId");
-		String actId = (String) this.getRequestAttributes().get("actId");
-		
-		
-		// On s'assure qu'il n'est plus présent en base de données
-		
-		Intervention inter = Interventions.getInstance().getIntervention(interId);
-		List<Action> actions = inter.getActions();
-		for (int i = 0; i < actions.size(); i++) {
-			if (actions.get(i).getUniqueID().equals(actId)) {
-				actions.remove(actions.get(i));
-			}
-		}
-		
-		return null;
-	}
-
 
 
 }

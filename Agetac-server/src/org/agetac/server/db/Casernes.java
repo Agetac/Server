@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-import org.agetac.model.impl.Caserne;
+import org.agetac.common.model.impl.Caserne;
 
 public class Casernes{
 

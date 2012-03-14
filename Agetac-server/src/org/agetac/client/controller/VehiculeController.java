@@ -5,11 +5,11 @@ import java.awt.event.ActionListener;
 
 import org.agetac.client.model.VehiculeModel;
 import org.agetac.client.view.VehiculeView;
-import org.agetac.model.impl.Groupe;
-import org.agetac.model.impl.Message;
-import org.agetac.model.impl.Position;
-import org.agetac.model.impl.Vehicule;
-import org.agetac.model.impl.Vehicule.EtatVehicule;
+import org.agetac.common.model.impl.Groupe;
+import org.agetac.common.model.impl.Message;
+import org.agetac.common.model.impl.Position;
+import org.agetac.common.model.impl.Vehicule;
+import org.agetac.common.model.impl.Vehicule.EtatVehicule;
 
 public class VehiculeController implements ActionListener {
 

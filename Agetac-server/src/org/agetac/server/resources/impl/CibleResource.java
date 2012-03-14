@@ -2,8 +2,9 @@ package org.agetac.server.resources.impl;
 
 import java.util.List;
 
-import org.agetac.model.impl.Cible;
-import org.agetac.model.impl.Intervention;
+import org.agetac.common.model.impl.Cible;
+import org.agetac.common.model.impl.Intervention;
+import org.agetac.common.model.impl.Position;
 import org.agetac.server.db.Interventions;
 import org.agetac.server.resources.sign.IServerResource;
 import org.json.JSONArray;
@@ -19,15 +20,16 @@ public class CibleResource extends ServerResource implements IServerResource {
 	public Representation getResource() throws Exception {
 		// Crée une representation JSON vide
 		JsonRepresentation result = null;
-		// Récupère l'identifiant unique de la ressource demandée.
+		// Récupère l'identifiant unique de la rescible demandée.
 		String interId = (String) this.getRequestAttributes().get("interId");
 		String cibId = (String) this.getRequestAttributes().get("cibleId");
 		System.out.println(cibId);
 		// Récupération des cibles de l'intervention
-		List<Cible> cibles = Interventions.getInstance().getIntervention(interId).getCibles();
+		List<Cible> cibles = Interventions.getInstance()
+				.getIntervention(interId).getCibles();
 
 		Cible cible = null;
-		
+
 		// Si on demande un cible précis
 		if (cibId != null) {
 			// Recherche du cible demandé
@@ -43,43 +45,60 @@ public class CibleResource extends ServerResource implements IServerResource {
 			} else {
 				result = new JsonRepresentation(cible.toJSON());
 			}
-		// Si on veut tous les cibles
+			// Si on veut tous les cibles
 		} else if (cibId == null) {
-			
-			JSONArray jsonAr = new JSONArray(); //Création d'une liste Json
-			for(int i=0; i< cibles.size();i++){
-				jsonAr.put(cibles.get(i).toJSON()); // On ajoute un jsonObject contenant le cible dans le jsonArray
+
+			JSONArray jsonAr = new JSONArray(); // Création d'une liste Json
+			for (int i = 0; i < cibles.size(); i++) {
+				jsonAr.put(cibles.get(i).toJSON()); // On ajoute un jsonObject
+													// contenant le cible dans
+													// le jsonArray
 			}
-			
-			result = new JsonRepresentation(jsonAr); // On crée la représentation de la liste
+
+			result = new JsonRepresentation(jsonAr); // On crée la
+														// représentation de la
+														// liste
 		}
 
-		// Retourne la représentation, le code status indique au client si elle est valide
+		// Retourne la représentation, le code status indique au client si elle
+		// est valide
 		return result;
 	}
 
 	@Override
 	public Representation putResource(Representation representation)
 			throws Exception {
-		// Récupère l'identifiant unique de la ressource demandée.
+		// Récupère l'identifiant unique de la rescible demandée.
 		String interId = (String) this.getRequestAttributes().get("interId");
 
-		// Récupère la représentation JSON du cible
-		JsonRepresentation jsonRepr = new JsonRepresentation(representation);
-		// System.out.println("JsonRepresentation : " + jsonRepr.getText());
-
-		// Transforme la representation en objet java
-		JSONObject jsObj = jsonRepr.getJsonObject();
-		Cible cible = new Cible(jsObj);
-		// System.out.println("Cible : " + cible.toJSON());
-
-		// Ajoute l'cible a la base de donnée
 		Intervention i = Interventions.getInstance().getIntervention(interId);
 		List<Cible> lm = i.getCibles();
+
+		Cible cible;
+		JsonRepresentation jsonRepr;
+
+		// Si l'id est egal à "new" on crée un nouvel objet
+		if (interId.equals("new")) {
+
+			// Nouvel ID
+			String uid = (lm.size() + 1) + "";
+			cible = new Cible(uid, new Position(0, 0));
+			jsonRepr = new JsonRepresentation(cible.toJSON());
+
+		} else {
+
+			// Récupère la représentation JSON du cible
+			jsonRepr = new JsonRepresentation(representation);
+
+			// Transforme la representation en objet java
+			JSONObject jsObj = jsonRepr.getJsonObject();
+			cible = new Cible(jsObj);
+		}
+
 		lm.add(cible);
-		// Cibles.getInstance().addCible(cible);
-		// Pas besoin de retourner de représentation au client
-		return null;
+		
+		// On retourne la représentation au client
+		return jsonRepr;
 	}
 
 	@Override
@@ -87,24 +106,70 @@ public class CibleResource extends ServerResource implements IServerResource {
 		// Récupère l'id dans l'url
 		String interId = (String) this.getRequestAttributes().get("interId");
 		String cibId = (String) this.getRequestAttributes().get("cibleId");
-		
+
 		// On s'assure qu'il n'est plus présent en base de données
-	
-		Intervention inter = Interventions.getInstance().getIntervention(interId);
+
+		Intervention inter = Interventions.getInstance().getIntervention(
+				interId);
 		List<Cible> cibles = inter.getCibles();
 		for (int i = 0; i < cibles.size(); i++) {
 			if (cibles.get(i).getUniqueID().equals(cibId)) {
 				cibles.remove(cibles.get(i));
 			}
 		}
-		
+
 		return null;
 	}
 
 	@Override
 	public Representation postResource(Representation representation)
 			throws Exception {
-		// TODO Auto-generated method stub
+		// Récupère l'identifiant unique de la rescible demandée.
+		String interId = (String) this.getRequestAttributes().get("interId");
+		String srcId = (String) this.getRequestAttributes().get("cibleId");
+
+		// Récupération des messages de l'intervention
+		List<Cible> cibles = Interventions.getInstance()
+				.getIntervention(interId).getCibles();
+
+		Cible cible = null;
+
+		// Si on demande un message précis
+		if (srcId != null) {
+
+			// Recherche de l'message demandée
+			for (int i = 0; i < cibles.size(); i++) {
+				if (cibles.get(i).getUniqueID().equals(srcId)) {
+
+					// Récupère la représentation JSON de l'message a mettre a
+					// jour
+					JsonRepresentation jsonRepr = new JsonRepresentation(
+							representation);
+
+					// Transforme la representation en objet json
+					JSONObject jsObj = jsonRepr.getJsonObject();
+
+					// Transforme en Message
+					cible = new Cible(jsObj);
+
+					// Mise a jour de l'message
+					cibles.set(i, cible);
+					break;
+
+				}
+			}
+
+			// Si le message n'est pas trouvé
+			if (cible == null) {
+				getResponse().setStatus(Status.CLIENT_ERROR_NOT_ACCEPTABLE);
+			}
+
+		} else {
+			// Pas d'id -> Erreur
+			getResponse().setStatus(Status.CLIENT_ERROR_NOT_ACCEPTABLE);
+		}
+
+		// Pas besoin de retourner de représentation au client
 		return null;
 	}
 

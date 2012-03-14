@@ -5,8 +5,8 @@ import java.awt.event.ActionListener;
 
 import org.agetac.client.model.InterventionModel;
 import org.agetac.client.view.InterventionView;
-import org.agetac.model.impl.Intervention;
-import org.agetac.model.impl.Message;
+import org.agetac.common.model.impl.Intervention;
+import org.agetac.common.model.impl.Message;
 
 public class InterventionController implements ActionListener {
 
