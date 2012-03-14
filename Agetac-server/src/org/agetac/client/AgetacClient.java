@@ -4,12 +4,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.agetac.client.api.ServerConnection;
 import org.agetac.client.model.MessageModel;
 import org.agetac.client.model.SourceModel;
 import org.agetac.client.view.MessageView;
 import org.agetac.client.view.SourceView;
 import org.agetac.common.api.InterventionConnection;
-import org.agetac.common.api.ServerConnection;
 import org.agetac.common.exception.BadResponseException;
 import org.agetac.common.exception.InvalidJSONException;
 import org.agetac.common.model.impl.Intervention;

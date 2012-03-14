@@ -10,7 +10,7 @@ import java.io.Writer;
 import java.nio.channels.ReadableByteChannel;
 import java.nio.channels.WritableByteChannel;
 
-import org.agetac.common.api.ServerConnection;
+import org.agetac.client.api.ServerConnection;
 import org.agetac.common.exception.BadResponseException;
 import org.agetac.common.exception.InvalidJSONException;
 import org.agetac.common.model.impl.Intervention;
