@@ -3,7 +3,6 @@ package org.agetac.server.resources.impl;
 import java.util.List;
 
 import org.agetac.common.model.impl.Intervention;
-import org.agetac.common.model.impl.Source;
 import org.agetac.common.model.impl.Vehicule;
 import org.agetac.server.db.Interventions;
 import org.agetac.server.resources.sign.IServerResource;
@@ -83,24 +82,35 @@ public class VehiculeResource extends ServerResource implements IServerResource{
 	@Put
 	public Representation putResource(Representation representation)
 			throws Exception {
-		
 		// Récupère l'identifiant unique de la ressource demandée.
 		String interId = (String) this.getRequestAttributes().get("interId");
+
+		// Récupère la représentation JSON du vehicule
+		JsonRepresentation jsonRepr = new JsonRepresentation(representation);
+		// System.out.println("JsonRepresentation : " + jsonRepr.getText());
+
+		// Transforme la representation en objet java
+		JSONObject jsObj = jsonRepr.getJsonObject();
+		Vehicule vehicule = new Vehicule(jsObj);
 		
+
 		// Ajoute Vehicule a la base de donnée
 		Intervention i = Interventions.getInstance().getIntervention(interId);
 		List<Vehicule> lv = i.getVehicules();
 		
-		// Récupère la représentation JSON du vehicule
-		JsonRepresentation jsonRepr = new JsonRepresentation(representation);
-		Vehicule vehicule = new Vehicule(jsonRepr.getJsonObject());
-		
-		String uid = (lv.size() + 1) + "";
-		vehicule.setUniqueID(uid);
+		// On vérifie si le Vehicule n'éxiste pas déjà
+		for(int ii=0; ii<lv.size(); ii++){
+			if (lv.get(ii).getUniqueID().equals(vehicule.getUniqueID())) {
+				// Vehicule trouvé, envois du code status 406
+				getResponse().setStatus(Status.CLIENT_ERROR_NOT_ACCEPTABLE);
+				return null;
+			}
+		}
 		
 		// Ajoute l'vehicule a la base de donnée
 		lv.add(vehicule);
-
+		
+		// Vehicules.getInstance().addVehicule(vehicule);
 		// Pas besoin de retourner de représentation au client
 		return null;
 	}
@@ -133,49 +143,7 @@ public class VehiculeResource extends ServerResource implements IServerResource{
 	@Override
 	public Representation postResource(Representation representation)
 			throws Exception {
-		// Récupère l'identifiant unique de la ressource demandée.
-		String interId = (String) this.getRequestAttributes().get("interId");
-		String vehiculeId = (String) this.getRequestAttributes().get("vehiculeId");
-
-		// Récupération des messages de l'intervention
-		List<Vehicule> vehicules = Interventions.getInstance().getIntervention(interId).getVehicules();
-
-		Vehicule vehicule = null;
-
-		// Si on demande un message précis
-		if (vehiculeId != null) {
-
-			// Recherche de l'message demandée
-			for (int i = 0; i < vehicules.size(); i++) {
-				if (vehicules.get(i).getUniqueID().equals(vehiculeId)) {
-
-					// Récupère la représentation JSON de l'message a mettre a jour
-					JsonRepresentation jsonRepr = new JsonRepresentation(representation);
-
-					// Transforme la representation en objet json
-					JSONObject jsObj = jsonRepr.getJsonObject();
-
-					// Transforme en Message
-					vehicule = new Vehicule(jsObj);
-
-					// Mise a jour de l'message
-					vehicules.set(i, vehicule);
-					break;
-
-				}
-			}
-
-			// Si le message n'est pas trouvé
-			if (vehicule == null) {
-				getResponse().setStatus(Status.CLIENT_ERROR_NOT_ACCEPTABLE);
-			}
-
-		} else {
-			// Pas d'id -> Erreur
-			getResponse().setStatus(Status.CLIENT_ERROR_NOT_ACCEPTABLE);
-		}
-
-		// Pas besoin de retourner de représentation au client
+		// TODO Auto-generated method stub
 		return null;
 	}
 

@@ -71,20 +71,39 @@ public class MessageResource extends ServerResource implements IServerResource{
 		Intervention i = Interventions.getInstance().getIntervention(interId);
 		List<Message> lm = i.getMessages();
 
-		JsonRepresentation jsonRepr = new JsonRepresentation(representation);
-		Message message = new Message(jsonRepr.getJsonObject());
+		Message message;
+		JsonRepresentation jsonRepr;
 		
+		// Si l'id est egal à "new" on crée un nouvel objet
+		if (interId.equals("new")) {
+			
+			// Nouvel ID
+			String uid = (lm.size() + 1) + "";
+			message = new Message(uid,"","9999");
+			jsonRepr = new JsonRepresentation(message.toJSON());
+		}
+		else{
+			// Récupère la représentation JSON du message
+			jsonRepr = new JsonRepresentation(representation);
+			// System.out.println("JsonRepresentation : " + jsonRepr.getText());
 	
-		// Nouvel ID
-		String uid = (lm.size() + 1) + "";
-		message.setUniqueID(uid);
+			// Transforme la representation en objet java
+			JSONObject jsObj = jsonRepr.getJsonObject();
+			message = new Message(jsObj);
+
+			
+			// On vérifie si le message n'éxiste pas déjà
+			for(int ii=0; ii<lm.size(); ii++){
+				if (lm.get(ii).getUniqueID().equals(message.getUniqueID())) {
+					// Message trouvé, envois du code status 406
+					getResponse().setStatus(Status.CLIENT_ERROR_NOT_ACCEPTABLE);
+					return null;
+				}
+			}
+		}
 		
 		//Ajout du message
 		lm.add(message);
-		
-		
-		jsonRepr = new JsonRepresentation(message.toJSON());
-		
 		// On retourne la représentation au client
 		return jsonRepr;
 	}

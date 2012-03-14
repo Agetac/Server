@@ -34,7 +34,7 @@ public class VehiculeController implements ActionListener {
 					&& !(view.getEtat().equals("Etat"))
 					&& !(view.getGroupe().equals("Groupe"))) {
 
-				model.addVehicule(new Vehicule(view.getID(),
+				model.addVehicule(new Vehicule(view.getID(), view.getNom(),
 						new Position(0, 0), CategorieVehicule.FPT, view
 								.getCaserne(), Vehicule.EtatVehicule.ALERTE,
 						new Groupe(null, null, null), "0102"));

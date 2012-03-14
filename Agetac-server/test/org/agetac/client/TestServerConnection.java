@@ -104,7 +104,7 @@ public class TestServerConnection {
 	 */
 	@Test
 	public void testPutRessource() throws BadResponseException, JSONException{
-		Intervention inter = new Intervention();
+		Intervention inter = new Intervention("test");
 		ServerConnection servCon = new ServerConnection("localhost", ""+testPort, "agetacserver");
 		servCon.putResource("intervention", "test", new JsonRepresentation(inter.toJSON()));
 	}
@@ -117,7 +117,7 @@ public class TestServerConnection {
 	 * @throws IOException 
 	 * @throws InvalidJSONException 
 	 */
-/*	@Test
+	@Test
 	public void testGetRessource() throws BadResponseException, IOException, InvalidJSONException, JSONException{
 		Intervention inter;
 		ServerConnection servCon = new ServerConnection("localhost", ""+testPort, "agetacserver");
@@ -127,7 +127,7 @@ public class TestServerConnection {
 		
 		assertEquals("Vérification de l'id de la ressource récupérée", inter.getUniqueID(), "test");
 	}
-	*/
+	
 	
 	/**
 	 * Test la modification d'une ressource

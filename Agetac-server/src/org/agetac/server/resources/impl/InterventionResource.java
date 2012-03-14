@@ -62,25 +62,41 @@ public class InterventionResource extends ServerResource implements	IServerResou
 	public Representation putResource(Representation representation)
 			throws Exception {
 		
+		String interId = (String) this.getRequestAttributes().get("interId");
+		
 		List<Intervention> li = Interventions.getInstance().getInterventions();
 
 		Intervention intervention;
-		JsonRepresentation jsonRepr = new JsonRepresentation(representation);
-		
-		// On récupère l'intervention transmise par le client
-		intervention = new Intervention(jsonRepr.getJsonObject());
+		JsonRepresentation jsonRepr;
 
-		// Génération d'un nouvel uid
-		String uid = (li.size() + 1) + "";
-		
-		// Mise a jour de l'intervention avec son uid
-		intervention.setUniqueID(uid);
-		jsonRepr = new JsonRepresentation(intervention.toJSON());
+		// Si l'id est egal à "new" on crée un nouvel objet
+		if (interId.equals("new")) {
+
+			// Nouvel ID
+			String uid = (li.size() + 1) + "";
+			intervention = new Intervention(uid);
+			jsonRepr = new JsonRepresentation(intervention.toJSON());
+
+		} else {
+
+			// Récupère la représentation JSON de la ressource
+			jsonRepr = new JsonRepresentation(representation);
+			// Transforme la representation en objet java
+			JSONObject jsObj = jsonRepr.getJsonObject();
+			intervention = new Intervention(jsObj);
+			
+			// On vérifie si l'intervention n'éxiste pas déjà
+			if (Interventions.getInstance().getIntervention(intervention.getUniqueID()) != null) {
+				// Ressource non-trouvé, envois du code status 406
+				getResponse().setStatus(Status.CLIENT_ERROR_NOT_ACCEPTABLE);
+				return null;
+			}
+		}
 		
 		// Ajoute l'intervention a la base de donnée
 		Interventions.getInstance().addIntervention(intervention);
 
-		// On retourne la nouvelle représentation au client
+		// On retourne la représentation au client
 		return jsonRepr;
 	}
 

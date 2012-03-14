@@ -66,18 +66,29 @@ public class ImpliqueResource extends ServerResource implements IServerResource 
 		Intervention i = Interventions.getInstance().getIntervention(interId);
 		List<Implique> lm = i.getImpliques();
 
-		JsonRepresentation jsonRepr = new JsonRepresentation(representation);
-		Implique implique = new Implique(jsonRepr.getJsonObject());
+		Implique implique;
+		JsonRepresentation jsonRepr;
 		
+		// Si l'id est egal à "new" on crée un nouvel objet
+		if (interId.equals("new")) {
 			
-		// Nouvel ID
-		String uid = (lm.size() + 1) + "";
-		implique.setUniqueID(uid);
-		
-		lm.add(implique);
-		
-		jsonRepr = new JsonRepresentation(implique.toJSON());
+			// Nouvel ID
+			String uid = (lm.size() + 1) + "";
+			implique = new Implique(uid,Implique.EtatImplique.INDEMNE);
+			jsonRepr = new JsonRepresentation(implique.toJSON());
+			
+		} else {
+			
+			// Récupère la représentation JSON du implique
+			jsonRepr = new JsonRepresentation(representation);
+			// Transforme la representation en objet java
+			JSONObject jsObj = jsonRepr.getJsonObject();
+			implique = new Implique(jsObj);
 
+		}
+		lm.add(implique);
+		// Impliques.getInstance().addImplique(implique);
+		// Pas besoin de retourner de représentation au client
 		return jsonRepr;
 	}
 

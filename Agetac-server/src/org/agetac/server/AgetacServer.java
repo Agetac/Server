@@ -9,7 +9,11 @@ import org.agetac.server.resources.impl.SourceResource;
 import org.agetac.server.resources.impl.VehiculeResource;
 import org.restlet.*;
 import org.restlet.data.Protocol;
+import org.restlet.resource.Directory;
 import org.restlet.routing.Router;
+import org.restlet.security.ChallengeAuthenticator;
+import org.restlet.security.MapVerifier;
+import org.restlet.ext.crypto.DigestAuthenticator;
 
 public class AgetacServer extends Application {
 
@@ -28,6 +32,20 @@ public class AgetacServer extends Application {
 		// Attach the application to the component with a defined contextRoot.
 		String contextRoot = "/agetacserver";
 		component.getDefaultHost().attach(contextRoot, application);
+		
+		/*DigestAuthenticator guard = new DigestAuthenticator(null, "TestRealm", "mySecretServerKey");
+		
+		// Instantiates a Verifier of identifier/secret couples based on a simple Map.
+		MapVerifier mapVerifier = new MapVerifier();
+		// Load a single static login/secret pair.
+		mapVerifier.getLocalSecrets().put("login", "secret".toCharArray());
+		guard.setWrappedVerifier(mapVerifier);
+
+		// Guard the application
+		guard.setNext(application);
+
+		component.getDefaultHost().attachDefault(guard);
+		*/
 		component.start();
 	}
 
@@ -68,42 +86,47 @@ public class AgetacServer extends Application {
 		// Crée un routeur restlet.
 		Router server_router = new Router(getContext());
 		
-		
-		// Attache les ressources au routeur.
-		
 		//Sous routeur pour les interventions
 		Router intervention_router = new Router(server_router.getContext());
 		intervention_router.attach("/intervention", InterventionResource.class);
 		intervention_router.attach("/intervention/{interId}", InterventionResource.class);
 		
-			Router message_router = new Router(intervention_router.getContext());
-			message_router.attach("/intervention/{interId}/message", MessageResource.class); // Tous les messages
-			message_router.attach("/intervention/{interId}/message/{messageId}", MessageResource.class); // Un seul message
-			
-			Router source_router = new Router(intervention_router.getContext());
-			source_router.attach("/intervention/{interId}/source", SourceResource.class); // Tous les messages
-			source_router.attach("/intervention/{interId}/source/{sourceId}", SourceResource.class); // Un seul message
-			
-			Router cible_router = new Router(intervention_router.getContext());
-			cible_router.attach("/intervention/{interId}/cible", SourceResource.class); // Tous les messages
-			cible_router.attach("/intervention/{interId}/cible/{sourceId}", SourceResource.class); // Un seul message
-			
-			Router vehicule_router = new Router(intervention_router.getContext());
-			vehicule_router.attach("/intervention/{interId}/vehicule", VehiculeResource.class); // Tous les vehicules
-			vehicule_router.attach("/intervention/{interId}/vehicule/{vehiculeId}", VehiculeResource.class); // Un seul vehicule
+		DigestAuthenticator guard = new DigestAuthenticator(intervention_router.getContext(), "TestRealm", "mySecretServerKey");
 		
+		// Instantiates a Verifier of identifier/secret couples based on a simple Map.
+		MapVerifier mapVerifier = new MapVerifier();
+		// Load a single static login/secret pair.
+		mapVerifier.getLocalSecrets().put("login", "secret".toCharArray());
+		guard.setWrappedVerifier(mapVerifier);
+
+		Router message_router = new Router(intervention_router.getContext());
+		message_router.attach("/intervention/{interId}/message", MessageResource.class); // Tous les messages
+		message_router.attach("/intervention/{interId}/message/{messageId}", MessageResource.class); // Un seul message
+
+		Router source_router = new Router(intervention_router.getContext());
+		source_router.attach("/intervention/{interId}/source", SourceResource.class); // Tous les messages
+		source_router.attach("/intervention/{interId}/source/{sourceId}", SourceResource.class); // Un seul message
+
+		Router cible_router = new Router(intervention_router.getContext());
+		cible_router.attach("/intervention/{interId}/cible", SourceResource.class); // Tous les messages
+		cible_router.attach("/intervention/{interId}/cible/{sourceId}", SourceResource.class); // Un seul message
+
+		Router vehicule_router = new Router(intervention_router.getContext());
+		vehicule_router.attach("/intervention/{interId}/vehicule", VehiculeResource.class); // Tous les vehicules
+		vehicule_router.attach("/intervention/{interId}/vehicule/{vehiculeId}", VehiculeResource.class); // Un seul vehicule
+
 		intervention_router.attach(message_router);
 		intervention_router.attach(source_router);
 		intervention_router.attach(cible_router);
 		
+		Router login_router = new Router(intervention_router.getContext());
+		login_router.attach("/intervention/{interId}/message", MessageResource.class);
 		
-		Router login_router = new Router(server_router.getContext());
-		login_router.attach("/intervention", InterventionResource.class);
+		guard.setNext(intervention_router);
 		
-		server_router.attach(intervention_router);
+		server_router.attach(guard);
 		server_router.attach(login_router);
 		
-		//router.attach("/intervention/{interId}/agent/{agentId}", AgentResource.class);
 		// Retourne le routeur.
 		return server_router;
 	}
