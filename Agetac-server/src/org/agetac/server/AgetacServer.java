@@ -1,16 +1,10 @@
 package org.agetac.server;
 
-import org.agetac.common.model.impl.Intervention;
-import org.agetac.server.db.Interventions;
-import org.agetac.server.resources.impl.InterventionResource;
-import org.agetac.server.resources.impl.MessageResource;
-import org.agetac.server.resources.impl.SourceResource;
-import org.agetac.server.resources.impl.VehiculeResource;
+import org.agetac.server.db.DbUtils;
+import org.agetac.server.resources.impl.*;
 import org.restlet.*;
 import org.restlet.data.Protocol;
 import org.restlet.routing.Router;
-import org.restlet.security.MapVerifier;
-import org.restlet.ext.crypto.DigestAuthenticator;
 
 public class AgetacServer extends Application {
 
@@ -41,9 +35,10 @@ public class AgetacServer extends Application {
 	 */
 	public static void main(String[] args) throws Exception {
 		runServer(8112);
-		Interventions interventions = Interventions.getInstance();
+		DbUtils.populateTestDb();
+		//Interventions interventions = Interventions.getInstance();
 		
-		Intervention inter1 = new Intervention("1");
+		//Intervention inter1 = new Intervention("1");
 		/*Intervention inter2 = new Intervention("inter2");
 		Intervention inter3 = new Intervention("inter3");
 
@@ -56,7 +51,7 @@ public class AgetacServer extends Application {
 		inter2.getMessages().add(new org.agetac.model.impl.Message("6", "message3 inter2", "0104"));
 		*/
 
-		interventions.addIntervention(inter1);
+		//interventions.addIntervention(inter1);
 		/*interventions.addIntervention(inter2);*/
 	}
 
@@ -70,27 +65,30 @@ public class AgetacServer extends Application {
 		// Crée un routeur restlet.
 		Router server_router = new Router(getContext());
 		
+		// A collection of X is different from X.
+		// http://restlet-discuss.1400322.n2.nabble.com/Is-Multiple-Get-and-Put-annotations-Possible-td5390580.html
+		
 		//Sous routeur pour les interventions
 		Router intervention_router = new Router(server_router.getContext());
-		intervention_router.attach("/intervention", InterventionResource.class);
+		intervention_router.attach("/intervention", InterventionsResource.class);
 		intervention_router.attach("/intervention/{interId}", InterventionResource.class);
 		
 		
 		Router message_router = new Router(intervention_router.getContext());
-		message_router.attach("/intervention/{interId}/message", MessageResource.class); // Tous les messages
-		message_router.attach("/intervention/{interId}/message/{messageId}", MessageResource.class); // Un seul message
+		message_router.attach("/intervention/{interId}/message", MessagesResource.class); // Tous les messages
+		message_router.attach("/intervention/{interId}/message/{uid}", MessageResource.class); // Un seul message
 
 		Router source_router = new Router(intervention_router.getContext());
-		source_router.attach("/intervention/{interId}/source", SourceResource.class); // Tous les messages
-		source_router.attach("/intervention/{interId}/source/{sourceId}", SourceResource.class); // Un seul message
+		source_router.attach("/intervention/{interId}/source", SourcesResource.class); // Tous les messages
+		source_router.attach("/intervention/{interId}/source/{uid}", SourceResource.class); // Un seul message
 
 		Router cible_router = new Router(intervention_router.getContext());
-		cible_router.attach("/intervention/{interId}/cible", SourceResource.class); // Tous les messages
-		cible_router.attach("/intervention/{interId}/cible/{sourceId}", SourceResource.class); // Un seul message
+		cible_router.attach("/intervention/{interId}/cible", CiblesResource.class); // Tous les messages
+		cible_router.attach("/intervention/{interId}/cible/{uid}", CibleResource.class); // Un seul message
 
 		Router vehicule_router = new Router(intervention_router.getContext());
-		vehicule_router.attach("/intervention/{interId}/vehicule", VehiculeResource.class); // Tous les vehicules
-		vehicule_router.attach("/intervention/{interId}/vehicule/{vehiculeId}", VehiculeResource.class); // Un seul vehicule
+		vehicule_router.attach("/intervention/{interId}/vehicule", VehiculesResource.class); // Tous les vehicules
+		vehicule_router.attach("/intervention/{interId}/vehicule/{uid}", VehiculeResource.class); // Un seul vehicule
 
 		intervention_router.attach(message_router);
 		intervention_router.attach(source_router);

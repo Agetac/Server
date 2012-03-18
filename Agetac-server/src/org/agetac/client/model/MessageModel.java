@@ -10,7 +10,6 @@ import javax.swing.table.AbstractTableModel;
 import org.agetac.common.api.InterventionConnection;
 import org.agetac.common.exception.BadResponseException;
 import org.agetac.common.model.impl.Message;
-import org.json.JSONException;
 
 public class MessageModel extends AbstractTableModel implements Observer {
 

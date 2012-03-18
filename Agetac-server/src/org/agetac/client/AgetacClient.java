@@ -15,8 +15,6 @@ import org.agetac.common.exception.InvalidJSONException;
 import org.agetac.common.model.impl.Intervention;
 import org.agetac.common.model.impl.Message;
 import org.agetac.common.model.impl.Source;
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.restlet.ext.json.JsonRepresentation;
 import org.restlet.representation.Representation;
 

@@ -1,15 +1,13 @@
 package org.agetac.server.resources.impl;
 
-import org.agetac.common.model.impl.Cible;
 import org.agetac.common.model.impl.Intervention;
 import org.restlet.representation.Representation;
 import org.restlet.resource.Get;
-import org.restlet.resource.ServerResource;
 
-public class InterventionResource extends AbstractServerResource {
+public class InterventionsResource extends AbstractServerResource {
 
 	@Get("json")
 	public Representation toJSON() {
-		return getJsonSingle(Intervention.class);
+		return getJsonList(Intervention.class);
 	}
 }
