@@ -49,8 +49,8 @@ public class TestInterventionResource {
 	@Test
 	public void testIntervention() throws Exception {
 		// Construction de l'url de test
-		String uniqueID = "new";
-		String testUrl = String.format("http://localhost:%s/agetacserver/intervention/%s", testPort, uniqueID);
+
+		String testUrl = String.format("http://localhost:%s/agetacserver/intervention", testPort);
 		ClientResource client = new ClientResource(testUrl);
 
 		// On construit la représentation JSON de la ressource testée
@@ -73,17 +73,21 @@ public class TestInterventionResource {
 		 *  - Clément
 		 */
 
-
-		// On demande (put) une nouvelle ressource au serveur
-		JsonRepresentation jsonrepr1 = new JsonRepresentation(client.put(null));
-		
-		// On récupère et modifie cette intervention
-		Intervention inter1 = new Intervention(jsonrepr1.getJsonObject());
+		// On crée une intervention
+		Intervention inter1 = new Intervention();
 		inter1.getMessages().add(new Message("1", "mon message", "0000"));
 		
+		// On ajoute (put) une nouvelle ressource au serveur et on la reçois avec un id
+		JsonRepresentation jsonrepr1 = new JsonRepresentation(client.put(new JsonRepresentation(inter1.toJSON())));
+		inter1 = new Intervention(jsonrepr1.getJsonObject());
+		
+		// On récupère et modifie cette intervention
+		//Intervention inter1 = new Intervention(jsonrepr1.getJsonObject());
+		//inter1.getMessages().add(new Message("1", "mon message", "0000"));
+		
 		//On met a jour sur le serveur
-		uniqueID = inter1.getUniqueID();
-		testUrl = String.format("http://localhost:%s/agetacserver/intervention/%s", testPort, uniqueID);
+		String uniqueID = inter1.getUniqueID();
+		testUrl = String.format("http://localhost:%s/agetacserver/intervention/%s", testPort, inter1.getUniqueID());
 		client = new ClientResource(testUrl);
 		client.post(new JsonRepresentation(inter1.toJSON()));
 		

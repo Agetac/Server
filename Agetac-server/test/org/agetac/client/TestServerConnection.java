@@ -104,9 +104,10 @@ public class TestServerConnection {
 	 */
 	@Test
 	public void testPutRessource() throws BadResponseException, JSONException{
-		Intervention inter = new Intervention("test");
+		Intervention inter = new Intervention();
+		inter.setName("test");
 		ServerConnection servCon = new ServerConnection("localhost", ""+testPort, "agetacserver");
-		servCon.putResource("intervention", "test", new JsonRepresentation(inter.toJSON()));
+		servCon.putResource("intervention", null, new JsonRepresentation(inter.toJSON()));
 	}
 	
 	/**
@@ -121,11 +122,12 @@ public class TestServerConnection {
 	public void testGetRessource() throws BadResponseException, IOException, InvalidJSONException, JSONException{
 		Intervention inter;
 		ServerConnection servCon = new ServerConnection("localhost", ""+testPort, "agetacserver");
-		Representation repr = servCon.getResource("intervention", "test");
+		Representation repr = servCon.getResource("intervention", "1");
 		JsonRepresentation jsonrepr = new JsonRepresentation(repr);
 		inter = new Intervention(jsonrepr.getJsonObject());
 		
-		assertEquals("Vérification de l'id de la ressource récupérée", inter.getUniqueID(), "test");
+		assertEquals("Vérification de l'id de la ressource récupérée", inter.getUniqueID(), "1");
+		assertEquals("Vérification de l'attribut modifié", inter.getName(), "test");
 	}
 	
 	
