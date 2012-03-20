@@ -108,16 +108,18 @@ public class ServerConnection implements ServerApi{
 		if(resUniqueID != null){
 			url += "/" + resUniqueID;
 		}
+		
 		System.out.println("PUT : " + url);
+		
 		ClientResource client = new ClientResource(url);
 		
+		Representation repr = null;
 		try {
-			return client.put(resRepresentation);
+			repr = client.put(resRepresentation);
 		} catch (ResourceException e) {
 			throw(new BadResponseException(client.getResponse()));
 		}
-		
-		
+		return repr;
 	}
 	/*
 	public void putResource(String resType, String resUniqueID,	Representation resRepresentation) throws BadResponseException {
@@ -164,7 +166,7 @@ public class ServerConnection implements ServerApi{
 		
 	}
 */
-	public void postResource(String resType, String resUniqueID, Representation resRepresentation) throws BadResponseException {
+	public Representation postResource(String resType, String resUniqueID, Representation resRepresentation) throws BadResponseException {
 
 		String url = baseUrl() + resType;
 		
@@ -174,11 +176,13 @@ public class ServerConnection implements ServerApi{
 		System.out.println("POST : " + url);
 		ClientResource client = new ClientResource(url);
 		
+		Representation repr = null;
 		try {
-			client.post(resRepresentation);
+			repr = client.post(resRepresentation);
 		} catch (ResourceException e) {
 			throw(new BadResponseException(client.getResponse()));
 		}
+		return repr;
 		
 	}
 

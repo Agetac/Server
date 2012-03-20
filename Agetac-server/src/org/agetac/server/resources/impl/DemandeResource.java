@@ -3,7 +3,12 @@ package org.agetac.server.resources.impl;
 import java.util.List;
 
 import org.agetac.common.model.impl.DemandeMoyen;
+import org.agetac.common.model.impl.DemandeMoyen.EtatDemande;
+import org.agetac.common.model.impl.Groupe;
 import org.agetac.common.model.impl.Intervention;
+import org.agetac.common.model.impl.Position;
+import org.agetac.common.model.impl.Vehicule;
+import org.agetac.common.model.impl.Vehicule.EtatVehicule;
 import org.agetac.server.db.Interventions;
 import org.agetac.server.resources.sign.IServerResource;
 import org.json.JSONArray;
@@ -84,9 +89,21 @@ public class DemandeResource extends ServerResource implements IServerResource {
 		
 		//Ajout du action
 		ld.add(demande);
-
 		// On retourne la nouvelle représentation au client
 		jsonRepr = new JsonRepresentation(demande.toJSON());
+		
+		
+		// TODO: C'est du bricolage
+		
+		demande.setEtat(EtatDemande.ACCEPTEE);
+		demande.getGroupesHoraires().put(EtatDemande.ACCEPTEE, "0102");
+		
+		//On crée le Véhicule demandé (normalement cherché dans la bdd de vehicules)
+		Vehicule v = new Vehicule(""+(i.getVehicules().size()+1), new Position(),demande.getCategorie(), "Janze", EtatVehicule.ALERTE, new Groupe(demande.getGroupe(), null, null), "0103" );
+		demande.setVehId(v.getUniqueID());
+		i.getVehicules().add(v);
+		
+		// Fin bricolage
 		
 		// On retourne la représentation au client
 		return jsonRepr;
@@ -125,7 +142,7 @@ public class DemandeResource extends ServerResource implements IServerResource {
 		List<DemandeMoyen> demandes = Interventions.getInstance().getIntervention(interId).getDemandesMoyen();
 		
 		DemandeMoyen demande = null;
-		
+		JsonRepresentation jsonRepr = null;
 		// Si on demande un action précis
 		if (demId != null) {
 		
@@ -134,7 +151,7 @@ public class DemandeResource extends ServerResource implements IServerResource {
 				if (demandes.get(i).getUniqueID().equals(demId)) {
 					
 					// Récupère la représentation JSON de l'action a mettre a jour
-					JsonRepresentation jsonRepr = new JsonRepresentation(representation);
+					 jsonRepr = new JsonRepresentation(representation);
 
 					// Transforme la representation en objet json
 					JSONObject jsObj = jsonRepr.getJsonObject();
@@ -158,9 +175,9 @@ public class DemandeResource extends ServerResource implements IServerResource {
 			// Pas d'id -> Erreur
 			getResponse().setStatus(Status.CLIENT_ERROR_NOT_ACCEPTABLE);
 		}
-
+		jsonRepr = new JsonRepresentation(demande.toJSON());
 		// Pas besoin de retourner de représentation au client
-		return null;
+		return jsonRepr;
 	}
 
 }

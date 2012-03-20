@@ -101,8 +101,8 @@ public class VehiculeResource extends ServerResource implements IServerResource{
 		// Ajoute l'vehicule a la base de donnée
 		lv.add(vehicule);
 
-		// Pas besoin de retourner de représentation au client
-		return null;
+		// retourne une représentation au client
+		return new JsonRepresentation(vehicule.toJSON());
 	}
 
 	/**
@@ -141,7 +141,7 @@ public class VehiculeResource extends ServerResource implements IServerResource{
 		List<Vehicule> vehicules = Interventions.getInstance().getIntervention(interId).getVehicules();
 
 		Vehicule vehicule = null;
-
+		JsonRepresentation jsonRepr = null;
 		// Si on demande un message précis
 		if (vehiculeId != null) {
 
@@ -150,7 +150,7 @@ public class VehiculeResource extends ServerResource implements IServerResource{
 				if (vehicules.get(i).getUniqueID().equals(vehiculeId)) {
 
 					// Récupère la représentation JSON de l'message a mettre a jour
-					JsonRepresentation jsonRepr = new JsonRepresentation(representation);
+					 jsonRepr = new JsonRepresentation(representation);
 
 					// Transforme la representation en objet json
 					JSONObject jsObj = jsonRepr.getJsonObject();
@@ -174,9 +174,9 @@ public class VehiculeResource extends ServerResource implements IServerResource{
 			// Pas d'id -> Erreur
 			getResponse().setStatus(Status.CLIENT_ERROR_NOT_ACCEPTABLE);
 		}
-
+		jsonRepr = new JsonRepresentation(vehicule.toJSON());
 		// Pas besoin de retourner de représentation au client
-		return null;
+		return jsonRepr;
 	}
 
 

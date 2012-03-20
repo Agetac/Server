@@ -120,7 +120,7 @@ public class MessageResource extends ServerResource implements IServerResource{
 		List<Message> messages = Interventions.getInstance().getIntervention(interId).getMessages();
 		
 		Message message = null;
-		
+		JsonRepresentation jsonRepr = null;
 		// Si on demande un message précis
 		if (msgId != null) {
 		
@@ -129,7 +129,7 @@ public class MessageResource extends ServerResource implements IServerResource{
 				if (messages.get(i).getUniqueID().equals(msgId)) {
 					
 					// Récupère la représentation JSON de l'message a mettre a jour
-					JsonRepresentation jsonRepr = new JsonRepresentation(representation);
+					 jsonRepr = new JsonRepresentation(representation);
 
 					// Transforme la representation en objet json
 					JSONObject jsObj = jsonRepr.getJsonObject();
@@ -154,9 +154,9 @@ public class MessageResource extends ServerResource implements IServerResource{
 			// Pas d'id -> Erreur
 			getResponse().setStatus(Status.CLIENT_ERROR_NOT_ACCEPTABLE);
 		}
-
+		jsonRepr = new JsonRepresentation(message.toJSON());
 		// Pas besoin de retourner de représentation au client
-		return null;
+		return jsonRepr;
 	}
 
 

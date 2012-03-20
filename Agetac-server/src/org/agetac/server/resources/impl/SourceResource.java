@@ -3,7 +3,6 @@ package org.agetac.server.resources.impl;
 import java.util.List;
 
 import org.agetac.common.model.impl.Intervention;
-import org.agetac.common.model.impl.Position;
 import org.agetac.common.model.impl.Source;
 import org.agetac.server.db.Interventions;
 import org.agetac.server.resources.sign.IServerResource;
@@ -122,7 +121,7 @@ public class SourceResource extends ServerResource implements IServerResource {
 				.getIntervention(interId).getSources();
 
 		Source source = null;
-
+		JsonRepresentation jsonRepr = null;
 		// Si on demande un message précis
 		if (srcId != null) {
 
@@ -132,8 +131,7 @@ public class SourceResource extends ServerResource implements IServerResource {
 
 					// Récupère la représentation JSON de l'message a mettre a
 					// jour
-					JsonRepresentation jsonRepr = new JsonRepresentation(
-							representation);
+					 jsonRepr = new JsonRepresentation(representation);
 
 					// Transforme la representation en objet json
 					JSONObject jsObj = jsonRepr.getJsonObject();
@@ -157,9 +155,10 @@ public class SourceResource extends ServerResource implements IServerResource {
 			// Pas d'id -> Erreur
 			getResponse().setStatus(Status.CLIENT_ERROR_NOT_ACCEPTABLE);
 		}
-
-		// Pas besoin de retourner de représentation au client
-		return null;
+		
+		jsonRepr = new JsonRepresentation(source.toJSON());
+		//  besoin de retourner de représentation au client
+		return jsonRepr;
 	}
 
 }

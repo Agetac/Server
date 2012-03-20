@@ -70,18 +70,13 @@ public class ActionResource extends ServerResource implements IServerResource {
 		Intervention i = Interventions.getInstance().getIntervention(interId);
 		List<Action> la = i.getActions();
 
-		Action action;
-		JsonRepresentation jsonRepr;
-			
-		// Nouvel ID
-		String uid = (la.size() + 1) + "";
 		
 		// Récupère la représentation JSON du action
-		jsonRepr = new JsonRepresentation(representation);
-
-		// Transforme la representation en objet java
-		JSONObject jsObj = jsonRepr.getJsonObject();
-		action = new Action(jsObj);
+		JsonRepresentation jsonRepr = new JsonRepresentation(representation);
+		Action action = new Action(jsonRepr.getJsonObject());
+		
+		// Nouvel ID
+		String uid = (la.size() + 1) + "";
 		action.setUniqueID(uid);
 		
 		//Ajout du action
@@ -99,7 +94,7 @@ public class ActionResource extends ServerResource implements IServerResource {
 	public Representation deleteResource() {
 		// Récupère l'id dans l'url
 		String interId = (String) this.getRequestAttributes().get("interId");
-		String actId = (String) this.getRequestAttributes().get("actId");
+		String actId = (String) this.getRequestAttributes().get("actionId");
 		
 		
 		// On s'assure qu'il n'est plus présent en base de données
@@ -127,7 +122,7 @@ public class ActionResource extends ServerResource implements IServerResource {
 		List<Action> actions = Interventions.getInstance().getIntervention(interId).getActions();
 		
 		Action action = null;
-		
+		JsonRepresentation jsonRepr = null ;
 		// Si on demande un action précis
 		if (actId != null) {
 		
@@ -136,7 +131,7 @@ public class ActionResource extends ServerResource implements IServerResource {
 				if (actions.get(i).getUniqueID().equals(actId)) {
 					
 					// Récupère la représentation JSON de l'action a mettre a jour
-					JsonRepresentation jsonRepr = new JsonRepresentation(representation);
+					jsonRepr = new JsonRepresentation(representation);
 
 					// Transforme la representation en objet json
 					JSONObject jsObj = jsonRepr.getJsonObject();
@@ -160,9 +155,9 @@ public class ActionResource extends ServerResource implements IServerResource {
 			// Pas d'id -> Erreur
 			getResponse().setStatus(Status.CLIENT_ERROR_NOT_ACCEPTABLE);
 		}
-
+		jsonRepr = new JsonRepresentation(action.toJSON());
 		// Pas besoin de retourner de représentation au client
-		return null;
+		return jsonRepr;
 	}
 
 

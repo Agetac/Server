@@ -12,9 +12,19 @@ import org.agetac.client.view.SourceView;
 import org.agetac.common.api.InterventionConnection;
 import org.agetac.common.exception.BadResponseException;
 import org.agetac.common.exception.InvalidJSONException;
+import org.agetac.common.model.impl.Action;
+import org.agetac.common.model.impl.Action.ActionType;
+import org.agetac.common.model.impl.Cible;
+import org.agetac.common.model.impl.DemandeMoyen;
+import org.agetac.common.model.impl.Groupe;
 import org.agetac.common.model.impl.Intervention;
 import org.agetac.common.model.impl.Message;
+import org.agetac.common.model.impl.Position;
 import org.agetac.common.model.impl.Source;
+import org.agetac.common.model.impl.DemandeMoyen.EtatDemande;
+import org.agetac.common.model.impl.Vehicule;
+import org.agetac.common.model.impl.Vehicule.CategorieVehicule;
+import org.agetac.common.model.impl.Vehicule.EtatVehicule;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.restlet.ext.json.JsonRepresentation;
@@ -41,7 +51,8 @@ public class AgetacClient {
 	 */
 	public static void main(String[] args) throws Exception {
 		
-		AgetacClient.testCommunication2();
+		AgetacClient.initIntervention();
+		//AgetacClient.testCommunication2();
 
 		/*MessageModel msgModel = new MessageModel();
 		MessageView msgView = new MessageView(msgModel);
@@ -57,6 +68,71 @@ public class AgetacClient {
 		SourceModel srcModel = new SourceModel();
 		SourceView srcView = new SourceView(srcModel);*/
 	}
+
+	private static void initIntervention() throws BadResponseException, JSONException, IOException, InvalidJSONException {
+		
+		ServerConnection serv = new ServerConnection("localhost", "8112", "agetacserver");
+		
+		Intervention inter = new Intervention();
+		inter.setPosition(new Position(48.11551,-1.638774));
+		inter.setName("Demo");
+		
+		JsonRepresentation interRepresentation = new JsonRepresentation(serv.putResource(INTERVENTION, null, new JsonRepresentation(inter.toJSON())));
+		inter = new Intervention(interRepresentation.getJsonObject());
+		
+		InterventionConnection interCon = new InterventionConnection(inter.getUniqueID(), serv);
+		System.out.println(inter.toString());
+		
+		
+		// Ajout de véhicule
+		
+		Groupe g1 = new Groupe("1", null, null);
+		Vehicule v1 = new Vehicule(null, inter.getPosition(), CategorieVehicule.FPT, "Rennes", EtatVehicule.SUR_LES_LIEUX, g1, "0351");
+		Vehicule v2 = new Vehicule(null, inter.getPosition(), CategorieVehicule.CCGCLC, "Rennes", EtatVehicule.SUR_LES_LIEUX, g1, "0351");
+		Vehicule v3 = new Vehicule(null, inter.getPosition(), CategorieVehicule.VLCC, "Rennes", EtatVehicule.SUR_LES_LIEUX, g1, "0351");
+		v1 = interCon.putVehicule(v1);
+		v2 = interCon.putVehicule(v2);
+		v3 = interCon.putVehicule(v3);
+		
+		
+		// Ajout action
+		
+		Action a1 = new Action(null, inter.getPosition(), ActionType.FIRE, inter.getPosition(), inter.getPosition());
+		a1 = interCon.putAction(a1);
+		a1.setPosition(new Position(48.11552,-1.638775));
+		a1 = interCon.postAction(a1);
+		
+		// Ajout source
+		
+		Source s1 = new Source(null, inter.getPosition()); // Il faudrait ajouté un type comme les actions ? (FIRE ...)
+		s1 = interCon.putSource(s1);
+		s1.setPosition(new Position(48.11552,-1.638775));
+		s1 = interCon.postSource(s1);
+		
+		// Ajout source
+		
+		Cible c1 = new Cible(null, inter.getPosition()); // Il faudrait ajouté un type comme les actions ? (FIRE ...)
+		c1 = interCon.putCible(c1);
+		c1.setPosition(new Position(48.11552,-1.638775));
+		c1 = interCon.postCible(c1);
+		
+		//Création d'une demande
+		
+		/*
+		DemandeMoyen demande = new DemandeMoyen(null, new Position(48.1523,-1), CategorieVehicule.CCFM, EtatDemande.LANCEE, new Groupe("1", null, null), "0101");
+		interCon.putDemandeMoyen(demande);
+		
+		interRepresentation = new JsonRepresentation(serv.getResource(INTERVENTION, inter.getUniqueID()));
+		inter = new Intervention(interRepresentation.getJsonObject());
+		
+		
+		*/
+		inter = interCon.getIntervention();
+		System.out.println(inter);
+	}
+	
+	
+	
 	
 	private static void testCommunication() throws BadResponseException, JSONException {
 		
