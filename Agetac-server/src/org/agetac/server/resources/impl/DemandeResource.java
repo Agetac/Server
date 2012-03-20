@@ -13,7 +13,7 @@ import org.restlet.ext.json.JsonRepresentation;
 import org.restlet.representation.Representation;
 import org.restlet.resource.ServerResource;
 
-public class DemandeRessource extends ServerResource implements IServerResource {
+public class DemandeResource extends ServerResource implements IServerResource {
 
 	@Override
 	public Representation getResource() throws Exception {
@@ -22,7 +22,7 @@ public class DemandeRessource extends ServerResource implements IServerResource 
 		
 		// Récupère l'identifiant unique de la ressource demandée.
 		String interId = (String) this.getRequestAttributes().get("interId");
-		String actId = (String) this.getRequestAttributes().get("actionId");
+		String actId = (String) this.getRequestAttributes().get("demId");
 		
 		// Récupération des actions de l'intervention
 		List<Action> actions = Interventions.getInstance().getIntervention(interId).getActions();
@@ -97,7 +97,7 @@ public class DemandeRessource extends ServerResource implements IServerResource 
 	public Representation deleteResource() {
 		// Récupère l'id dans l'url
 		String interId = (String) this.getRequestAttributes().get("interId");
-		String actId = (String) this.getRequestAttributes().get("actId");
+		String actId = (String) this.getRequestAttributes().get("demId");
 		
 		
 		// On s'assure qu'il n'est plus présent en base de données
@@ -119,7 +119,7 @@ public class DemandeRessource extends ServerResource implements IServerResource 
 		
 		// Récupère l'identifiant unique de la ressource demandée.
 		String interId = (String) this.getRequestAttributes().get("interId");
-		String actId = (String) this.getRequestAttributes().get("actionId");
+		String actId = (String) this.getRequestAttributes().get("demId");
 		
 		// Récupération des actions de l'intervention
 		List<Action> actions = Interventions.getInstance().getIntervention(interId).getActions();
