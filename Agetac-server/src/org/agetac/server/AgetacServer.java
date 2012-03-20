@@ -2,6 +2,7 @@ package org.agetac.server;
 
 import org.agetac.common.model.impl.Intervention;
 import org.agetac.server.db.Interventions;
+import org.agetac.server.resources.impl.DemandeResource;
 import org.agetac.server.resources.impl.InterventionResource;
 import org.agetac.server.resources.impl.MessageResource;
 import org.agetac.server.resources.impl.SourceResource;
@@ -91,6 +92,10 @@ public class AgetacServer extends Application {
 		Router vehicule_router = new Router(intervention_router.getContext());
 		vehicule_router.attach("/intervention/{interId}/vehicule", VehiculeResource.class); // Tous les vehicules
 		vehicule_router.attach("/intervention/{interId}/vehicule/{vehiculeId}", VehiculeResource.class); // Un seul vehicule
+		
+		Router demande_router = new Router(intervention_router.getContext());
+		message_router.attach("/intervention/{interId}/demande", DemandeResource.class); // Tous les messages
+		message_router.attach("/intervention/{interId}/demande/{demId}", DemandeResource.class); // Un seul message
 
 		intervention_router.attach(message_router);
 		intervention_router.attach(source_router);
