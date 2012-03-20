@@ -2,7 +2,7 @@ package org.agetac.server.resources.impl;
 
 import java.util.List;
 
-import org.agetac.common.model.impl.Action;
+import org.agetac.common.model.impl.DemandeMoyen;
 import org.agetac.common.model.impl.Intervention;
 import org.agetac.server.db.Interventions;
 import org.agetac.server.resources.sign.IServerResource;
@@ -22,34 +22,34 @@ public class DemandeResource extends ServerResource implements IServerResource {
 		
 		// Récupère l'identifiant unique de la ressource demandée.
 		String interId = (String) this.getRequestAttributes().get("interId");
-		String actId = (String) this.getRequestAttributes().get("demId");
+		String demId = (String) this.getRequestAttributes().get("demId");
 		
 		// Récupération des actions de l'intervention
-		List<Action> actions = Interventions.getInstance().getIntervention(interId).getActions();
+		List<DemandeMoyen> demandes = Interventions.getInstance().getIntervention(interId).getDemandesMoyen();
 
-		Action action = null;
+		DemandeMoyen demande = null;
 		
 		// Si on demande un action précis
-		if (actId != null) {
+		if (demId != null) {
 			// Recherche du action demandé
-			for (int i = 0; i < actions.size(); i++) {
-				if (actions.get(i).getUniqueID().equals(actId)) {
-					action = actions.get(i);
+			for (int i = 0; i < demandes.size(); i++) {
+				if (demandes.get(i).getUniqueID().equals(demId)) {
+					demande = demandes.get(i);
 				}
 			}
 			// Si l'action n'est pas trouvé
-			if (action == null) {
+			if (demande == null) {
 				result = null;
 				getResponse().setStatus(Status.CLIENT_ERROR_NOT_ACCEPTABLE);
 			} else {
-				result = new JsonRepresentation(action.toJSON());
+				result = new JsonRepresentation(demande.toJSON());
 			}
 		// Si on veut toutes les actions
-		} else if (actId == null) {
+		} else if (demId == null) {
 			
 			JSONArray jsonAr = new JSONArray(); //Création d'une liste Json
-			for(int i=0; i< actions.size();i++){
-				jsonAr.put(actions.get(i).toJSON()); // On ajoute un jsonObject contenant le action dans le jsonArray
+			for(int i=0; i< demandes.size();i++){
+				jsonAr.put(demandes.get(i).toJSON()); // On ajoute un jsonObject contenant le action dans le jsonArray
 			}
 			
 			result = new JsonRepresentation(jsonAr); // On crée la représentation de la liste
@@ -66,27 +66,27 @@ public class DemandeResource extends ServerResource implements IServerResource {
 		String interId = (String) this.getRequestAttributes().get("interId");
 		
 		Intervention i = Interventions.getInstance().getIntervention(interId);
-		List<Action> la = i.getActions();
+		List<DemandeMoyen> ld = i.getDemandesMoyen();
 
-		Action action;
+		DemandeMoyen demande;
 		JsonRepresentation jsonRepr;
 			
 		// Nouvel ID
-		String uid = (la.size() + 1) + "";
+		String uid = (ld.size() + 1) + "";
 		
 		// Récupère la représentation JSON du action
 		jsonRepr = new JsonRepresentation(representation);
 
 		// Transforme la representation en objet java
 		JSONObject jsObj = jsonRepr.getJsonObject();
-		action = new Action(jsObj);
-		action.setUniqueID(uid);
+		demande = new DemandeMoyen(jsObj);
+		demande.setUniqueID(uid);
 		
 		//Ajout du action
-		la.add(action);
+		ld.add(demande);
 
 		// On retourne la nouvelle représentation au client
-		jsonRepr = new JsonRepresentation(action.toJSON());
+		jsonRepr = new JsonRepresentation(demande.toJSON());
 		
 		// On retourne la représentation au client
 		return jsonRepr;
@@ -97,16 +97,16 @@ public class DemandeResource extends ServerResource implements IServerResource {
 	public Representation deleteResource() {
 		// Récupère l'id dans l'url
 		String interId = (String) this.getRequestAttributes().get("interId");
-		String actId = (String) this.getRequestAttributes().get("demId");
+		String demId = (String) this.getRequestAttributes().get("demId");
 		
 		
 		// On s'assure qu'il n'est plus présent en base de données
 		
 		Intervention inter = Interventions.getInstance().getIntervention(interId);
-		List<Action> actions = inter.getActions();
-		for (int i = 0; i < actions.size(); i++) {
-			if (actions.get(i).getUniqueID().equals(actId)) {
-				actions.remove(actions.get(i));
+		List<DemandeMoyen> demandes = inter.getDemandesMoyen();
+		for (int i = 0; i < demandes.size(); i++) {
+			if (demandes.get(i).getUniqueID().equals(demId)) {
+				demandes.remove(demandes.get(i));
 			}
 		}
 		
@@ -119,19 +119,19 @@ public class DemandeResource extends ServerResource implements IServerResource {
 		
 		// Récupère l'identifiant unique de la ressource demandée.
 		String interId = (String) this.getRequestAttributes().get("interId");
-		String actId = (String) this.getRequestAttributes().get("demId");
+		String demId = (String) this.getRequestAttributes().get("demId");
 		
 		// Récupération des actions de l'intervention
-		List<Action> actions = Interventions.getInstance().getIntervention(interId).getActions();
+		List<DemandeMoyen> demandes = Interventions.getInstance().getIntervention(interId).getDemandesMoyen();
 		
-		Action action = null;
+		DemandeMoyen demande = null;
 		
 		// Si on demande un action précis
-		if (actId != null) {
+		if (demId != null) {
 		
 			// Recherche de l'action demandée
-			for (int i = 0; i < actions.size(); i++) {
-				if (actions.get(i).getUniqueID().equals(actId)) {
+			for (int i = 0; i < demandes.size(); i++) {
+				if (demandes.get(i).getUniqueID().equals(demId)) {
 					
 					// Récupère la représentation JSON de l'action a mettre a jour
 					JsonRepresentation jsonRepr = new JsonRepresentation(representation);
@@ -139,17 +139,17 @@ public class DemandeResource extends ServerResource implements IServerResource {
 					// Transforme la representation en objet json
 					JSONObject jsObj = jsonRepr.getJsonObject();
 					// Transforme en Action
-					action = new Action(jsObj);
+					demande = new DemandeMoyen(jsObj);
 					
 					// Mise a jour de l'action
-					actions.set(i, action);
+					demandes.set(i, demande);
 					break;
 					
 				}
 			}
 			
 			// Si le action n'est pas trouvé
-			if (action == null) {
+			if (demande == null) {
 				getResponse().setStatus(Status.CLIENT_ERROR_NOT_ACCEPTABLE);
 			}
 			
