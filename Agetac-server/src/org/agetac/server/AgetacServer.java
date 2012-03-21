@@ -2,6 +2,8 @@ package org.agetac.server;
 
 import org.agetac.common.model.impl.Intervention;
 import org.agetac.server.db.Interventions;
+import org.agetac.server.resources.impl.ActionResource;
+import org.agetac.server.resources.impl.CibleResource;
 import org.agetac.server.resources.impl.DemandeResource;
 import org.agetac.server.resources.impl.InterventionResource;
 import org.agetac.server.resources.impl.MessageResource;
@@ -68,9 +70,33 @@ public class AgetacServer extends Application {
 	 */
 	@Override
 	public Restlet createInboundRoot() {
+		
 		// Crée un routeur restlet.
 		Router server_router = new Router(getContext());
 		
+		server_router.attach("/intervention", InterventionResource.class);
+		server_router.attach("/intervention/{interId}", InterventionResource.class);
+		
+		server_router.attach("/intervention/{interId}/message", MessageResource.class); // Tous les messages
+		server_router.attach("/intervention/{interId}/message/{messageId}", MessageResource.class); // Un seul message
+
+		server_router.attach("/intervention/{interId}/source", SourceResource.class); // Tous les source
+		server_router.attach("/intervention/{interId}/source/{sourceId}", SourceResource.class); // Un seul source
+
+		server_router.attach("/intervention/{interId}/cible", CibleResource.class); // Tous les cible
+		server_router.attach("/intervention/{interId}/cible/{cibleId}", CibleResource.class); // Un seul cible
+		
+		server_router.attach("/intervention/{interId}/action", ActionResource.class); // Tous les cible
+		server_router.attach("/intervention/{interId}/action/{actionId}", ActionResource.class); // Un seul cible
+
+		server_router.attach("/intervention/{interId}/vehicule", VehiculeResource.class); // Tous les vehicule
+		server_router.attach("/intervention/{interId}/vehicule/{vehiculeId}", VehiculeResource.class); // Un seul vehicule
+		
+		server_router.attach("/intervention/{interId}/demande", DemandeResource.class); // Tous les demande
+		server_router.attach("/intervention/{interId}/demande/{demId}", DemandeResource.class); // Un seul demande
+		
+		
+		/*
 		//Sous routeur pour les interventions
 		Router intervention_router = new Router(server_router.getContext());
 		intervention_router.attach("/intervention", InterventionResource.class);
@@ -94,15 +120,15 @@ public class AgetacServer extends Application {
 		vehicule_router.attach("/intervention/{interId}/vehicule/{vehiculeId}", VehiculeResource.class); // Un seul vehicule
 		
 		Router demande_router = new Router(intervention_router.getContext());
-		message_router.attach("/intervention/{interId}/demande", DemandeResource.class); // Tous les messages
-		message_router.attach("/intervention/{interId}/demande/{demId}", DemandeResource.class); // Un seul message
+		demande_router.attach("/intervention/{interId}/demande", DemandeResource.class); // Tous les messages
+		demande_router.attach("/intervention/{interId}/demande/{demId}", DemandeResource.class); // Un seul message
 
 		intervention_router.attach(message_router);
 		intervention_router.attach(source_router);
 		intervention_router.attach(cible_router);
-		
-		Router login_router = new Router(intervention_router.getContext());
-		login_router.attach("/login", MessageResource.class);
+		intervention_router.attach(vehicule_router);
+		intervention_router.attach(demande_router);
+		*/
 		
 		// Authentification (En cours)
 		/*
@@ -120,8 +146,7 @@ public class AgetacServer extends Application {
 		
 		server_router.attach(guard);
 		*/
-		server_router.attach(intervention_router);
-		server_router.attach(login_router);
+		//server_router.attach(intervention_router);
 		
 		// Retourne le routeur.
 		return server_router;

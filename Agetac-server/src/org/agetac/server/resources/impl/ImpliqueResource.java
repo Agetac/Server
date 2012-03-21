@@ -111,7 +111,7 @@ public class ImpliqueResource extends ServerResource implements IServerResource 
 		List<Implique> impliques = Interventions.getInstance().getIntervention(interId).getImpliques();
 
 		Implique implique = null;
-
+		JsonRepresentation jsonRepr = null;
 		// Si on demande un message précis
 		if (impId != null) {
 
@@ -121,7 +121,7 @@ public class ImpliqueResource extends ServerResource implements IServerResource 
 
 					// Récupère la représentation JSON de l'message a mettre a
 					// jour
-					JsonRepresentation jsonRepr = new JsonRepresentation(
+					 jsonRepr = new JsonRepresentation(
 							representation);
 
 					// Transforme la representation en objet json
@@ -146,9 +146,9 @@ public class ImpliqueResource extends ServerResource implements IServerResource 
 			// Pas d'id -> Erreur
 			getResponse().setStatus(Status.CLIENT_ERROR_NOT_ACCEPTABLE);
 		}
-
+		jsonRepr = new JsonRepresentation(implique.toJSON());
 		// Pas besoin de retourner de représentation au client
-		return null;
+		return jsonRepr;
 	}
 
 

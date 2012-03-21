@@ -103,7 +103,7 @@ public class InterventionResource extends ServerResource implements	IServerResou
 		Interventions interventions = Interventions.getInstance();
 
 		Intervention intervention = null;
-
+		JsonRepresentation jsonRepr = null;
 		// Si on demande un message précis
 		if (interId != null) {
 			// Si le message n'est pas trouvé
@@ -111,7 +111,7 @@ public class InterventionResource extends ServerResource implements	IServerResou
 				getResponse().setStatus(Status.CLIENT_ERROR_NOT_ACCEPTABLE);
 			} else {
 				// Récupère la représentation JSON de l'message a mettre a jour
-				JsonRepresentation jsonRepr = new JsonRepresentation(
+				 jsonRepr = new JsonRepresentation(
 						representation);
 
 				// Transforme la representation en objet json
@@ -128,7 +128,8 @@ public class InterventionResource extends ServerResource implements	IServerResou
 			getResponse().setStatus(Status.CLIENT_ERROR_NOT_ACCEPTABLE);
 		}
 
+		jsonRepr = new JsonRepresentation(intervention.toJSON());
 		// Pas besoin de retourner de représentation au client
-		return null;
+		return jsonRepr;
 	}
 }

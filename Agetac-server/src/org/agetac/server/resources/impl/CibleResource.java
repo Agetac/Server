@@ -111,29 +111,26 @@ public class CibleResource extends ServerResource implements IServerResource {
 	}
 
 	@Override
-	public Representation postResource(Representation representation)
-			throws Exception {
+	public Representation postResource(Representation representation) throws Exception {
 		// Récupère l'identifiant unique de la rescible demandée.
 		String interId = (String) this.getRequestAttributes().get("interId");
-		String srcId = (String) this.getRequestAttributes().get("cibleId");
+		String cibleId = (String) this.getRequestAttributes().get("cibleId");
 
 		// Récupération des messages de l'intervention
-		List<Cible> cibles = Interventions.getInstance()
-				.getIntervention(interId).getCibles();
+		List<Cible> cibles = Interventions.getInstance().getIntervention(interId).getCibles();
 
 		Cible cible = null;
-
+		JsonRepresentation jsonRepr = null;
 		// Si on demande un message précis
-		if (srcId != null) {
+		if (cibleId != null) {
 
 			// Recherche de l'message demandée
 			for (int i = 0; i < cibles.size(); i++) {
-				if (cibles.get(i).getUniqueID().equals(srcId)) {
+				if (cibles.get(i).getUniqueID().equals(cibleId)) {
 
 					// Récupère la représentation JSON de l'message a mettre a
 					// jour
-					JsonRepresentation jsonRepr = new JsonRepresentation(
-							representation);
+					 jsonRepr = new JsonRepresentation(	representation);
 
 					// Transforme la representation en objet json
 					JSONObject jsObj = jsonRepr.getJsonObject();
@@ -157,9 +154,10 @@ public class CibleResource extends ServerResource implements IServerResource {
 			// Pas d'id -> Erreur
 			getResponse().setStatus(Status.CLIENT_ERROR_NOT_ACCEPTABLE);
 		}
-
+		
+		jsonRepr = new JsonRepresentation(cible.toJSON());
 		// Pas besoin de retourner de représentation au client
-		return null;
+		return jsonRepr;
 	}
 
 }
