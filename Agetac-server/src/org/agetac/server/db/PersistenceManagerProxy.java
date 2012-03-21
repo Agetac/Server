@@ -60,7 +60,7 @@ public class PersistenceManagerProxy {
 
 		try {
 			Object idInstance = pm.newObjectIdInstance(cls, uid);
-			@SuppressWarnings("unchecked")
+
 			T obj = (T) pm.getObjectById(idInstance);
 			return obj;
 		} catch (Exception ex) {

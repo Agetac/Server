@@ -71,7 +71,7 @@ public class AgetacServer extends Application {
 		//Sous routeur pour les interventions
 		Router intervention_router = new Router(server_router.getContext());
 		intervention_router.attach("/intervention", InterventionsResource.class);
-		intervention_router.attach("/intervention/{interId}", InterventionResource.class);
+		intervention_router.attach("/intervention/{uid}", InterventionResource.class);
 		
 		
 		Router message_router = new Router(intervention_router.getContext());

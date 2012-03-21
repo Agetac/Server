@@ -4,7 +4,7 @@ import org.agetac.common.model.impl.Message;
 import org.restlet.representation.Representation;
 import org.restlet.resource.Get;
 
-public class MessagesResource extends AbstractServerResource {
+public class MessagesResource extends BaseServerResource {
 
 	@Get("json")
 	public Representation toJSON() {
