@@ -43,8 +43,8 @@ public class ServerConnection implements ServerApi{
 			repr = client.get();
 		} catch (Exception e) {
 			throw(new BadResponseException(client.getResponse()));
-		}
-		client.release();
+		} 
+		
 		return repr;
 	}
 	

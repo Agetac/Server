@@ -33,6 +33,7 @@ public class AgetacServer extends Application {
 		// Attach the application to the component with a defined contextRoot.
 		String contextRoot = "/agetacserver";
 		component.getDefaultHost().attach(contextRoot, application);
+		
 		server.getContext().getParameters().add("maxThreads", "512"); 
 		server.getContext().getParameters().add("maxTotalConnections", "50");
 	
