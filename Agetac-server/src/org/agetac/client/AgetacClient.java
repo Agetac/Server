@@ -93,7 +93,7 @@ public class AgetacClient {
 		v1 = interCon.putVehicule(v1);
 		v2 = interCon.putVehicule(v2);
 		v3 = interCon.putVehicule(v3);
-		
+		interCon.deleteVehicule(v3);
 		
 		// Ajout action
 		
@@ -108,14 +108,14 @@ public class AgetacClient {
 		s1 = interCon.putSource(s1);
 		s1.setPosition(new Position(48.11552,-1.638775));
 		s1 = interCon.postSource(s1);
-		
+		interCon.deleteSource(s1);
 		// Ajout source
 		
 		Cible c1 = new Cible(null, inter.getPosition()); // Il faudrait ajouté un type comme les actions ? (FIRE ...)
 		c1 = interCon.putCible(c1);
 		c1.setPosition(new Position(48.11552,-1.638775));
 		c1 = interCon.postCible(c1);
-		
+		interCon.deleteCible(c1);
 		//Création d'une demande
 		
 		/*

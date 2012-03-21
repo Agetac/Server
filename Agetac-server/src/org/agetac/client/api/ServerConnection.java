@@ -36,6 +36,7 @@ public class ServerConnection implements ServerApi{
 		
 		ClientResource client = new ClientResource(url);
 		
+		
 		Representation repr = null;
 		
 		try {
@@ -43,7 +44,7 @@ public class ServerConnection implements ServerApi{
 		} catch (Exception e) {
 			throw(new BadResponseException(client.getResponse()));
 		}
-		
+		client.release();
 		return repr;
 	}
 	
@@ -182,6 +183,7 @@ public class ServerConnection implements ServerApi{
 		} catch (ResourceException e) {
 			throw(new BadResponseException(client.getResponse()));
 		}
+		
 		return repr;
 		
 	}

@@ -26,13 +26,16 @@ public class AgetacServer extends Application {
 	public static void runServer(int port) throws Exception {
 		// Create a component.
 		Component component = new Component();
-		component.getServers().add(Protocol.HTTP, port);
+		Server server = new Server(Protocol.HTTP, port);
+		component.getServers().add(server);
 		// Create an application (this class).
 		Application application = new AgetacServer();
 		// Attach the application to the component with a defined contextRoot.
 		String contextRoot = "/agetacserver";
 		component.getDefaultHost().attach(contextRoot, application);
-
+		server.getContext().getParameters().add("maxThreads", "512"); 
+		server.getContext().getParameters().add("maxTotalConnections", "50");
+	
 		component.start();
 	}
 
