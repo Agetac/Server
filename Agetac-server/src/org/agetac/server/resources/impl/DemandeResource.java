@@ -99,7 +99,7 @@ public class DemandeResource extends ServerResource implements IServerResource {
 		demande.getGroupesHoraires().put(EtatDemande.ACCEPTEE, "0102");
 		
 		//On crée le Véhicule demandé (normalement cherché dans la bdd de vehicules)
-		Vehicule v = new Vehicule(""+(i.getVehicules().size()+1), new Position(),demande.getCategorie(), "Janze", EtatVehicule.ALERTE, new Groupe(demande.getGroupe(), null, null), "0103" );
+		Vehicule v = new Vehicule(""+(i.getVehicules().size()+1), demande.getPosition(),demande.getCategorie(), "Janze", EtatVehicule.ALERTE, new Groupe(demande.getGroupe(), null, null), "0103" );
 		demande.setVehId(v.getUniqueID());
 		i.getVehicules().add(v);
 		
