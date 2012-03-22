@@ -3,10 +3,7 @@ package org.agetac.server.resources.impl;
 import java.io.IOException;
 import java.util.List;
 
-import org.agetac.common.model.impl.Agent;
-import org.agetac.common.model.impl.Intervention;
-import org.agetac.server.db.PersistenceManagerProxy;
-import org.restlet.data.Status;
+import org.agetac.server.db.SimpleDAO;
 import org.restlet.ext.json.JsonRepresentation;
 import org.restlet.representation.Representation;
 
@@ -16,7 +13,7 @@ public class ResourceUtils {
 	public static <T> Representation getResource(Class<T> cls, String uid) {
 
 		if (StringUtils.isNullOrEmpty(uid)) {
-			T obj = PersistenceManagerProxy.getInstance().getSingle(cls, uid);
+			T obj = SimpleDAO.getInstance().getOne(cls, uid);
 			if (obj == null) {
 				return null;
 			} else {
@@ -24,7 +21,7 @@ public class ResourceUtils {
 			}
 		} else {
 
-			List<T> lst = PersistenceManagerProxy.getInstance().getList(cls);
+			List<T> lst = SimpleDAO.getInstance().getMany(cls);
 			return new JsonRepresentation(new Gson().toJson(lst));
 		}
 	}
@@ -42,12 +39,12 @@ public class ResourceUtils {
 
 		T obj = new Gson().fromJson(json, cls);
 
-		PersistenceManagerProxy.getInstance().put(obj);
+		SimpleDAO.getInstance().update(obj);
 
 		return new JsonRepresentation(new Gson().toJson(obj));
 	}
 
 	public static <T> void deleteResource(Class<T> cls, String uniqueID) {
-		PersistenceManagerProxy.getInstance().delete(cls, uniqueID);
+		SimpleDAO.getInstance().delete(cls, uniqueID);
 	}
 }

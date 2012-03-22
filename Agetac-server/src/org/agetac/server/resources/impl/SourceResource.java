@@ -7,6 +7,6 @@ import org.restlet.resource.Get;
 public class SourceResource extends BaseServerResource {
 	@Get("json")
 	public Representation toJSON() {
-		return getJsonSingle(Source.class);
+		return getOneToJson(Source.class);
 	}
 }

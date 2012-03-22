@@ -8,6 +8,6 @@ public class MessagesResource extends BaseServerResource {
 
 	@Get("json")
 	public Representation toJSON() {
-		return getJsonList(Message.class);
+		return getManyToJson(Message.class);
 	}
 }

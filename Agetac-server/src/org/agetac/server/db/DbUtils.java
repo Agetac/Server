@@ -2,6 +2,9 @@ package org.agetac.server.db;
 
 import java.io.File;
 
+import javax.jdo.JDOHelper;
+import javax.jdo.ObjectState;
+
 import org.agetac.common.model.impl.*;
 import org.agetac.common.model.impl.Vehicule.CategorieVehicule;
 import org.agetac.common.model.impl.Vehicule.EtatVehicule;
@@ -12,15 +15,26 @@ public class DbUtils {
 
 		// Create a sample intervention.
 		Intervention inter = new Intervention();
-		PersistenceManagerProxy.getInstance().put(inter);
 
+		// Create some vehicles and attach them to the intervention.
+		Vehicule v = new Vehicule(new Position(0, 0), CategorieVehicule.BEA,
+				"Rennes", EtatVehicule.ALERTE, new Groupe(), "");
+
+		inter.getVehicules().add(v);
+
+		// Persist the intervention and the vehicle
+		// (persistence-by-reachability).
+		SimpleDAO.getInstance().add(inter);
+
+		// Create some independent vehicles.
 		for (int i = 0; i < 10; i++) {
-			Vehicule v = new Vehicule(new Position(0, 0),
-					CategorieVehicule.BEA, "Rennes", EtatVehicule.ALERTE,
-					new Groupe(), "");
+			Vehicule vehicule = new Vehicule(new Position(0, 0),
+					CategorieVehicule.BEA, "Rennes",
+					EtatVehicule.DISPO_CASERNE, new Groupe(), "");
 
-			PersistenceManagerProxy.getInstance().put(v);
+			SimpleDAO.getInstance().add(vehicule);
 		}
+
 	}
 
 	public static boolean deleteDir(File dir) {
