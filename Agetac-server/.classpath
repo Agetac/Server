@@ -16,5 +16,6 @@
 	<classpathentry kind="lib" path="lib/restlet/org.restlet.ext.crypto.jar"/>
 	<classpathentry kind="lib" path="lib/gson-2.1.jar"/>
 	<classpathentry kind="lib" path="lib/restlet/org.json_2.0/org.json.jar"/>
+	<classpathentry kind="lib" path="lib/dozer-5.3.2.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
