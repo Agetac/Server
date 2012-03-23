@@ -14,6 +14,7 @@ import javax.swing.table.TableRowSorter;
 
 import org.agetac.client.controller.SourceController;
 import org.agetac.client.model.SourceModel;
+import org.agetac.common.model.impl.Source.SourceType;
 
 public class SourceView extends JFrame{
 
@@ -120,5 +121,11 @@ public class SourceView extends JFrame{
 	
 	public int getSelectedLine(){
 		return table.getSelectedRow();
+	}
+
+
+	public SourceType getSourceType() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

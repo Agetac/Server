@@ -21,7 +21,9 @@ import org.agetac.common.model.impl.Intervention;
 import org.agetac.common.model.impl.Message;
 import org.agetac.common.model.impl.Position;
 import org.agetac.common.model.impl.Source;
+import org.agetac.common.model.impl.Cible.CibleType;
 import org.agetac.common.model.impl.DemandeMoyen.EtatDemande;
+import org.agetac.common.model.impl.Source.SourceType;
 import org.agetac.common.model.impl.Vehicule;
 import org.agetac.common.model.impl.Vehicule.CategorieVehicule;
 import org.agetac.common.model.impl.Vehicule.EtatVehicule;
@@ -74,7 +76,7 @@ public class AgetacClient {
 		ServerConnection serv = new ServerConnection("localhost", "8112", "agetacserver");
 		
 		Intervention inter = new Intervention();
-		inter.setPosition(new Position(4811551,-1638774));
+		inter.setPosition(new Position(4.811482E7,-1638774));
 		inter.setName("Demo");
 		
 		JsonRepresentation interRepresentation = new JsonRepresentation(serv.putResource(INTERVENTION, null, new JsonRepresentation(inter.toJSON())));
@@ -100,27 +102,27 @@ public class AgetacClient {
 		
 		Action a1 = new Action(null, inter.getPosition(), ActionType.FIRE, inter.getPosition(), inter.getPosition());
 		a1 = interCon.putAction(a1);
-		a1.setPosition(new Position(4811552,-1638524));
+		a1.setPosition(new Position(4.811411E7,-1638524));
 		a1 = interCon.postAction(a1);
 		
 		// Ajout source
 		
-		Source s1 = new Source(null, inter.getPosition()); // Il faudrait ajouté un type comme les actions ? (FIRE ...)
+		Source s1 = new Source(null, inter.getPosition(), SourceType.FIRE);
 		s1 = interCon.putSource(s1);
-		s1.setPosition(new Position(4811589,-1638650));
+		s1.setPosition(new Position(4.811442E7,-1638650));
 		s1 = interCon.postSource(s1);
 		interCon.deleteSource(s1);
 		// Ajout source
 		
-		Cible c1 = new Cible(null, inter.getPosition()); // Il faudrait ajouté un type comme les actions ? (FIRE ...)
+		Cible c1 = new Cible(null, inter.getPosition(), CibleType.HUMAN);
 		c1 = interCon.putCible(c1);
-		c1.setPosition(new Position(4811420,-1638032));
+		c1.setPosition(new Position(4.811462E7,-1638032));
 		c1 = interCon.postCible(c1);
 		interCon.deleteCible(c1);
 		//Création d'une demande
 		
 		/*
-		DemandeMoyen demande = new DemandeMoyen(null, new Position(481523,-1638775), CategorieVehicule.CCFM, EtatDemande.LANCEE, new Groupe("1", null, null), "0101");
+		DemandeMoyen demande = new DemandeMoyen(null, new Position(4.811482E7,-1638775), CategorieVehicule.CCFM, EtatDemande.LANCEE, new Groupe("1", null, null), "0101");
 		interCon.putDemandeMoyen(demande);
 		
 		interRepresentation = new JsonRepresentation(serv.getResource(INTERVENTION, inter.getUniqueID()));

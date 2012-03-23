@@ -24,12 +24,15 @@ public class SourceController implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand().equals("Ajouter une source")) {
-			if (!(view.getID().equals("ID")) && !(view.getLatitude().equals("Latitude")) && !(view.getLongitude().equals("Longitude"))){
-			model.addSource(new Source(view.getID(), new Position(Double.parseDouble(view.getLatitude()), Double.parseDouble(view.getLongitude()))));
-			view.resetTxtFields();
+			if (!(view.getID().equals("ID"))
+					&& !(view.getLatitude().equals("Latitude"))
+					&& !(view.getLongitude().equals("Longitude"))) {
+				model.addSource(new Source(view.getID(), new Position(Double
+						.parseDouble(view.getLatitude()), Double
+						.parseDouble(view.getLongitude())), view.getSourceType()));
+				view.resetTxtFields();
 			}
-		}
-		else if (e.getActionCommand().equals("Supprimer une source")) {
+		} else if (e.getActionCommand().equals("Supprimer une source")) {
 			model.removeSource(view.getSelectedLine());
 		}
 	}
