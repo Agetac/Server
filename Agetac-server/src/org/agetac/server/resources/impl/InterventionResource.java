@@ -16,6 +16,9 @@ public class InterventionResource extends ServerResource implements	IServerResou
 
 	@Override
 	public Representation getResource() throws Exception {
+		
+		if (getResponse().getStatus() == Status.CLIENT_ERROR_UNAUTHORIZED) return null;
+		
 		// Crée une representation JSON vide
 		JsonRepresentation result = null;
 		// Récupère l'identifiant unique de la ressource demandée.
@@ -62,6 +65,8 @@ public class InterventionResource extends ServerResource implements	IServerResou
 	public Representation putResource(Representation representation)
 			throws Exception {
 		
+		if (getResponse().getStatus() == Status.CLIENT_ERROR_UNAUTHORIZED) return null;
+		
 		List<Intervention> li = Interventions.getInstance().getInterventions();
 
 		Intervention intervention;
@@ -86,6 +91,9 @@ public class InterventionResource extends ServerResource implements	IServerResou
 
 	@Override
 	public Representation deleteResource() {
+		
+		if (getResponse().getStatus() == Status.CLIENT_ERROR_UNAUTHORIZED) return null;
+		
 		// Récupère l'id dans l'url
 		String uniqueID = (String) this.getRequestAttributes().get("interId");
 		// On s'assure qu'il n'est plus présent en base de données
@@ -96,6 +104,9 @@ public class InterventionResource extends ServerResource implements	IServerResou
 	@Override
 	public Representation postResource(Representation representation)
 			throws Exception {
+		
+		if (getResponse().getStatus() == Status.CLIENT_ERROR_UNAUTHORIZED) return null;
+		
 		// Récupère l'identifiant unique de la rescible demandée.
 		String interId = (String) this.getRequestAttributes().get("interId");
 

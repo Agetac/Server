@@ -24,6 +24,9 @@ public class AgentResource extends ServerResource implements IServerResource{
 	 */
 	@Get
 	public Representation getResource() throws Exception {
+		
+		if (getResponse().getStatus() == Status.CLIENT_ERROR_UNAUTHORIZED) return null;
+		
 		// Crée une representation JSON vide
 		JsonRepresentation result = null;
 		// Récupère l'identifiant unique de la ressource demandée.
@@ -56,6 +59,9 @@ public class AgentResource extends ServerResource implements IServerResource{
 	@Put
 	public Representation putResource(Representation representation)
 			throws Exception {
+		
+		if (getResponse().getStatus() == Status.CLIENT_ERROR_UNAUTHORIZED) return null;
+		
 		// Récupère la représentation JSON de l'agent
 		JsonRepresentation jsonRepr = new JsonRepresentation(representation);
 		// Transforme la representation en objet java
@@ -73,6 +79,9 @@ public class AgentResource extends ServerResource implements IServerResource{
 	 */
 	@Delete
 	public Representation deleteResource() {
+		
+		if (getResponse().getStatus() == Status.CLIENT_ERROR_UNAUTHORIZED) return null;
+		
 		// Récupère l'id dans l'url
 		String uniqueID = (String) this.getRequestAttributes().get("uniqueID");
 		// On s'assure qu'il n'est plus présent en base de données
