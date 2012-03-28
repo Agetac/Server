@@ -1,23 +1,32 @@
 package org.agetac.client.model;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.table.AbstractTableModel;
 
+import org.agetac.common.api.InterventionConnection;
+import org.agetac.common.exception.BadResponseException;
 import org.agetac.common.model.impl.Vehicule;
+import org.json.JSONException;
 
 public class VehiculeModel extends AbstractTableModel implements Observer {
 
 	private List<Vehicule> vehicules;
 	private final String[] entetes = { "ID", "Nom", "Position", "Caserne",
 			"Etat", "Groupe" };
+	private InterventionConnection interCon;
 
-	public VehiculeModel() {
+	public VehiculeModel(InterventionConnection i) {
 		super();
-		vehicules = new ArrayList<Vehicule>();
+		interCon = i;
+		try {
+			vehicules = interCon.getVehicules();
+		} catch (BadResponseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public int getRowCount() {
@@ -52,14 +61,32 @@ public class VehiculeModel extends AbstractTableModel implements Observer {
 	}
 
 	public void addVehicule(Vehicule vec) {
-		vehicules.add(vec);
-		fireTableRowsInserted(vehicules.size() - 1, vehicules.size() - 1);
+
+		try {
+			interCon.putVehicule(vec);
+			vehicules.add(vec);
+			fireTableRowsInserted(vehicules.size() - 1, vehicules.size() - 1);
+		} catch (BadResponseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
 	public void removeVehicule(int rowIndex) {
 		if (rowIndex != -1) {
-			vehicules.remove(rowIndex);
-			fireTableRowsDeleted(rowIndex, rowIndex);
+			try {
+				interCon.deleteVehicule(vehicules.get(rowIndex));
+				vehicules.remove(rowIndex);
+				fireTableRowsDeleted(rowIndex, rowIndex);
+			} catch (BadResponseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
 		}
 	}
 

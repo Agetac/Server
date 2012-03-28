@@ -14,6 +14,7 @@ import javax.swing.table.TableRowSorter;
 
 import org.agetac.client.controller.SourceController;
 import org.agetac.client.model.SourceModel;
+import org.agetac.common.model.impl.Source;
 import org.agetac.common.model.impl.Source.SourceType;
 
 public class SourceView extends JFrame{
@@ -23,7 +24,7 @@ public class SourceView extends JFrame{
 	
 	private JPanel panel;
 	private JTable table;
-	private JTextField txtId, txtLatitude, txtLongitude;
+	private JTextField txtId, txtLatitude, txtLongitude, txtType;
 	private JButton addBut, delBut;
 
 	public SourceView(SourceModel model) {
@@ -76,6 +77,10 @@ public class SourceView extends JFrame{
 		txtLongitude = new JTextField("Longitude");
 		panelChamps.add(txtLongitude);
 		
+		// Champ Type
+		txtType = new JTextField("Type: WATER || FIRE ||CHEM");
+		panelChamps.add(txtType);
+		
 
 		// Panel Champs & Buttons
 		JPanel CandB = new JPanel();
@@ -123,7 +128,10 @@ public class SourceView extends JFrame{
 
 
 	public SourceType getSourceType() {
-		// TODO Auto-generated method stub
-		return null;
+		String type = txtType.getText();
+		if (type.equals("WATER")) return Source.SourceType.WATER;
+		if (type.equals("FIRE")) return Source.SourceType.FIRE;
+		if (type.equals("CHEM")) return Source.SourceType.CHEM;
+		else return null;
 	}
 }
