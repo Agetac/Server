@@ -61,17 +61,17 @@ public class InterventionModel extends AbstractTableModel {
 		case 1:
 			return interventions.get(rowIndex).getPosition();
 		case 2:
-			return interventions.get(rowIndex).getVehicules();
+			return interventions.get(rowIndex).getVehicules().size();
 		case 3:
-			return interventions.get(rowIndex).getCibles();
+			return interventions.get(rowIndex).getCibles().size();
 		case 4:
-			return interventions.get(rowIndex).getSources();
+			return interventions.get(rowIndex).getSources().size();
 		case 5:
-			return interventions.get(rowIndex).getActions();
+			return interventions.get(rowIndex).getActions().size();
 		case 6:
-			return interventions.get(rowIndex).getMessages();
+			return interventions.get(rowIndex).getMessages().size();
 		case 7:
-			return interventions.get(rowIndex).getImpliques();
+			return interventions.get(rowIndex).getImpliques().size();
 
 		default:
 			return null; // Ne devrait jamais arriver

@@ -1,7 +1,6 @@
 package org.agetac.client.view;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
 
 import javax.swing.JButton;
@@ -23,7 +22,7 @@ public class InterventionView extends JFrame {
 	private InterventionModel model;
 	
 	private JTable table;
-	private JTextField txtName, txtLatitude, txtLongitude, txtMoyens, txtCibles, txtSources, txtActions, txtMessages, txtImpliques;
+	private JTextField txtName, txtLatitude, txtLongitude;
 	private JButton addBut, delBut, seeBut;
 
 	public InterventionView(InterventionModel model) {
