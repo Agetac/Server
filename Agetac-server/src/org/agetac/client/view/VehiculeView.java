@@ -106,8 +106,6 @@ public class VehiculeView extends JFrame {
 		
 		// Config de la JFrame
 		setTitle("Liste des vehicules");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
 		pack();
 		setVisible(true);
 		

@@ -5,8 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.agetac.client.api.ServerConnection;
+import org.agetac.client.model.InterventionModel;
 import org.agetac.client.model.MessageModel;
 import org.agetac.client.model.SourceModel;
+import org.agetac.client.view.InterventionView;
 import org.agetac.client.view.MessageView;
 import org.agetac.client.view.SourceView;
 import org.agetac.common.api.InterventionConnection;
@@ -72,6 +74,11 @@ public class AgetacClient {
 	}
 
 	private static void initIntervention() throws BadResponseException, JSONException, IOException, InvalidJSONException {
+		
+		
+		// Utilisé par Patrice pour implémentation de l'interface ClientServeur
+		//InterventionModel interventionModel = new InterventionModel();
+		//InterventionView interventionView = new InterventionView(interventionModel);
 		
 		ServerConnection serv = new ServerConnection("localhost", "8112", "agetacserver");
 		

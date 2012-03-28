@@ -15,6 +15,7 @@ import javax.swing.table.TableRowSorter;
 
 import org.agetac.client.controller.InterventionController;
 import org.agetac.client.model.InterventionModel;
+import org.agetac.common.model.impl.Position;
 
 public class InterventionView extends JFrame {
 
@@ -22,8 +23,8 @@ public class InterventionView extends JFrame {
 	private InterventionModel model;
 	
 	private JTable table;
-	private JTextField txtId, txtLieu, txtMoyens, txtCibles, txtSources, txtActions, txtMessages, txtImpliques;
-	private JButton addBut, delBut;
+	private JTextField txtName, txtLatitude, txtLongitude, txtMoyens, txtCibles, txtSources, txtActions, txtMessages, txtImpliques;
+	private JButton addBut, delBut, seeBut;
 
 	public InterventionView(InterventionModel model) {
 		
@@ -61,42 +62,29 @@ public class InterventionView extends JFrame {
 		delBut.addActionListener(this.controller);
 		panelButton.add(delBut);
 		
+		// Voir
+		seeBut = new JButton("Voir une intervention");
+		seeBut.addActionListener(this.controller);
+		panelButton.add(seeBut);
+		
+		
 		
 		//Champs
 		JPanel panelChamps = new JPanel();
 		panelChamps.setLayout(new GridLayout());
 				
-		// Champ ID
-		txtId = new JTextField("ID");
-		panelChamps.add(txtId);
+		// Champ Name
+		txtName = new JTextField("Name");
+		panelChamps.add(txtName);
 				
-		// Champ Lieu
-		txtLieu = new JTextField("Lieu");
-		panelChamps.add(txtLieu);
-				
-		// Champ Moyens
-		txtMoyens = new JTextField("Moyens");
-		panelChamps.add(txtMoyens);
+		// Champ Latitude
+		txtLatitude = new JTextField("Latitude");
+		panelChamps.add(txtLatitude);
 		
-		// Champ Cibles
-		txtCibles = new JTextField("Cibles");
-		panelChamps.add(txtCibles);
-		
-		// Champ Sources
-		txtSources = new JTextField("Sources");
-		panelChamps.add(txtSources);
-		
-		// Champ Actions
-		txtActions = new JTextField("Actions");
-		panelChamps.add(txtActions);
-			
-		// Champ Messages
-		txtMessages = new JTextField("Messages");
-		panelChamps.add(txtMessages);
-		
-		// Champ Impliques
-		txtImpliques = new JTextField("Impliques");
-		panelChamps.add(txtImpliques);
+		// Champ Longitude
+		txtLongitude = new JTextField("Longitude");
+		panelChamps.add(txtLongitude);
+
 		
 		
 		// Panel Champs & Buttons
@@ -122,47 +110,22 @@ public class InterventionView extends JFrame {
 	}
 	
 	
-	public String getID(){
-		return txtId.getText();
+	public String getName(){
+		return txtName.getText();
 	}
 	
-	public String getLieu(){
-		return txtLieu.getText();
+	public Position getPosition(){
+		String lat = txtLatitude.getText();
+		String longi = txtLongitude.getText();
+		Position pos = new Position(Double.parseDouble(lat),Double.parseDouble(longi));
+		return pos;
 	}
 	
-	public String getMoyens(){
-		return txtMoyens.getText();
-	}
-	
-	public String getCibles(){
-		return txtCibles.getText();
-	}
-	
-	public String getSources(){
-		return txtSources.getText();
-	}
-	
-	public String getActions(){
-		return txtActions.getText();
-	}
-	
-	public String getMessages(){
-		return txtMessages.getText();
-	}
-	
-	public String getImpliques(){
-		return txtImpliques.getText();
-	}
 	
 	public void resetTxtFields(){
-		txtId.setText("ID");
-		txtLieu.setText("Lieu");
-		txtMoyens.setText("Moyens");
-		txtCibles.setText("Cibles");
-		txtSources.setText("Sources");
-		txtActions.setText("Actions");
-		txtMessages.setText("Messages");
-		txtImpliques.setText("Impliques");
+		txtName.setText("Name");
+		txtLatitude.setText("Latitude");
+		txtLongitude.setText("Longitude");
 	}
 	
 	public int getSelectedLine(){

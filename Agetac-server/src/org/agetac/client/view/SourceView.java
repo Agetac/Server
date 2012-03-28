@@ -93,8 +93,6 @@ public class SourceView extends JFrame{
 		
 		// Config de la JFrame
 		setTitle("Liste des Sources");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
 		pack();
 		setVisible(true);
 		

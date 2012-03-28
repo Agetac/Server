@@ -96,8 +96,6 @@ public class AgentView extends JFrame {
 		
 		// Config de la JFrame
 		setTitle("Liste des agents");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
 		pack();
 		setVisible(true);
 		

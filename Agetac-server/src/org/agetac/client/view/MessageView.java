@@ -101,8 +101,6 @@ public class MessageView extends JFrame {
 		
 		// Config de la JFrame
 		setTitle("Liste des messages");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
 		pack();
 		setVisible(true);
 		

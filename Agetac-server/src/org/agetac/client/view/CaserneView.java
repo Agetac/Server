@@ -92,8 +92,6 @@ public class CaserneView extends JFrame {
 		
 		// Config de la JFrame
 		setTitle("Liste des casernes");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
 		pack();
 		setVisible(true);
 		
