@@ -30,6 +30,9 @@ public class VehiculeResource extends ServerResource implements IServerResource{
 	 */
 	@Get
 	public Representation getResource() throws Exception {
+		
+		if (getResponse().getStatus() == Status.CLIENT_ERROR_UNAUTHORIZED) return null;
+		
 		// Crée une representation JSON vide
 		JsonRepresentation result = null;
 		// Récupère l'identifiant unique de la ressource demandée.
@@ -84,6 +87,8 @@ public class VehiculeResource extends ServerResource implements IServerResource{
 	public Representation putResource(Representation representation)
 			throws Exception {
 		
+		if (getResponse().getStatus() == Status.CLIENT_ERROR_UNAUTHORIZED) return null;
+		
 		// Récupère l'identifiant unique de la ressource demandée.
 		String interId = (String) this.getRequestAttributes().get("interId");
 		
@@ -112,6 +117,9 @@ public class VehiculeResource extends ServerResource implements IServerResource{
 	 */
 	@Delete
 	public Representation deleteResource() {
+		
+		if (getResponse().getStatus() == Status.CLIENT_ERROR_UNAUTHORIZED) return null;
+		
 		// Récupère l'id dans l'url
 		String interId = (String) this.getRequestAttributes().get("interId");
 		String vehId = (String) this.getRequestAttributes().get("vehiculeId");
@@ -133,6 +141,9 @@ public class VehiculeResource extends ServerResource implements IServerResource{
 	@Override
 	public Representation postResource(Representation representation)
 			throws Exception {
+		
+		if (getResponse().getStatus() == Status.CLIENT_ERROR_UNAUTHORIZED) return null;
+		
 		// Récupère l'identifiant unique de la ressource demandée.
 		String interId = (String) this.getRequestAttributes().get("interId");
 		String vehiculeId = (String) this.getRequestAttributes().get("vehiculeId");

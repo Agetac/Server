@@ -18,6 +18,9 @@ public class CibleResource extends ServerResource implements IServerResource {
 
 	@Override
 	public Representation getResource() throws Exception {
+		
+		if (getResponse().getStatus() == Status.CLIENT_ERROR_UNAUTHORIZED) return null;
+		
 		// Crée une representation JSON vide
 		JsonRepresentation result = null;
 		// Récupère l'identifiant unique de la rescible demandée.
@@ -68,6 +71,9 @@ public class CibleResource extends ServerResource implements IServerResource {
 	@Override
 	public Representation putResource(Representation representation)
 			throws Exception {
+		
+		if (getResponse().getStatus() == Status.CLIENT_ERROR_UNAUTHORIZED) return null;
+		
 		// Récupère l'identifiant unique de la rescible demandée.
 		String interId = (String) this.getRequestAttributes().get("interId");
 
@@ -92,6 +98,9 @@ public class CibleResource extends ServerResource implements IServerResource {
 
 	@Override
 	public Representation deleteResource() {
+		
+		if (getResponse().getStatus() == Status.CLIENT_ERROR_UNAUTHORIZED) return null;
+		
 		// Récupère l'id dans l'url
 		String interId = (String) this.getRequestAttributes().get("interId");
 		String cibId = (String) this.getRequestAttributes().get("cibleId");
@@ -112,6 +121,9 @@ public class CibleResource extends ServerResource implements IServerResource {
 
 	@Override
 	public Representation postResource(Representation representation) throws Exception {
+		
+		if (getResponse().getStatus() == Status.CLIENT_ERROR_UNAUTHORIZED) return null;
+		
 		// Récupère l'identifiant unique de la rescible demandée.
 		String interId = (String) this.getRequestAttributes().get("interId");
 		String cibleId = (String) this.getRequestAttributes().get("cibleId");

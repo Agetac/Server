@@ -32,7 +32,19 @@ public class AgetacServer extends Application {
 		Application application = new AgetacServer();
 		// Attach the application to the component with a defined contextRoot.
 		String contextRoot = "/agetacserver";
-		component.getDefaultHost().attach(contextRoot, application);
+		
+		// Création du garde
+		DigestAuthenticator guard = new DigestAuthenticator(application.getContext(), "TestRealm", "mySecretServerKey");
+		
+		// Instancie un Verifier de couple indentifiant/mdp basé sur une Map
+		MapVerifier mapVerifier = new MapVerifier();
+		// Charge un couple indentifiant/mdp
+		mapVerifier.getLocalSecrets().put("login", "secret".toCharArray());
+		guard.setWrappedVerifier(mapVerifier);
+		
+		//Associe le garde à l'application puis au component
+		guard.setNext(application);
+		component.getDefaultHost().attach(contextRoot, guard);
 		
 		server.getContext().getParameters().add("maxThreads", "512"); 
 		server.getContext().getParameters().add("maxTotalConnections", "50");

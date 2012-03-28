@@ -22,6 +22,9 @@ public class DemandeResource extends ServerResource implements IServerResource {
 
 	@Override
 	public Representation getResource() throws Exception {
+		
+		if (getResponse().getStatus() == Status.CLIENT_ERROR_UNAUTHORIZED) return null;
+		
 		// Crée une representation JSON vide
 		JsonRepresentation result = null;
 		
@@ -67,6 +70,9 @@ public class DemandeResource extends ServerResource implements IServerResource {
 	@Override
 	public Representation putResource(Representation representation)
 			throws Exception {
+		
+		if (getResponse().getStatus() == Status.CLIENT_ERROR_UNAUTHORIZED) return null;
+		
 		// Récupère l'identifiant unique de la ressource demandée.
 		String interId = (String) this.getRequestAttributes().get("interId");
 		
@@ -112,6 +118,9 @@ public class DemandeResource extends ServerResource implements IServerResource {
 	
 	@Override
 	public Representation deleteResource() {
+		
+		if (getResponse().getStatus() == Status.CLIENT_ERROR_UNAUTHORIZED) return null;
+		
 		// Récupère l'id dans l'url
 		String interId = (String) this.getRequestAttributes().get("interId");
 		String demId = (String) this.getRequestAttributes().get("demId");
@@ -133,6 +142,8 @@ public class DemandeResource extends ServerResource implements IServerResource {
 	@Override
 	public Representation postResource(Representation representation)
 			throws Exception {
+		
+		if (getResponse().getStatus() == Status.CLIENT_ERROR_UNAUTHORIZED) return null;
 		
 		// Récupère l'identifiant unique de la ressource demandée.
 		String interId = (String) this.getRequestAttributes().get("interId");
