@@ -14,7 +14,7 @@ public class SourceController implements ActionListener {
 	private SourceModel model;
 
 	/**
-	 * Constructeur de MessageController
+	 * Constructeur de SourceController
 	 */
 	public SourceController(SourceView view, SourceModel model) {
 		this.view = view;
@@ -27,10 +27,12 @@ public class SourceController implements ActionListener {
 			if (!(view.getID().equals("ID"))
 					&& !(view.getLatitude().equals("Latitude"))
 					&& !(view.getLongitude().equals("Longitude"))) {
+				if (view.getSourceType()!=null){
 				model.addSource(new Source(view.getID(), new Position(Double
 						.parseDouble(view.getLatitude()), Double
 						.parseDouble(view.getLongitude())), view.getSourceType()));
 				view.resetTxtFields();
+				}
 			}
 		} else if (e.getActionCommand().equals("Supprimer une source")) {
 			model.removeSource(view.getSelectedLine());

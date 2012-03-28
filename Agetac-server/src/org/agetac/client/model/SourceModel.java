@@ -1,6 +1,5 @@
 package org.agetac.client.model;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -15,7 +14,7 @@ import org.json.JSONException;
 public class SourceModel extends AbstractTableModel implements Observer {
 
 	private List<Source> sources;
-	private final String[] entetes = { "ID", "Position" };
+	private final String[] entetes = { "ID", "Position","Type" };
 	private InterventionConnection interCon;
 
 	public SourceModel(InterventionConnection i) {
@@ -47,15 +46,19 @@ public class SourceModel extends AbstractTableModel implements Observer {
 			return sources.get(rowIndex).getUniqueID();
 		case 1:
 			return sources.get(rowIndex).getPosition();
+		case 2:
+			return sources.get(rowIndex).getType();
 		default:
 			return null; // Ne devrait jamais arriver
 		}
 	}
 
 	public void addSource(Source src) {
-		sources.add(src);
+
 		try {
 			interCon.putSource(src);
+			sources.add(src);
+			fireTableRowsInserted(sources.size() - 1, sources.size() - 1);
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -63,7 +66,7 @@ public class SourceModel extends AbstractTableModel implements Observer {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		fireTableRowsInserted(sources.size() - 1, sources.size() - 1);
+
 	}
 
 	public void removeSource(int rowIndex) {

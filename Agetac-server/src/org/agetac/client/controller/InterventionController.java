@@ -97,7 +97,7 @@ public class InterventionController implements ActionListener {
 			MessageView msgView = new MessageView(msgModel);
 			AgentModel agentModel = new AgentModel();
 			AgentView agentView = new AgentView(agentModel);
-			VehiculeModel vehiculeModel = new VehiculeModel();
+			VehiculeModel vehiculeModel = new VehiculeModel(interCon);
 			VehiculeView vehiculeView = new VehiculeView(vehiculeModel);
 			CaserneModel casModel = new CaserneModel();
 			CaserneView casView = new CaserneView(casModel);
