@@ -25,31 +25,32 @@ public class AgetacServer extends Application {
 	 */
 	public static void runServer(int port) throws Exception {
 		// Create a component.
-		Component component = new Component();
-		Server server = new Server(Protocol.HTTP, port);
-		component.getServers().add(server);
-		// Create an application (this class).
-		Application application = new AgetacServer();
-		// Attach the application to the component with a defined contextRoot.
-		String contextRoot = "/agetacserver";
-		
-		// Création du garde
-		DigestAuthenticator guard = new DigestAuthenticator(application.getContext(), "TestRealm", "mySecretServerKey");
-		
-		// Instancie un Verifier de couple indentifiant/mdp basé sur une Map
-		MapVerifier mapVerifier = new MapVerifier();
-		// Charge un couple indentifiant/mdp
-		mapVerifier.getLocalSecrets().put("login", "secret".toCharArray());
-		guard.setWrappedVerifier(mapVerifier);
-		
-		//Associe le garde à l'application puis au component
-		guard.setNext(application);
-		component.getDefaultHost().attach(contextRoot, guard);
-		
-		server.getContext().getParameters().add("maxThreads", "512"); 
-		server.getContext().getParameters().add("maxTotalConnections", "50");
-	
-		component.start();
+				Component component = new Component();
+				Server server = new Server(Protocol.HTTP, port);
+				component.getServers().add(server);
+				// Create an application (this class).
+				Application application = new AgetacServer();
+				// Attach the application to the component with a defined contextRoot.
+				String contextRoot = "/agetacserver";
+				
+				// Authentification (En cours)
+				
+				DigestAuthenticator guard = new DigestAuthenticator(application.getContext(), "TestRealm", "mySecretServerKey");
+				
+				// Instantiates a Verifier of identifier/secret couples based on a simple Map.
+				MapVerifier mapVerifier = new MapVerifier();
+				// Load a single static login/secret pair.
+				mapVerifier.getLocalSecrets().put("login", "secret".toCharArray());
+				guard.setWrappedVerifier(mapVerifier);
+
+				guard.setNext(application);
+				component.getDefaultHost().attach(contextRoot, guard);
+				//component.getDefaultHost().attach(contextRoot, application);
+				
+				server.getContext().getParameters().add("maxThreads", "512"); 
+				server.getContext().getParameters().add("maxTotalConnections", "50");
+
+				component.start();
 	}
 
 	/**
