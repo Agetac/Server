@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<project name="Server" default="compile" basedir="..">
+
+	<property name="src.dir" location="src" />
+	<property name="bin.dir" location="bin" />
+	<property name="lib.dir" location="lib" />
+	<property name="enhance.dir" location="${bin.dir}/org/agetac/server/entities" />
+
+	<path id="libs.classpath">
+		<fileset dir="${lib.dir}" includes="**/*.jar" />
+	</path>
+
+	<target name="init">
+		<!-- Create the time stamp -->
+		<tstamp />
+		<!-- Create the build directory structure used by compile -->
+		<mkdir dir="${bin.dir}" />
+	</target>
+
+	<target name="clean" description="remove intermediate files">
+		<delete dir="${bin.dir}" />
+	</target>
+
+	<target name="compile" depends="init" description="compile the Java source code to class files">
+		<javac srcdir="${src.dir}" destdir="${bin.dir}" classpathref="libs.classpath" />
+	</target>
+
+	<path id="enhancer.classpath">
+		<path refid="libs.classpath" />
+		<pathelement location="${bin.dir}"/>
+	</path>
+
+	<target name="enhance" description="DataNucleus enhancement" depends="compile">
+		<taskdef name="datanucleusenhancer" classpathref="enhancer.classpath" classname="org.datanucleus.enhancer.tools.EnhancerTask" />
+
+		<datanucleusenhancer classpathref="enhancer.classpath" failonerror="true" verbose="true">
+			<fileset dir="${enhance.dir}">
+				<include name="**/*.class" />
+			</fileset>
+		</datanucleusenhancer>
+	</target>
+</project>
