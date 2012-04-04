@@ -1,6 +1,9 @@
 package org.agetac.server.entities;
 
+import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.PrimaryKey;
 
 @PersistenceCapable
 public class ActionEntity {
@@ -12,6 +15,12 @@ public class ActionEntity {
 	private PositionEntity position;
 	private PositionEntity origin;
 	private PositionEntity aim;
+	
+	private InterventionEntity intervention;
+	
+	@PrimaryKey
+	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+	private long id;
 	
 	public ActionEntity() {
 		this.type = ActionType.FIRE;
@@ -66,4 +75,7 @@ public class ActionEntity {
 		this.origin = origin;
 	}
 	
+	public long getId() {
+		return id;
+	}
 }

@@ -127,6 +127,60 @@ public class InterventionDAO {
 		}
 
 	}
+	
+	public void addAction(long interId, ActionDTO actionDTO) {
+		PersistenceManager pm = getPM();
+		Transaction tx = pm.currentTransaction();
+
+		ModelMapper modelMapper = new ModelMapper();
+		ActionEntity action = modelMapper.map(actionDTO, ActionEntity.class);
+
+		try {
+			tx.begin();
+
+			Object interKey = pm.newObjectIdInstance(InterventionEntity.class,
+					interId);
+
+			InterventionEntity inter = (InterventionEntity) pm.getObjectById(interKey);
+			inter.getActions().add(action);
+			pm.makePersistent(inter);
+			tx.commit();
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+
+			pm.close();
+		}
+	}
+	
+	public void addVehicle(long interId, VehicleDTO vehicleDTO) {
+		PersistenceManager pm = getPM();
+		Transaction tx = pm.currentTransaction();
+
+		ModelMapper modelMapper = new ModelMapper();
+		VehicleEntity vehicle = modelMapper.map(vehicleDTO, VehicleEntity.class);
+
+		try {
+			tx.begin();
+
+			Object interKey = pm.newObjectIdInstance(InterventionEntity.class,
+					interId);
+
+			InterventionEntity inter = (InterventionEntity) pm
+					.getObjectById(interKey);
+			inter.getVehicles().add(vehicle);
+			pm.makePersistent(inter);
+			tx.commit();
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+
+			pm.close();
+		}
+
+	}
 
 	public Collection<VehicleDemandDTO> retrieveVehicleDemands(long interId) {
 		PersistenceManager pm = getPM();
@@ -218,6 +272,50 @@ public class InterventionDAO {
 		}
 	}
 
+	public Collection<ActionDTO> retrieveActions(long interId) {
+		PersistenceManager pm = getPM();
+		try {
+
+			Object interKey = pm.newObjectIdInstance(InterventionEntity.class,
+					interId);
+
+			InterventionEntity inter = (InterventionEntity) pm
+					.getObjectById(interKey);
+
+			ModelMapper modelMapper = new ModelMapper();
+			List<ActionDTO> ret = new ArrayList<ActionDTO>();
+			for (ActionEntity entity : inter.getActions())
+				ret.add(modelMapper.map(entity, ActionDTO.class));
+
+			return ret;
+		} finally {
+
+			pm.close();
+		}
+	}
+	
+	public Collection<VehicleDTO> retrieveVehicles(long interId) {
+		PersistenceManager pm = getPM();
+		try {
+
+			Object interKey = pm.newObjectIdInstance(InterventionEntity.class,
+					interId);
+
+			InterventionEntity inter = (InterventionEntity) pm
+					.getObjectById(interKey);
+
+			ModelMapper modelMapper = new ModelMapper();
+			List<VehicleDTO> ret = new ArrayList<VehicleDTO>();
+			for (SourceEntity entity : inter.getSources())
+				ret.add(modelMapper.map(entity, VehicleDTO.class));
+
+			return ret;
+		} finally {
+
+			pm.close();
+		}
+	}
+	
 	public void add(long interId, VictimDTO victimDTO) {
 		PersistenceManager pm = getPM();
 		Transaction tx = pm.currentTransaction();
@@ -369,4 +467,8 @@ public class InterventionDAO {
 
 		return dto;
 	}
+
+
+
+
 }
