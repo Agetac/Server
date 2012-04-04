@@ -11,7 +11,7 @@ public class InterventionResourceImpl extends ServerResource implements
 		InterventionResource {
 
 	@Override
-	public void add(InterventionDTO interventionDTO) {
+	public InterventionDTO add(InterventionDTO interventionDTO) {
 
 		ModelMapper modelMapper = new ModelMapper();
 		InterventionEntity entity = modelMapper.map(interventionDTO,
@@ -19,6 +19,9 @@ public class InterventionResourceImpl extends ServerResource implements
 
 		InterventionDAO dao = new InterventionDAO();
 		dao.add(entity);
+		
+		interventionDTO.setId(entity.getId());
+		return interventionDTO;
 	}
 
 	@Override

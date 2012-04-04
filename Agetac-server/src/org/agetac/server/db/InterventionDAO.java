@@ -285,10 +285,11 @@ public class InterventionDAO {
 		PersistenceManager pm = getPM();
 		Transaction tx = pm.currentTransaction();
 
+		InterventionEntity inter;;
 		try {
 			tx.begin();
 
-			pm.makePersistent(entity);
+			inter = pm.makePersistent(entity);
 			tx.commit();
 		} finally {
 			if (tx.isActive()) {
