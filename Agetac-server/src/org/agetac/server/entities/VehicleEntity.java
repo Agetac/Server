@@ -1,6 +1,9 @@
 package org.agetac.server.entities;
 
+import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.PrimaryKey;
 
 @PersistenceCapable
 public class VehicleEntity {
@@ -22,6 +25,10 @@ public class VehicleEntity {
 	private VehicleType type;
 	private PositionEntity position;
 	private BarrackEntity barrack;
+	
+	@PrimaryKey
+	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+	private long id;
 	
 	public VehicleEntity() {}
 	

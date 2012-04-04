@@ -29,7 +29,10 @@ public class InterventionEntity {
 
 	@Persistent(mappedBy = "intervention", defaultFetchGroup="true")
 	private Collection<SourceEntity> sources;
-
+	
+	@Persistent(mappedBy = "intervention", defaultFetchGroup="true")
+	private Collection<ActionEntity> actions;
+	
 	@Persistent(mappedBy = "intervention", defaultFetchGroup="true")
 	private Collection<VictimEntity> victims;
 
@@ -48,7 +51,11 @@ public class InterventionEntity {
 	public Collection<SourceEntity> getSources() {
 		return sources;
 	}
-
+	
+	public Collection<ActionEntity> getActions() {
+		return actions;
+	}
+	
 	public Collection<VehicleEntity> getVehicles() {
 		return vehicles;
 	}
