@@ -91,4 +91,9 @@ public class CaserneResource extends ServerResource implements IServerResource {
 		return null;
 	}
 
+	public JSONArray toJSON() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
