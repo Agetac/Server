@@ -14,18 +14,20 @@ public class VehicleDemandEntity {
 	private Date timestamp;
 	private DemandState state;
 	private PositionEntity position;
-	private VehicleType category;
+	private VehicleType type;
 	
 	private InterventionEntity intervention;
 	
 	/** default vehicle id associated with the demand is unknown (-1)*/
 	private int vehicleId = -1;
 	
-	public VehicleDemandEntity() {}
+	public VehicleDemandEntity() {
+		
+	}
 	
 	public VehicleDemandEntity(DemandState state, VehicleType cat, PositionEntity p, Date date) {
 		this.state = state;
-		this.category = cat;
+		this.type = cat;
 		this.position = p;
 		this.timestamp = date;
 	}
@@ -54,12 +56,12 @@ public class VehicleDemandEntity {
 		this.position = position;
 	}
 
-	public VehicleType getCategory() {
-		return category;
+	public VehicleType getType() {
+		return type;
 	}
 
-	public void setCategory(VehicleType category) {
-		this.category = category;
+	public void setType(VehicleType type) {
+		this.type = type;
 	}
 
 	public int getVehicleId() {

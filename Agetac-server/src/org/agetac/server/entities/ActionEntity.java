@@ -10,6 +10,7 @@ public class ActionEntity {
 	private String name = "";
 	private ActionType type;
 	private PositionEntity position;
+	private PositionEntity origin;
 	private PositionEntity aim;
 	
 	public ActionEntity() {
@@ -55,6 +56,14 @@ public class ActionEntity {
 
 	public void setAim(PositionEntity aim) {
 		this.aim = aim;
+	}
+
+	public PositionEntity getOrigin() {
+		return origin;
+	}
+
+	public void setOrigin(PositionEntity origin) {
+		this.origin = origin;
 	}
 	
 }
