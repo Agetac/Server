@@ -23,6 +23,7 @@ public class InterventionDAO {
 		ModelMapper modelMapper = new ModelMapper();
 		VehicleDemandEntity vehicleDemand = modelMapper.map(vehicleDemandDTO,
 				VehicleDemandEntity.class);
+		vehicleDemandDTO.setId(vehicleDemand.getId());
 
 		try {
 			tx.begin();
@@ -49,8 +50,8 @@ public class InterventionDAO {
 		Transaction tx = pm.currentTransaction();
 
 		ModelMapper modelMapper = new ModelMapper();
-		MessageEntity message = modelMapper
-				.map(messageDTO, MessageEntity.class);
+		MessageEntity message = modelMapper.map(messageDTO, MessageEntity.class);
+		messageDTO.setId(message.getId());
 
 		try {
 			tx.begin();
@@ -79,6 +80,7 @@ public class InterventionDAO {
 
 		ModelMapper modelMapper = new ModelMapper();
 		SourceEntity source = modelMapper.map(sourceDTO, SourceEntity.class);
+		sourceDTO.setId(source.getId());
 
 		try {
 			tx.begin();
@@ -106,6 +108,7 @@ public class InterventionDAO {
 
 		ModelMapper modelMapper = new ModelMapper();
 		TargetEntity target = modelMapper.map(targetDTO, TargetEntity.class);
+		targetDTO.setId(target.getId());
 
 		try {
 			tx.begin();
@@ -134,6 +137,7 @@ public class InterventionDAO {
 
 		ModelMapper modelMapper = new ModelMapper();
 		ActionEntity action = modelMapper.map(actionDTO, ActionEntity.class);
+		actionDTO.setId(action.getId());
 
 		try {
 			tx.begin();
@@ -160,6 +164,7 @@ public class InterventionDAO {
 
 		ModelMapper modelMapper = new ModelMapper();
 		VehicleEntity vehicle = modelMapper.map(vehicleDTO, VehicleEntity.class);
+		vehicleDTO.setId(vehicle.getId());
 
 		try {
 			tx.begin();

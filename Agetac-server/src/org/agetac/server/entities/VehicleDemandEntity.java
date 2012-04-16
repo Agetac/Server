@@ -2,7 +2,10 @@ package org.agetac.server.entities;
 
 import java.util.Date;
 
+import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.PrimaryKey;
 
 import org.agetac.server.entities.VehicleEntity.VehicleType;
 
@@ -10,6 +13,10 @@ import org.agetac.server.entities.VehicleEntity.VehicleType;
 public class VehicleDemandEntity {
 
 	public enum DemandState {ASKED, REFUSED, ACCEPTED}
+	
+	@PrimaryKey
+	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+	private long id;
 	
 	private Date timestamp;
 	private DemandState state;
@@ -70,5 +77,9 @@ public class VehicleDemandEntity {
 
 	public void setVehicleId(int vehicleId) {
 		this.vehicleId = vehicleId;
+	}
+
+	public long getId() {
+		return id;
 	}
 }

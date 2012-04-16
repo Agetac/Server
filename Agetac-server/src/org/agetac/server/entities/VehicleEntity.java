@@ -79,5 +79,9 @@ public class VehicleEntity {
 	public void setBarrack(BarrackEntity barrack) {
 		this.barrack = barrack;
 	}
+
+	public long getId() {
+		return id;
+	}
 	
 }

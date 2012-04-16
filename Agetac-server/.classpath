@@ -19,6 +19,6 @@
 	<classpathentry kind="lib" path="lib/org.apache.httpcore.jar"/>
 	<classpathentry kind="lib" path="lib/org.apache.commons.logging.jar"/>
 	<classpathentry kind="lib" path="lib/org.restlet.ext.ssl.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/Agetac-model"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Common"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
