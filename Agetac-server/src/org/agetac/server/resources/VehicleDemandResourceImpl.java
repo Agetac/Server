@@ -3,7 +3,7 @@ package org.agetac.server.resources;
 import org.agetac.common.dto.VehicleDemandDTO;
 import org.agetac.common.resources.VehicleDemandResource;
 import org.agetac.server.db.InterventionDAO;
-import org.agetac.server.db.SourceDAO;
+import org.agetac.server.db.VehicleDemandDAO;
 import org.restlet.resource.ServerResource;
 
 
@@ -24,15 +24,16 @@ public class VehicleDemandResourceImpl extends ServerResource implements
 
 	@Override
 	public void update(VehicleDemandDTO demand) {
-		// TODO Auto-generated method stub
-		
+		long interId = Long.parseLong((String) getRequestAttributes().get(
+				"interId"));
+		VehicleDemandDAO.getInstance().update(demand, interId);
 	}
 
 	@Override
 	public void remove() {
 		long demandId = Long.parseLong((String) getRequestAttributes().get(
-				"vehicleDemandId"));
+				"vdId"));
 
-		SourceDAO.getInstance().delete(demandId);
+		VehicleDemandDAO.getInstance().delete(demandId);
 	}
 }

@@ -388,7 +388,7 @@ public class InterventionDAO {
 		PersistenceManager pm = getPM();
 		Transaction tx = pm.currentTransaction();
 
-		InterventionEntity inter;;
+		InterventionEntity inter;
 		try {
 			tx.begin();
 
@@ -472,8 +472,4 @@ public class InterventionDAO {
 
 		return dto;
 	}
-
-
-
-
 }
