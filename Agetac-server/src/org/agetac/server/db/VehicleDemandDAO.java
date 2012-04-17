@@ -1,10 +1,16 @@
 package org.agetac.server.db;
 
+import java.util.Iterator;
+
+import javax.jdo.Extent;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 
 import org.agetac.common.dto.VehicleDemandDTO;
 import org.agetac.server.entities.VehicleDemandEntity;
+import org.agetac.server.entities.VehicleEntity;
+import org.codehaus.jackson.map.ObjectMapper;
+import org.modelmapper.ModelMapper;
 
 public class VehicleDemandDAO {
 
@@ -37,7 +43,7 @@ public class VehicleDemandDAO {
 		
 	}
 
-	public void update(VehicleDemandDTO demand, long interId) {
+	public void update(VehicleDemandDTO demand) {
 		PersistenceManager pm = InterventionDAO.getPM();
 
 		Transaction tx = pm.currentTransaction();
@@ -46,17 +52,13 @@ public class VehicleDemandDAO {
 
 			Object idInstance = pm.newObjectIdInstance(VehicleDemandEntity.class, demand.getId());
 			VehicleDemandEntity obj = (VehicleDemandEntity) pm.getObjectById(idInstance);
+			if (obj == null) return;
 			
-			// si l'objet n'existe pas, on l'ajoute
-			if (obj == null) {
-				InterventionDAO dao = new InterventionDAO();
-				dao.addVehicleDemand(interId, demand);
+			ModelMapper modelMapper = new ModelMapper();
+			VehicleDemandEntity newDemand = modelMapper.map(demand,
+					VehicleDemandEntity.class);
+			obj.update(newDemand);
 			
-			// sinon on le met à jour
-			} else {
-				pm.makePersistent(obj);
-			}
-
 			tx.commit();
 		} finally {
 			if (tx.isActive()) {

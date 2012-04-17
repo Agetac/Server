@@ -3,6 +3,7 @@ package org.agetac.server.resources;
 import org.agetac.common.dto.VictimDTO;
 import org.agetac.common.resources.VictimResource;
 import org.agetac.server.db.InterventionDAO;
+import org.agetac.server.db.VehicleDemandDAO;
 import org.agetac.server.db.VictimDAO;
 import org.restlet.resource.ServerResource;
 
@@ -22,8 +23,7 @@ public class VictimResourceImpl extends ServerResource implements
 
 	@Override
 	public void update(VictimDTO victim) {
-		// TODO Auto-generated method stub
-
+		VictimDAO.getInstance().update(victim);
 	}
 
 	@Override

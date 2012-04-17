@@ -16,7 +16,7 @@ public class MessageEntity {
 	
 	private String text;
 	
-	private String getText() {
+	public String getText() {
 		return text;
 	}
 

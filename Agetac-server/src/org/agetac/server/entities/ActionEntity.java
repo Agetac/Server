@@ -78,4 +78,12 @@ public class ActionEntity {
 	public long getId() {
 		return id;
 	}
+	
+	public void update(ActionEntity action) {
+		this.aim = action.getAim();
+		this.name = action.getName();
+		this.origin = action.getOrigin();
+		this.position = action.getPosition();
+		this.type = action.getType();
+	}
 }

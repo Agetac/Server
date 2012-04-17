@@ -5,10 +5,12 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
+import org.agetac.common.dto.VehicleDTO;
+
 @PersistenceCapable
 public class VehicleEntity {
 
-	public enum VehiculeState {
+	public enum VehicleState {
 	    DISPO_CASERNE, ALERTE, PARTIS, SUR_LES_LIEUX, TRANSPORT_HOPITAL, DISPO_RADIO, TEMPS_DEPASSE, DEMOBILISE
 	}
 	
@@ -21,7 +23,7 @@ public class VehicleEntity {
 	}
 	
 	private String name;
-	private VehiculeState state;
+	private VehicleState state;
 	private VehicleType type;
 	private PositionEntity position;
 	private BarrackEntity barrack;
@@ -32,7 +34,7 @@ public class VehicleEntity {
 	
 	public VehicleEntity() {}
 	
-	public VehicleEntity(String n, VehiculeState s, VehicleType t, PositionEntity p, BarrackEntity b) {
+	public VehicleEntity(String n, VehicleState s, VehicleType t, PositionEntity p, BarrackEntity b) {
 		this.name = n;
 		this.state = s;
 		this.type = t;
@@ -48,11 +50,11 @@ public class VehicleEntity {
 		this.name = name;
 	}
 
-	public VehiculeState getState() {
+	public VehicleState getState() {
 		return state;
 	}
 
-	public void setState(VehiculeState state) {
+	public void setState(VehicleState state) {
 		this.state = state;
 	}
 
@@ -84,4 +86,11 @@ public class VehicleEntity {
 		return id;
 	}
 	
+	public void update(VehicleEntity vehicle) {
+		this.type = vehicle.getType();
+		this.position = vehicle.getPosition();
+		this.name = vehicle.getName();
+		this.state = vehicle.getState();
+		this.barrack = vehicle.getBarrack();
+	}
 }

@@ -24,9 +24,7 @@ public class VehicleDemandResourceImpl extends ServerResource implements
 
 	@Override
 	public void update(VehicleDemandDTO demand) {
-		long interId = Long.parseLong((String) getRequestAttributes().get(
-				"interId"));
-		VehicleDemandDAO.getInstance().update(demand, interId);
+		VehicleDemandDAO.getInstance().update(demand);
 	}
 
 	@Override

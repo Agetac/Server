@@ -22,8 +22,7 @@ public class SourceResourceImpl extends ServerResource implements
 
 	@Override
 	public void update(SourceDTO source) {
-		// TODO Auto-generated method stub
-
+		SourceDAO.getInstance().update(source);
 	}
 
 	@Override

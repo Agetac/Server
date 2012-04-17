@@ -61,4 +61,9 @@ public class SourceEntity {
 		return id;
 	}
 	
+	public void update(SourceEntity source) {
+		this.name = source.getName();
+		this.position = source.getPosition();
+		this.type = source.getType();
+	}
 }

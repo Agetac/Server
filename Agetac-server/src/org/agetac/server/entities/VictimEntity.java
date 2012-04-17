@@ -6,6 +6,8 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
+import org.agetac.common.dto.VictimDTO;
+
 @PersistenceCapable(identityType = IdentityType.APPLICATION)
 public class VictimEntity {
 
@@ -34,5 +36,9 @@ public class VictimEntity {
 
 	public String getName() {
 		return name;
+	}
+	
+	public void update(VictimEntity victim) {
+		this.name = victim.getName();
 	}
 }

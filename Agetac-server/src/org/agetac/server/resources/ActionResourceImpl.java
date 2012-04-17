@@ -20,8 +20,8 @@ public class ActionResourceImpl extends ServerResource implements
 	}
 
 	@Override
-	public void update(ActionDTO source) {
-		// TODO Auto-generated method stub
+	public void update(ActionDTO action) {
+		ActionDAO.getInstance().update(action);
 	}
 
 	@Override

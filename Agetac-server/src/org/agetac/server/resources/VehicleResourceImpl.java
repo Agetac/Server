@@ -4,6 +4,7 @@ import org.agetac.common.dto.VehicleDTO;
 import org.agetac.common.resources.VehicleResource;
 import org.agetac.server.db.InterventionDAO;
 import org.agetac.server.db.SourceDAO;
+import org.agetac.server.db.VehicleDAO;
 import org.restlet.resource.ServerResource;
 
 public class VehicleResourceImpl extends ServerResource implements VehicleResource {
@@ -19,9 +20,8 @@ public class VehicleResourceImpl extends ServerResource implements VehicleResour
 	}
 
 	@Override
-	public void update(VehicleDTO source) {
-		// TODO Auto-generated method stub
-
+	public void update(VehicleDTO vehicle) {
+		VehicleDAO.getInstance().update(vehicle);
 	}
 
 	@Override

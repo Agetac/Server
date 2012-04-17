@@ -7,6 +7,7 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
+import org.agetac.server.db.InterventionDAO;
 import org.agetac.server.entities.VehicleEntity.VehicleType;
 
 @PersistenceCapable
@@ -22,6 +23,7 @@ public class VehicleDemandEntity {
 	private DemandState state;
 	private PositionEntity position;
 	private VehicleType type;
+	private String name;
 	
 	private InterventionEntity intervention;
 	
@@ -79,7 +81,24 @@ public class VehicleDemandEntity {
 		this.vehicleId = vehicleId;
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public long getId() {
 		return id;
+	}
+	
+	public void update(VehicleDemandEntity demand) {
+		this.name = demand.getName();
+		this.position = demand.getPosition();
+		this.state = demand.getState();
+		this.timestamp = demand.getTimestamp();
+		this.type = demand.getType();
+		this.vehicleId = demand.getVehicleId();
 	}
 }

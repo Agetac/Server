@@ -22,8 +22,7 @@ public class TargetResourceImpl extends ServerResource implements
 
 	@Override
 	public void update(TargetDTO target) {
-		// TODO Auto-generated method stub
-
+		TargetDAO.getInstance().update(target);
 	}
 
 	@Override
