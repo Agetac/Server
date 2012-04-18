@@ -26,7 +26,6 @@ public class TargetEntity {
 	public TargetEntity() {}
 	
 	public TargetEntity(TargetType type) {
-		this.position = new PositionEntity();
 	}
 	
 	public long getId() {

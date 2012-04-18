@@ -24,8 +24,6 @@ public class ActionEntity {
 	
 	public ActionEntity() {
 		this.type = ActionType.FIRE;
-		this.position = new PositionEntity();
-		this.aim = new PositionEntity();
 	}
 	
 	public ActionEntity(String n, ActionType t, PositionEntity p, PositionEntity a) {

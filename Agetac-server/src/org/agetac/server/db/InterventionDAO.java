@@ -13,14 +13,24 @@ import javax.jdo.Transaction;
 import org.agetac.common.dto.*;
 import org.agetac.server.entities.*;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.PropertyMap;
 
 public class InterventionDAO {
 
-	public void addVehicleDemand(long interId, VehicleDemandDTO vehicleDemandDTO) {
+	public void addVehicleDemand(long interId, final VehicleDemandDTO vehicleDemandDTO) {
 		PersistenceManager pm = getPM();
 		Transaction tx = pm.currentTransaction();
 
 		ModelMapper modelMapper = new ModelMapper();
+		modelMapper.addMappings(new PropertyMap<VehicleDemandEntity, VehicleDemandDTO>() {
+			@Override
+			protected void configure() {
+				if (vehicleDemandDTO.getPosition() == null) {
+					map().setPosition(null);
+					System.out.println("woot");
+				}
+			}
+		});
 		VehicleDemandEntity vehicleDemand = modelMapper.map(vehicleDemandDTO,
 				VehicleDemandEntity.class);
 		vehicleDemandDTO.setId(vehicleDemand.getId());

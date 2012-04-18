@@ -19,6 +19,10 @@ public class MessageEntity {
 	public String getText() {
 		return text;
 	}
+	
+	public void setText(String text) {
+		this.text = text;
+	}
 
 	public long getId() {
 		return id;

@@ -24,7 +24,6 @@ public class SourceEntity {
 	public SourceEntity() {}
 	
 	public SourceEntity(SourceType type) {
-		this.position = new PositionEntity();
 	}
 	
 	public SourceEntity(String name, SourceType type, PositionEntity p) {
