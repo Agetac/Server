@@ -5,6 +5,7 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
+
 @PersistenceCapable
 public class ActionEntity {
 
@@ -22,15 +23,14 @@ public class ActionEntity {
 	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
 	private long id;
 	
-	public ActionEntity() {
-		this.type = ActionType.FIRE;
-	}
+	public ActionEntity() {}
 	
-	public ActionEntity(String n, ActionType t, PositionEntity p, PositionEntity a) {
+	public ActionEntity(String n, ActionType t, PositionEntity position, PositionEntity origin, PositionEntity aim) {
 		this.name = n;
 		this.type = t;
-		this.position = p;
-		this.aim = a;
+		this.position = position;
+		this.aim = aim;
+		this.origin = origin;
 	}
 
 	public String getName() {
