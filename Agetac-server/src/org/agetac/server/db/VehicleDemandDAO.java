@@ -1,15 +1,10 @@
 package org.agetac.server.db;
 
-import java.util.Iterator;
-
-import javax.jdo.Extent;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 
 import org.agetac.common.dto.VehicleDemandDTO;
 import org.agetac.server.entities.VehicleDemandEntity;
-import org.agetac.server.entities.VehicleEntity;
-import org.codehaus.jackson.map.ObjectMapper;
 import org.modelmapper.ModelMapper;
 
 public class VehicleDemandDAO {

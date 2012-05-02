@@ -40,15 +40,6 @@ public class InterventionDAO {
 		Transaction tx = pm.currentTransaction();
 
 		ModelMapper modelMapper = new ModelMapper();
-		modelMapper.addMappings(new PropertyMap<VehicleDemandEntity, VehicleDemandDTO>() {
-			@Override
-			protected void configure() {
-				if (vehicleDemandDTO.getPosition() == null) {
-					map().setPosition(null);
-					System.out.println("woot");
-				}
-			}
-		});
 		VehicleDemandEntity vehicleDemand = modelMapper.map(vehicleDemandDTO,
 				VehicleDemandEntity.class);
 		vehicleDemandDTO.setId(vehicleDemand.getId());
