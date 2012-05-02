@@ -5,30 +5,30 @@ import javax.jdo.annotations.PersistenceCapable;
 @PersistenceCapable
 public class PositionEntity {
 
-	private double latitude;
-	private double longitude;
+	private int latitude;
+	private int longitude;
 	private boolean isKnown = false;
 	
 	public PositionEntity() {}
 	
-	public PositionEntity(double latitude, double longitude) {
+	public PositionEntity(int latitude, int longitude) {
 		this.latitude = latitude;
 		this.longitude = longitude;
 	}
 
-	public double getLatitude() {
+	public int getLatitude() {
 		return latitude;
 	}
 
-	public void setLatitude(double latitude) {
+	public void setLatitude(int latitude) {
 		this.latitude = latitude;
 	}
 
-	public double getLongitude() {
+	public int getLongitude() {
 		return longitude;
 	}
 
-	public void setLongitude(double longitude) {
+	public void setLongitude(int longitude) {
 		this.longitude = longitude;
 	}
 

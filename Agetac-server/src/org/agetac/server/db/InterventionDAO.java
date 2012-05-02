@@ -10,12 +10,30 @@ import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Query;
 import javax.jdo.Transaction;
 
-import org.agetac.common.dto.*;
-import org.agetac.server.entities.*;
+import org.agetac.common.dto.ActionDTO;
+import org.agetac.common.dto.InterventionDTO;
+import org.agetac.common.dto.MessageDTO;
+import org.agetac.common.dto.SourceDTO;
+import org.agetac.common.dto.TargetDTO;
+import org.agetac.common.dto.VehicleDTO;
+import org.agetac.common.dto.VehicleDemandDTO;
+import org.agetac.common.dto.VictimDTO;
+import org.agetac.server.entities.ActionEntity;
+import org.agetac.server.entities.InterventionEntity;
+import org.agetac.server.entities.MessageEntity;
+import org.agetac.server.entities.SourceEntity;
+import org.agetac.server.entities.TargetEntity;
+import org.agetac.server.entities.VehicleDemandEntity;
+import org.agetac.server.entities.VehicleEntity;
+import org.agetac.server.entities.VictimEntity;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 
 public class InterventionDAO {
+	
+	public static InterventionDAO getInstance() {
+		return new InterventionDAO();
+	}
 
 	public void addVehicleDemand(long interId, final VehicleDemandDTO vehicleDemandDTO) {
 		PersistenceManager pm = getPM();
@@ -398,11 +416,10 @@ public class InterventionDAO {
 		PersistenceManager pm = getPM();
 		Transaction tx = pm.currentTransaction();
 
-		InterventionEntity inter;
 		try {
 			tx.begin();
 
-			inter = pm.makePersistent(entity);
+			pm.makePersistent(entity);
 			tx.commit();
 		} finally {
 			if (tx.isActive()) {
@@ -412,6 +429,32 @@ public class InterventionDAO {
 			pm.close();
 		}
 
+	}
+	
+	public void update(InterventionDTO intervention) {
+		PersistenceManager pm = InterventionDAO.getPM();
+
+		Transaction tx = pm.currentTransaction();
+		try {
+			tx.begin();
+
+			Object idInstance = pm.newObjectIdInstance(InterventionEntity.class,
+					intervention.getId());
+			InterventionEntity obj = (InterventionEntity) pm.getObjectById(idInstance);
+			if (obj == null) return;
+			ModelMapper modelMapper = new ModelMapper();
+			InterventionEntity newInter = modelMapper.map(intervention, InterventionEntity.class);
+			obj.update(newInter);
+
+			tx.commit();
+		} finally {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+
+			pm.close();
+		}
+		
 	}
 
 	public Collection<InterventionDTO> retrieveAll() {
