@@ -16,6 +16,16 @@ public class MessageEntity {
 	
 	private String text;
 	
+	private String date;
+	
+	public String getDate() {
+		return date;
+	}
+
+	public void setDate(String date) {
+		this.date = date;
+	}
+
 	public String getText() {
 		return text;
 	}
@@ -27,4 +37,6 @@ public class MessageEntity {
 	public long getId() {
 		return id;
 	}
+
+	
 }

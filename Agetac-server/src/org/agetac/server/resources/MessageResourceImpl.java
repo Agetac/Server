@@ -19,5 +19,7 @@ public class MessageResourceImpl extends ServerResource implements
 		
 		return message;
 	}
+	
+	
 
 }
