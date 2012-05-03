@@ -23,7 +23,7 @@ public class MessageView extends JFrame {
 	
 	private JPanel panel;
 	private JTable table;
-	private JTextField txtDate, txtMessage;
+	private JTextField  txtMessage;
 	private JButton addBut;
 
 	public MessageView(MessageModel model) {
@@ -62,9 +62,6 @@ public class MessageView extends JFrame {
 		JPanel fieldPanel = new JPanel();
 		fieldPanel.setLayout(new GridLayout());
 		
-		// Date field
-		txtDate = new JTextField("Date");
-		fieldPanel.add(txtDate);
 		
 		// Message field
 		txtMessage = new JTextField("Message");
@@ -91,19 +88,13 @@ public class MessageView extends JFrame {
 		setVisible(true);
 		
 	}
-	
-	
-	
-	public String getDate(){
-		return txtDate.getText();
-	}
+
 	
 	public String getMessage(){
 		return txtMessage.getText();
 	}
 	
 	public void resetTxtFields(){
-		txtDate.setText("Date");
 		txtMessage.setText("Message");
 	}
 	

@@ -15,8 +15,7 @@ public class VehicleDemandsResourceImpl extends ServerResource implements
 	public Collection<VehicleDemandDTO> retrieve() {
 		InterventionDAO dao = new InterventionDAO();
 
-		long interId = Long.parseLong((String) getRequestAttributes().get(
-				"interId"));
+		long interId = Long.parseLong((String) getRequestAttributes().get("interId"));
 		return dao.retrieveVehicleDemands(interId);
 
 	}

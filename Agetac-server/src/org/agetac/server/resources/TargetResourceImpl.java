@@ -13,8 +13,7 @@ public class TargetResourceImpl extends ServerResource implements
 	public TargetDTO add(TargetDTO target) {
 		InterventionDAO dao = new InterventionDAO();
 
-		long interId = Long.parseLong((String) getRequestAttributes().get(
-				"interId"));
+		long interId = Long.parseLong((String) getRequestAttributes().get("interId"));
 		dao.addTarget(interId, target);
 		
 		return target;
@@ -27,8 +26,7 @@ public class TargetResourceImpl extends ServerResource implements
 
 	@Override
 	public void remove() {
-		long targetId = Long.parseLong((String) getRequestAttributes().get(
-				"targetId"));
+		long targetId = Long.parseLong((String) getRequestAttributes().get("targetId"));
 
 		TargetDAO.getInstance().delete(targetId);
 

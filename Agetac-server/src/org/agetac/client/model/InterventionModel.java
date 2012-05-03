@@ -1,5 +1,6 @@
 package org.agetac.client.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
@@ -20,7 +21,9 @@ public class InterventionModel extends AbstractTableModel {
 
 	public InterventionModel(AgetacClient c) {
 		client=c;
-		interventions = (List<InterventionDTO>) c.getInterventions();
+		interventions = new ArrayList<InterventionDTO>(c.getInterventions());
+		//interventions = new ArrayList<InterventionDTO>();
+		//interventions.add(c.getIntervention(0));
 		// may crash because of the cast
 	}
 	

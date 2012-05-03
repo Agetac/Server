@@ -9,21 +9,25 @@ import javax.jdo.annotations.PrimaryKey;
 @PersistenceCapable(identityType = IdentityType.APPLICATION)
 public class SourceEntity {
 
+	@PrimaryKey
+	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
+	private long id;
+	
 	public enum SourceType {WATER, FIRE, CHEM}
+	
+	private InterventionEntity intervention;
 	
 	private SourceType type;
 	private PositionEntity position;
 	private String name = "";
 	
-	private InterventionEntity intervention;
-	
-	@PrimaryKey
-	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
-	private long id;
-	
 	public SourceEntity() {}
 	
 	public SourceEntity(SourceType type) {
+	}
+	
+	public long getId() {
+		return id;
 	}
 	
 	public SourceEntity(String name, SourceType type, PositionEntity p) {
@@ -54,10 +58,6 @@ public class SourceEntity {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public long getId() {
-		return id;
 	}
 	
 	public void update(SourceEntity source) {
