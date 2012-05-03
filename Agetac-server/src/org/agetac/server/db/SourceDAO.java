@@ -5,7 +5,6 @@ import javax.jdo.Transaction;
 
 import org.agetac.common.dto.SourceDTO;
 import org.agetac.server.entities.SourceEntity;
-import org.agetac.server.entities.VehicleEntity;
 import org.modelmapper.ModelMapper;
 
 public class SourceDAO {

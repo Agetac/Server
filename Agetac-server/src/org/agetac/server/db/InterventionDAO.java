@@ -40,8 +40,7 @@ public class InterventionDAO {
 		Transaction tx = pm.currentTransaction();
 
 		ModelMapper modelMapper = new ModelMapper();
-		VehicleDemandEntity vehicleDemand = modelMapper.map(vehicleDemandDTO,
-				VehicleDemandEntity.class);
+		VehicleDemandEntity vehicleDemand = modelMapper.map(vehicleDemandDTO, VehicleDemandEntity.class);
 		vehicleDemandDTO.setId(vehicleDemand.getId());
 
 		try {

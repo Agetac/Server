@@ -13,8 +13,7 @@ public class SourceResourceImpl extends ServerResource implements
 	public SourceDTO add(SourceDTO source) {
 		InterventionDAO dao = new InterventionDAO();
 
-		long interId = Long.parseLong((String) getRequestAttributes().get(
-				"interId"));
+		long interId = Long.parseLong((String) getRequestAttributes().get("interId"));
 		dao.addSource(interId, source);
 		
 		return source;
@@ -27,8 +26,7 @@ public class SourceResourceImpl extends ServerResource implements
 
 	@Override
 	public void remove() {
-		long sourceId = Long.parseLong((String) getRequestAttributes().get(
-				"sourceId"));
+		long sourceId = Long.parseLong((String) getRequestAttributes().get("sourceId"));
 
 		SourceDAO.getInstance().delete(sourceId);
 

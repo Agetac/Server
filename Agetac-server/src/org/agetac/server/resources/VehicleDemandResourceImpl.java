@@ -6,17 +6,14 @@ import org.agetac.server.db.InterventionDAO;
 import org.agetac.server.db.VehicleDemandDAO;
 import org.restlet.resource.ServerResource;
 
-
 public class VehicleDemandResourceImpl extends ServerResource implements
 		VehicleDemandResource {
 
 	@Override
 	public VehicleDemandDTO add(VehicleDemandDTO vehicleDemand) {
-
 		InterventionDAO dao = new InterventionDAO();
 
-		long interId = Long.parseLong((String) getRequestAttributes().get(
-				"interId"));
+		long interId = Long.parseLong((String) getRequestAttributes().get("interId"));
 		dao.addVehicleDemand(interId, vehicleDemand);
 
 		return vehicleDemand;
@@ -29,8 +26,7 @@ public class VehicleDemandResourceImpl extends ServerResource implements
 
 	@Override
 	public void remove() {
-		long demandId = Long.parseLong((String) getRequestAttributes().get(
-				"vdId"));
+		long demandId = Long.parseLong((String) getRequestAttributes().get("vdId"));
 
 		VehicleDemandDAO.getInstance().delete(demandId);
 	}
