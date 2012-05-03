@@ -1,5 +1,7 @@
 package org.agetac.server.entities;
 
+import java.util.Date;
+
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
@@ -16,13 +18,13 @@ public class MessageEntity {
 	
 	private String text;
 	
-	private String date;
+	private Date date;
 	
-	public String getDate() {
+	public Date getDate() {
 		return date;
 	}
 
-	public void setDate(String date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 
