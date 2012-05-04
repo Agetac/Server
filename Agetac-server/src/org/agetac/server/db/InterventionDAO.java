@@ -512,6 +512,9 @@ public class InterventionDAO {
 		
 		for (VehicleDemandEntity vde : entity.getVehicleDemands())
 			dto.getDemands().add(modelMapper.map(vde, VehicleDemandDTO.class));
+		
+		for (ActionEntity vde : entity.getActions())
+			dto.getActions().add(modelMapper.map(vde, ActionDTO.class));
 
 		return dto;
 	}
