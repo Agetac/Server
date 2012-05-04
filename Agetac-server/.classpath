@@ -20,5 +20,7 @@
 	<classpathentry kind="lib" path="lib/org.apache.commons.logging.jar"/>
 	<classpathentry kind="lib" path="lib/org.restlet.ext.ssl.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/Common"/>
+	<classpathentry kind="src" path="tests"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
