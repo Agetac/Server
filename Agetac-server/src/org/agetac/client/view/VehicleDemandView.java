@@ -12,32 +12,32 @@ import javax.swing.JTextField;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
-import org.agetac.client.controller.BarrackController;
-import org.agetac.client.model.BarrackModel;
+import org.agetac.client.controller.VehicleDemandController;
+import org.agetac.client.model.VehicleDemandModel;
 
-public class BarrackView extends JFrame {
+public class VehicleDemandView extends JFrame {
 
-	private BarrackController controller;
-	private BarrackModel model;
+	private VehicleDemandController controller;
+	private VehicleDemandModel model;
 	
 	private JTable table;
-	private JTextField txtId, txtNom, txtMoyens;
-	private JButton addBut, delBut;
+	private JTextField txtState;
+	private JButton upBut;
 
 
-	public BarrackView(BarrackModel model) {
+	public VehicleDemandView(VehicleDemandModel model) {
 		
 		this.model = model;
-		this.controller = new BarrackController(this, this.model);
+		this.controller = new VehicleDemandController(this, this.model);
 
-		// Conteneur principal
+		// Main Panel
 		JPanel panel = new JPanel();
 		panel.setLayout(new BorderLayout());
 
-		// Tableau des casernes
+		// VehicleDemand table
 		this.table = new JTable(this.model);
 		
-		// Tri tableau des casernes
+		// VehicleDemand table sort
 				TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(table.getModel());   
 				sorter.setSortable(0, true);
 				sorter.setSortable(1, false);
@@ -46,72 +46,50 @@ public class BarrackView extends JFrame {
 				table.setRowSorter(sorter);
 				table.getRowSorter().toggleSortOrder(0);
 		
-		// Les boutons
+				// Buttons
 		
 		JPanel panelButton = new JPanel();
 		panelButton.setLayout(new GridLayout());
 
-		// Ajouter
-		addBut = new JButton("Ajouter une caserne");
-		addBut.addActionListener(this.controller);
-		panelButton.add(addBut);
-
-		// Supprimer
-		delBut = new JButton("Supprimer une caserne");
-		delBut.addActionListener(this.controller);
-		panelButton.add(delBut);
+		// Update
+		upBut = new JButton("Mise A Jour Etat");
+		upBut.addActionListener(this.controller);
+		panelButton.add(upBut);
 		
-		//Champs
+		// Fields
 		JPanel panelChamps = new JPanel();
 		panelChamps.setLayout(new GridLayout());
 				
-		// Champ ID
-		txtId = new JTextField("ID");
-		panelChamps.add(txtId);
+		// State field
+		txtState = new JTextField("Etat");
+		panelChamps.add(txtState);
 		
-		// Champ Nom
-		txtNom = new JTextField("Nom");
-		panelChamps.add(txtNom);
-				
-		// Champ Moyens
-		txtMoyens = new JTextField("Moyens");
-		panelChamps.add(txtMoyens);
-		
-		// Panel Champs & Buttons
+		// Fields & Buttons Panel
 		JPanel CandB = new JPanel();
 		CandB.setLayout(new BorderLayout());
 		CandB.add(panelButton,BorderLayout.NORTH);
         CandB.add(panelChamps,BorderLayout.SOUTH);
 
-		//ajout de la table et du panel des boutons
+		// Add table, Fiels&Button panel to main panel
 		panel.add(new JScrollPane(table),BorderLayout.CENTER);
         panel.add(CandB,BorderLayout.SOUTH);
 		setContentPane(panel);
 		
 		
-		// Config de la JFrame
-		setTitle("Liste des casernes");
+		// JFrame config
+		setTitle("Liste des demandes de vehicules");
 		pack();
 		setVisible(true);
 		
 	}
 	
-	public String getID(){
-		return txtId.getText();
-	}
 	
-	public String getNom(){
-		return txtNom.getText();
-	}
-	
-	public String getMoyens(){
-		return txtMoyens.getText();
+	public String getDemandState(){
+		return txtState.getText();
 	}
 	
 	public void resetTxtFields(){
-		txtId.setText("ID");
-		txtNom.setText("Nom");
-		txtMoyens.setText("Moyens");
+		txtState.setText("Etat");
 	}
 	
 	public int getSelectedLine(){

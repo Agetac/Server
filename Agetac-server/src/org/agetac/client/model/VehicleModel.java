@@ -9,7 +9,7 @@ import org.agetac.common.client.AgetacClient;
 import org.agetac.common.dto.VehicleDTO;
 
 @SuppressWarnings("serial")
-public class VehicleModel extends AbstractTableModel{
+public class VehicleModel extends AbstractTableModel {
 
 	private List<VehicleDTO> vehicles;
 	private final String[] entetes = { "ID", "Nom", "Position", "Caserne",
@@ -55,18 +55,18 @@ public class VehicleModel extends AbstractTableModel{
 	}
 
 	public void addVehicle(VehicleDTO vec) {
-		// TODO create good vehicle demand	
-		//client.addVehicleDemand(interID, vehicleDemand)
-			vehicles.add(vec);
-			fireTableRowsInserted(vehicles.size() - 1, vehicles.size() - 1);
+		// TODO create good vehicle demand
+		// client.addVehicleDemand(interID, vehicleDemand)
+		vehicles.add(vec);
+		fireTableRowsInserted(vehicles.size() - 1, vehicles.size() - 1);
 	}
 
 	public void removeVehicle(int rowIndex) {
 		if (rowIndex != -1) {
 			// TODO not sure about the rowIndex just after
 			client.deleteVehicle(rowIndex);
-				vehicles.remove(rowIndex);
-				fireTableRowsDeleted(rowIndex, rowIndex);
+			vehicles.remove(rowIndex);
+			fireTableRowsDeleted(rowIndex, rowIndex);
 		}
 	}
 }

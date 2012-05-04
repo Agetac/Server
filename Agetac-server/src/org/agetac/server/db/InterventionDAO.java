@@ -27,7 +27,6 @@ import org.agetac.server.entities.VehicleDemandEntity;
 import org.agetac.server.entities.VehicleEntity;
 import org.agetac.server.entities.VictimEntity;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.PropertyMap;
 
 public class InterventionDAO {
 	

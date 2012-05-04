@@ -13,8 +13,8 @@ public class InterventionModel extends AbstractTableModel {
 
 	private List<InterventionDTO> interventions;
 	private final String[] entetes = {
-			"ID", "Position", "Vehicles", "Targets",
-			"Sources", "Actions", "Messages", "Victims"};
+			"ID", "Position", "Vehicules", "Cibles",
+			"Sources", "Actions", "Messages", "Victimes"};
 	
 	private AgetacClient client;
 	

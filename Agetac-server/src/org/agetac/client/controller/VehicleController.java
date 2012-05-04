@@ -17,7 +17,7 @@ public class VehicleController implements ActionListener {
 	private VehicleModel model;
 
 	/**
-	 * Constructeur de VehiculeController
+	 * VehicleController constructor
 	 */
 	public VehicleController(VehicleView view, VehicleModel model) {
 		this.view = view;
@@ -26,17 +26,17 @@ public class VehicleController implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getActionCommand().equals("Add vehicle")) {
-			if (!(view.getName().equals("Name"))
+		if (e.getActionCommand().equals("Ajouter vehicule")) {
+			if (!(view.getName().equals("Nom"))
 					&& !(view.getPosition().equals("Position"))
-					&& !(view.getBarrack().equals("Barrack"))
-					&& !(view.getStates().equals("State"))
-					&& !(view.getGroup().equals("Group"))) {
-				// TODO experimental
+					&& !(view.getBarrack().equals("Caserne"))
+					&& !(view.getStates().equals("Etat"))
+					&& !(view.getGroup().equals("Groupe"))) {
+				// TODO NOT GOOD !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 				model.addVehicle(new VehicleDTO(new PositionDTO(0, 0), VehicleType.FPT, view.getBarrack(), VehicleState.ALERTE, new GroupDTO(), "0102"));
 				view.resetTxtFields();
 			}
-		} else if (e.getActionCommand().equals("Delete vehicle")) {
+		} else if (e.getActionCommand().equals("Effacer vehicule")) {
 			model.removeVehicle(view.getSelectedLine());
 		}
 

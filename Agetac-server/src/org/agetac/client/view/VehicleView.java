@@ -52,12 +52,12 @@ public class VehicleView extends JFrame {
 		panelButton.setLayout(new GridLayout());
 
 		// Add
-		addBut = new JButton("Add vehicle");
+		addBut = new JButton("Ajouter vehicule");
 		addBut.addActionListener(this.controller);
 		panelButton.add(addBut);
 
 		// Delete
-		delBut = new JButton("Delete vehicle");
+		delBut = new JButton("Effacer vehicule");
 		delBut.addActionListener(this.controller);
 		panelButton.add(delBut);
 		
@@ -72,7 +72,7 @@ public class VehicleView extends JFrame {
 		panelChamps.add(txtId);
 		
 		// Name field
-		txtName = new JTextField("Name");
+		txtName = new JTextField("Nom");
 		panelChamps.add(txtName);
 		
 		// Position field
@@ -80,15 +80,15 @@ public class VehicleView extends JFrame {
 		panelChamps.add(txtPosition);
 
 		// BarrackName field
-		txtBarrack = new JTextField("Barrack");
+		txtBarrack = new JTextField("Caserne");
 		panelChamps.add(txtBarrack);
 
 		// State field
-		txtState = new JTextField("State");
+		txtState = new JTextField("Etat");
 		panelChamps.add(txtState);
 
 		// Group field
-		txtGroup = new JTextField("Group");
+		txtGroup = new JTextField("Groupe");
 		panelChamps.add(txtGroup);
 
 		// Fields & Buttons panel
@@ -105,7 +105,7 @@ public class VehicleView extends JFrame {
 		
 		
 		// JFrame config
-		setTitle("Vehicles list");
+		setTitle("Liste des vehicles");
 		pack();
 		setVisible(true);
 		
@@ -138,11 +138,11 @@ public class VehicleView extends JFrame {
 	
 	public void resetTxtFields(){
 		txtId.setText("ID");
-		txtName.setText("Name");
+		txtName.setText("Nom");
 		txtPosition.setText("Position");
-		txtBarrack.setText("Barrack");
-		txtState.setText("State");
-		txtGroup.setText("Group");
+		txtBarrack.setText("Caserne");
+		txtState.setText("Etat");
+		txtGroup.setText("Groupe");
 	}
 	
 	public int getSelectedLine(){

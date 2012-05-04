@@ -4,9 +4,7 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 
 import org.agetac.common.dto.VehicleDTO;
-import org.agetac.server.entities.VehicleDemandEntity;
 import org.agetac.server.entities.VehicleEntity;
-import org.agetac.server.entities.VictimEntity;
 import org.modelmapper.ModelMapper;
 
 public class VehicleDAO {

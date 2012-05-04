@@ -23,7 +23,7 @@ public class MessageController implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getActionCommand().equals("Add message")) {
+		if (e.getActionCommand().equals("Ajouter message")) {
 			if (!(view.getMessage().equals("Message"))){
 			model.addMessage(new MessageDTO(view.getMessage(), new Date()));
 			view.resetTxtFields();

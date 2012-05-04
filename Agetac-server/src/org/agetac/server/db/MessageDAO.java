@@ -3,9 +3,7 @@ package org.agetac.server.db;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 
-import org.agetac.common.dto.VehicleDemandDTO;
 import org.agetac.server.entities.MessageEntity;
-import org.modelmapper.ModelMapper;
 
 public class MessageDAO {
 

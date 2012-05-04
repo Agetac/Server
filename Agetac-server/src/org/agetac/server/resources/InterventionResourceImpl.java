@@ -3,7 +3,6 @@ package org.agetac.server.resources;
 import org.agetac.common.dto.InterventionDTO;
 import org.agetac.common.resources.InterventionResource;
 import org.agetac.server.db.InterventionDAO;
-import org.agetac.server.db.VehicleDAO;
 import org.agetac.server.entities.InterventionEntity;
 import org.modelmapper.ModelMapper;
 import org.restlet.resource.ServerResource;

@@ -53,7 +53,7 @@ public class MessageView extends JFrame {
 		ButtonPanel.setLayout(new GridLayout());
 
 		// Add
-		addBut = new JButton("Add message");
+		addBut = new JButton("Ajouter message");
 		addBut.addActionListener(this.controller);
 		ButtonPanel.add(addBut);
 
@@ -83,7 +83,7 @@ public class MessageView extends JFrame {
 		
 		
 		// JFrame config
-		setTitle("Messages list");
+		setTitle("Liste des messages");
 		pack();
 		setVisible(true);
 		

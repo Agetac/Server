@@ -54,7 +54,7 @@ public class InterventionView extends JFrame {
 		panelButton.setLayout(new GridLayout());
 
 		// Add
-		addBut = new JButton("Add intervention");
+		addBut = new JButton("Ajouter intervention");
 		addBut.addActionListener(this.controller);
 		panelButton.add(addBut);
 
@@ -68,7 +68,7 @@ public class InterventionView extends JFrame {
 		panelChamps.setLayout(new GridLayout());
 
 		// Name field
-		txtName = new JTextField("Name");
+		txtName = new JTextField("Nom");
 		panelChamps.add(txtName);
 
 		// Latitude field
@@ -112,7 +112,7 @@ public class InterventionView extends JFrame {
 	}
 
 	public void resetTxtFields() {
-		txtName.setText("Name");
+		txtName.setText("Nom");
 		txtLatitude.setText("Latitude");
 		txtLongitude.setText("Longitude");
 	}

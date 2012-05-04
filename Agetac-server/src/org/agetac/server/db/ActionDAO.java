@@ -5,7 +5,6 @@ import javax.jdo.Transaction;
 
 import org.agetac.common.dto.ActionDTO;
 import org.agetac.server.entities.ActionEntity;
-import org.agetac.server.entities.VehicleDemandEntity;
 import org.modelmapper.ModelMapper;
 
 public class ActionDAO {
