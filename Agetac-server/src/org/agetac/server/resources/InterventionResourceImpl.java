@@ -29,7 +29,8 @@ public class InterventionResourceImpl extends ServerResource implements
 		long interId = Long.parseLong((String) getRequestAttributes().get(
 				"interId"));
 
-		return new InterventionDAO().retrieveOne(interId);
+		InterventionDTO dto = new InterventionDAO().retrieveOne(interId);
+		return dto;
 	}
 
 	@Override
