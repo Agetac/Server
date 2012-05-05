@@ -26,6 +26,32 @@ public class VehicleEntity {
 	private PositionEntity position;
 	private BarrackEntity barrack;
 	
+	private String arrivalTime, demandTime, retTime;
+	
+	public String getArrivalTime() {
+		return arrivalTime;
+	}
+
+	public void setArrivalTime(String arrivalTime) {
+		this.arrivalTime = arrivalTime;
+	}
+
+	public String getDemandTime() {
+		return demandTime;
+	}
+
+	public void setDemandTime(String demandTime) {
+		this.demandTime = demandTime;
+	}
+
+	public String getRetTime() {
+		return retTime;
+	}
+
+	public void setRetTime(String retTime) {
+		this.retTime = retTime;
+	}
+
 	@PrimaryKey
 	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
 	private long id;

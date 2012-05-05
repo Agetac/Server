@@ -25,6 +25,16 @@ public class VehicleDemandEntity {
 	private VehicleType type;
 	private String name;
 	
+	private String groupeHoraire;
+	
+	public String getGroupeHoraire() {
+		return groupeHoraire;
+	}
+
+	public void setGroupeHoraire(String groupeHoraire) {
+		this.groupeHoraire = groupeHoraire;
+	}
+
 	private InterventionEntity intervention;
 	
 	/** default vehicle id associated with the demand is unknown (-1)*/
