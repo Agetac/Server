@@ -60,4 +60,9 @@ public class VehicleDemandModel extends AbstractTableModel {
 		return VehicleDemands.get(index);		
 	}
 
+	public void update() {
+		VehicleDemands = new ArrayList<VehicleDemandDTO>(client.getVehicleDemands(interID));
+		this.fireTableDataChanged();
+	}
+
 }

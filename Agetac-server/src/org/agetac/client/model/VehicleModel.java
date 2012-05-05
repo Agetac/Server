@@ -69,4 +69,9 @@ public class VehicleModel extends AbstractTableModel {
 			fireTableRowsDeleted(rowIndex, rowIndex);
 		}
 	}
+
+	public void update() {
+		vehicles = new ArrayList<VehicleDTO>(client.getVehicles(interID));
+		this.fireTableDataChanged();
+	}
 }

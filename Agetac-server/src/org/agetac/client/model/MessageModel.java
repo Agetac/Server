@@ -1,5 +1,6 @@
 package org.agetac.client.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
@@ -8,7 +9,7 @@ import org.agetac.common.client.AgetacClient;
 import org.agetac.common.dto.MessageDTO;
 
 @SuppressWarnings("serial")
-public class MessageModel extends AbstractTableModel{
+public class MessageModel extends AbstractTableModel {
 
 	private List<MessageDTO> messages;
 	private final String[] headers = { "ID", "Date", "Message" };
@@ -52,6 +53,12 @@ public class MessageModel extends AbstractTableModel{
 		client.addMessage(interID, msg);
 		messages.add(msg);
 		fireTableRowsInserted(messages.size() - 1, messages.size() - 1);
+	}
+
+	public void update() {
+		messages = new ArrayList<MessageDTO>(client.getMessages(interID));
+		this.fireTableDataChanged();
+
 	}
 
 }

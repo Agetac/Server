@@ -5,6 +5,7 @@ import java.awt.GridLayout;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -119,6 +120,11 @@ public class InterventionView extends JFrame {
 
 	public int getSelectedLine() {
 		return table.getSelectedRow();
+	}
+
+	public void showError(String message) {
+		JOptionPane.showMessageDialog(this, message);
+		
 	}
 
 }
