@@ -30,14 +30,21 @@ public class InterventionController implements ActionListener {
 	@Override
 	@SuppressWarnings("unused")
 	public void actionPerformed(ActionEvent e) {
+		
 		if (e.getActionCommand().equals("Ajouter intervention")) {
-
-			InterventionDTO inter = new InterventionDTO();
+			
+			AgetacClient client = model.getClient();
+			
+			InterventionDTO inter = client.createIntervention();
 			inter.setPosition(view.getPosition());
 			inter.setName(view.getName());
+			client.updateIntervention(inter);
+			
 			model.addIntervention(inter);
 			view.resetTxtFields();
+			
 		} else if (e.getActionCommand().equals("Intervention details")) {
+			
 			if (view.getSelectedLine() != -1) {
 				AgetacClient client = model.getClient();
 				long interId = model.getInter(view.getSelectedLine()).getId();
@@ -49,6 +56,7 @@ public class InterventionController implements ActionListener {
 				VehicleDemandModel casModel = new VehicleDemandModel(client, interId);
 				VehicleDemandView casView = new VehicleDemandView(casModel);
 			}
+			
 		}
 	}
 

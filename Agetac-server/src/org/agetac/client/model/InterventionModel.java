@@ -21,10 +21,7 @@ public class InterventionModel extends AbstractTableModel {
 
 	public InterventionModel(AgetacClient c) {
 		client=c;
-		interventions = new ArrayList<InterventionDTO>(c.getInterventions());
-		//interventions = new ArrayList<InterventionDTO>();
-		//interventions.add(c.getIntervention(0));
-		// may crash because of the cast
+		interventions = new ArrayList<InterventionDTO>(client.getInterventions());
 	}
 	
 	public int getRowCount() {
@@ -44,7 +41,7 @@ public class InterventionModel extends AbstractTableModel {
 		case 0:
 			return interventions.get(rowIndex).getId();
 		case 1:
-			return interventions.get(rowIndex).getPosition();
+			return "("+ interventions.get(rowIndex).getPosition().getLongitude() +", "+ interventions.get(rowIndex).getPosition().getLatitude() +")";
 		case 2:
 			return interventions.get(rowIndex).getVehicles().size();
 		case 3:
@@ -65,9 +62,7 @@ public class InterventionModel extends AbstractTableModel {
 
 	public void addIntervention(InterventionDTO inter) {
 		interventions.add(inter);
-		client.createIntervention();
-		fireTableRowsInserted(interventions.size() - 1,
-				interventions.size() - 1);
+		fireTableRowsInserted(interventions.size() - 1,	interventions.size() - 1);
 	}
 	
 	public InterventionDTO getInter (int num){
@@ -76,6 +71,11 @@ public class InterventionModel extends AbstractTableModel {
 	
 	public AgetacClient getClient(){
 		return client;
+	}
+	
+	public void update(){
+		interventions = new ArrayList<InterventionDTO>(client.getInterventions());
+		this.fireTableDataChanged();
 	}
 
 }

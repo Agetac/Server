@@ -80,7 +80,8 @@ public class TestAgetacClient{
 	public void getAllIntervention() {
 		System.out.println("Création d'une intervention");
 		
-		List<InterventionDTO> li = new ArrayList<InterventionDTO> (c.getInterventions());
+		Collection<InterventionDTO> col = c.getInterventions();
+		List<InterventionDTO> li = new ArrayList<InterventionDTO> (col);
 		
 		//Test d'accès à l'objet
 		assertTrue(li.get(0).getId() == 0);

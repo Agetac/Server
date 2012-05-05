@@ -11,7 +11,8 @@ public class ClientIHM {
 		AgetacClient c = new AgetacClient("localhost", 8888);
 		InterventionModel interModel = new InterventionModel(c);
 		InterventionView interView = new InterventionView(interModel);
-
+		UpdateThread update = new UpdateThread(interModel);
+		update.start();
 	}
 
 }
