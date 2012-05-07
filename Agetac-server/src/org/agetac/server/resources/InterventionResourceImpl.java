@@ -2,6 +2,7 @@ package org.agetac.server.resources;
 
 import org.agetac.common.dto.InterventionDTO;
 import org.agetac.common.resources.InterventionResource;
+import org.agetac.server.db.InterventionDAO;
 import org.agetac.server.db.InterventionDAOImpl;
 import org.agetac.server.entities.InterventionEntity;
 import org.modelmapper.ModelMapper;
@@ -17,7 +18,7 @@ public class InterventionResourceImpl extends ServerResource implements
 		InterventionEntity entity = modelMapper.map(interventionDTO,
 				InterventionEntity.class);
 
-		InterventionDAOImpl dao = new InterventionDAOImpl();
+		InterventionDAO dao = new InterventionDAOImpl();
 		dao.add(entity);
 		
 		interventionDTO.setId(entity.getId());

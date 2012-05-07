@@ -2,6 +2,7 @@ package org.agetac.server.resources;
 
 import org.agetac.common.dto.ActionDTO;
 import org.agetac.common.resources.ActionResource;
+import org.agetac.server.db.InterventionDAO;
 import org.agetac.server.db.InterventionDAOImpl;
 import org.agetac.server.db.ActionDAOImpl;
 import org.restlet.resource.ServerResource;
@@ -11,7 +12,7 @@ public class ActionResourceImpl extends ServerResource implements
 
 	@Override
 	public ActionDTO add(ActionDTO action) {
-		InterventionDAOImpl dao = new InterventionDAOImpl();
+		InterventionDAO dao = new InterventionDAOImpl();
 
 		long interId = Long.parseLong((String) getRequestAttributes().get("interId"));
 		action = dao.addAction(interId, action);

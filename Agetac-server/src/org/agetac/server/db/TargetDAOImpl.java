@@ -7,13 +7,17 @@ import org.agetac.common.dto.TargetDTO;
 import org.agetac.server.entities.TargetEntity;
 import org.modelmapper.ModelMapper;
 
-public class TargetDAOImpl {
+public class TargetDAOImpl implements TargetDAO {
 
-	public static TargetDAOImpl getInstance() {
+	public static TargetDAO getInstance() {
 		// TODO Auto-generated method stub
 		return new TargetDAOImpl();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.agetac.server.db.TargetDAO#delete(long)
+	 */
+	@Override
 	public void delete(long targetId) {
 		PersistenceManager pm = InterventionDAOImpl.getPM();
 
@@ -40,6 +44,10 @@ public class TargetDAOImpl {
 		
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.agetac.server.db.TargetDAO#update(org.agetac.common.dto.TargetDTO)
+	 */
+	@Override
 	public void update(TargetDTO target) {
 		PersistenceManager pm = InterventionDAOImpl.getPM();
 

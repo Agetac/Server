@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import org.agetac.common.dto.VehicleDTO;
 import org.agetac.common.resources.VehiclesResource;
+import org.agetac.server.db.InterventionDAO;
 import org.agetac.server.db.InterventionDAOImpl;
 import org.restlet.resource.ServerResource;
 
@@ -13,7 +14,7 @@ public class VehiclesResourceImpl extends ServerResource implements
 
 	@Override
 	public Collection<VehicleDTO> retrieve() {
-		InterventionDAOImpl dao = new InterventionDAOImpl();
+		InterventionDAO dao = new InterventionDAOImpl();
 
 		long interId = Long.parseLong((String) getRequestAttributes().get(
 				"interId"));

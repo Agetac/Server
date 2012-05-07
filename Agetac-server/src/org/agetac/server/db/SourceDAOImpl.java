@@ -7,13 +7,17 @@ import org.agetac.common.dto.SourceDTO;
 import org.agetac.server.entities.SourceEntity;
 import org.modelmapper.ModelMapper;
 
-public class SourceDAOImpl {
+public class SourceDAOImpl implements SourceDAO {
 
-	public static SourceDAOImpl getInstance() {
+	public static SourceDAO getInstance() {
 		// TODO Auto-generated method stub
 		return new SourceDAOImpl();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.agetac.server.db.SourceDAO#delete(long)
+	 */
+	@Override
 	public void delete(long sourceId) {
 		PersistenceManager pm = InterventionDAOImpl.getPM();
 
@@ -40,6 +44,10 @@ public class SourceDAOImpl {
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see org.agetac.server.db.SourceDAO#update(org.agetac.common.dto.SourceDTO)
+	 */
+	@Override
 	public void update(SourceDTO source) {
 		PersistenceManager pm = InterventionDAOImpl.getPM();
 

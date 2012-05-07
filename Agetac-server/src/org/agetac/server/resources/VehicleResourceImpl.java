@@ -2,6 +2,7 @@ package org.agetac.server.resources;
 
 import org.agetac.common.dto.VehicleDTO;
 import org.agetac.common.resources.VehicleResource;
+import org.agetac.server.db.InterventionDAO;
 import org.agetac.server.db.InterventionDAOImpl;
 import org.agetac.server.db.SourceDAOImpl;
 import org.agetac.server.db.VehicleDAOImpl;
@@ -11,7 +12,7 @@ public class VehicleResourceImpl extends ServerResource implements VehicleResour
 
 	@Override
 	public VehicleDTO add(VehicleDTO vehicle) {
-		InterventionDAOImpl dao = new InterventionDAOImpl();
+		InterventionDAO dao = new InterventionDAOImpl();
 
 		long interId = Long.parseLong((String) getRequestAttributes().get("interId"));
 		vehicle = dao.addVehicle(interId, vehicle);

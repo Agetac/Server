@@ -7,13 +7,17 @@ import org.agetac.common.dto.ActionDTO;
 import org.agetac.server.entities.ActionEntity;
 import org.modelmapper.ModelMapper;
 
-public class ActionDAOImpl {
+public class ActionDAOImpl implements ActionDAO {
 
-	public static ActionDAOImpl getInstance() {
+	public static ActionDAO getInstance() {
 		// TODO Auto-generated method stub
 		return new ActionDAOImpl();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.agetac.server.db.ActionDAO#delete(long)
+	 */
+	@Override
 	public void delete(long actionId) {
 		PersistenceManager pm = InterventionDAOImpl.getPM();
 
@@ -39,6 +43,10 @@ public class ActionDAOImpl {
 		
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.agetac.server.db.ActionDAO#update(org.agetac.common.dto.ActionDTO)
+	 */
+	@Override
 	public void update(ActionDTO action) {
 		PersistenceManager pm = InterventionDAOImpl.getPM();
 

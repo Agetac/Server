@@ -7,12 +7,16 @@ import org.agetac.common.dto.VehicleDTO;
 import org.agetac.server.entities.VehicleEntity;
 import org.modelmapper.ModelMapper;
 
-public class VehicleDAOImpl {
+public class VehicleDAOImpl implements VehicleDAO {
 
-	public static VehicleDAOImpl getInstance() {
+	public static VehicleDAO getInstance() {
 		return new VehicleDAOImpl();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.agetac.server.db.VehicleDAO#delete(long)
+	 */
+	@Override
 	public void delete(long vehicleId) {
 		PersistenceManager pm = InterventionDAOImpl.getPM();
 
@@ -37,6 +41,10 @@ public class VehicleDAOImpl {
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see org.agetac.server.db.VehicleDAO#update(org.agetac.common.dto.VehicleDTO)
+	 */
+	@Override
 	public void update(VehicleDTO vehicle) {
 		PersistenceManager pm = InterventionDAOImpl.getPM();
 

@@ -28,12 +28,16 @@ import org.agetac.server.entities.VehicleEntity;
 import org.agetac.server.entities.VictimEntity;
 import org.modelmapper.ModelMapper;
 
-public class InterventionDAOImpl {
+public class InterventionDAOImpl implements InterventionDAO {
 	
-	public static InterventionDAOImpl getInstance() {
+	public static InterventionDAO getInstance() {
 		return new InterventionDAOImpl();
 	}
 
+	/* (non-Javadoc)
+	 * @see org.agetac.server.db.InterventionDAO#addVehicleDemand(long, org.agetac.common.dto.VehicleDemandDTO)
+	 */
+	@Override
 	public VehicleDemandDTO addVehicleDemand(long interId, final VehicleDemandDTO vehicleDemandDTO) {
 		PersistenceManager pm = getPM();
 		Transaction tx = pm.currentTransaction();
@@ -64,6 +68,10 @@ public class InterventionDAOImpl {
 		return vehicleDemandDTO;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.agetac.server.db.InterventionDAO#addMessage(long, org.agetac.common.dto.MessageDTO)
+	 */
+	@Override
 	public MessageDTO addMessage(long interId, MessageDTO messageDTO) {
 		PersistenceManager pm = getPM();
 		Transaction tx = pm.currentTransaction();
@@ -95,6 +103,10 @@ public class InterventionDAOImpl {
 		return messageDTO;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.agetac.server.db.InterventionDAO#addSource(long, org.agetac.common.dto.SourceDTO)
+	 */
+	@Override
 	public SourceDTO addSource(long interId, SourceDTO sourceDTO) {
 		PersistenceManager pm = getPM();
 		Transaction tx = pm.currentTransaction();
@@ -125,6 +137,10 @@ public class InterventionDAOImpl {
 		return sourceDTO;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.agetac.server.db.InterventionDAO#addTarget(long, org.agetac.common.dto.TargetDTO)
+	 */
+	@Override
 	public TargetDTO addTarget(long interId, TargetDTO targetDTO) {
 		PersistenceManager pm = getPM();
 		Transaction tx = pm.currentTransaction();
@@ -156,6 +172,10 @@ public class InterventionDAOImpl {
 		return targetDTO;
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.agetac.server.db.InterventionDAO#addAction(long, org.agetac.common.dto.ActionDTO)
+	 */
+	@Override
 	public ActionDTO addAction(long interId, ActionDTO actionDTO) {
 		PersistenceManager pm = getPM();
 		Transaction tx = pm.currentTransaction();
@@ -185,6 +205,10 @@ public class InterventionDAOImpl {
 		return actionDTO;
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.agetac.server.db.InterventionDAO#addVehicle(long, org.agetac.common.dto.VehicleDTO)
+	 */
+	@Override
 	public VehicleDTO addVehicle(long interId, VehicleDTO vehicleDTO) {
 		PersistenceManager pm = getPM();
 		Transaction tx = pm.currentTransaction();
@@ -215,6 +239,10 @@ public class InterventionDAOImpl {
 		return vehicleDTO;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.agetac.server.db.InterventionDAO#retrieveVehicleDemands(long)
+	 */
+	@Override
 	public Collection<VehicleDemandDTO> retrieveVehicleDemands(long interId) {
 		PersistenceManager pm = getPM();
 		try {
@@ -239,6 +267,10 @@ public class InterventionDAOImpl {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see org.agetac.server.db.InterventionDAO#retrieveTargets(long)
+	 */
+	@Override
 	public Collection<TargetDTO> retrieveTargets(long interId) {
 		PersistenceManager pm = getPM();
 		try {
@@ -261,6 +293,10 @@ public class InterventionDAOImpl {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see org.agetac.server.db.InterventionDAO#retrieveMessages(long)
+	 */
+	@Override
 	public Collection<MessageDTO> retrieveMessages(long interId) {
 		PersistenceManager pm = getPM();
 		try {
@@ -283,6 +319,10 @@ public class InterventionDAOImpl {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see org.agetac.server.db.InterventionDAO#retrieveSources(long)
+	 */
+	@Override
 	public Collection<SourceDTO> retrieveSources(long interId) {
 		PersistenceManager pm = getPM();
 		try {
@@ -305,6 +345,10 @@ public class InterventionDAOImpl {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see org.agetac.server.db.InterventionDAO#retrieveActions(long)
+	 */
+	@Override
 	public Collection<ActionDTO> retrieveActions(long interId) {
 		PersistenceManager pm = getPM();
 		try {
@@ -327,6 +371,10 @@ public class InterventionDAOImpl {
 		}
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.agetac.server.db.InterventionDAO#retrieveVehicles(long)
+	 */
+	@Override
 	public Collection<VehicleDTO> retrieveVehicles(long interId) {
 		PersistenceManager pm = getPM();
 		try {
@@ -349,6 +397,10 @@ public class InterventionDAOImpl {
 		}
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.agetac.server.db.InterventionDAO#add(long, org.agetac.common.dto.VictimDTO)
+	 */
+	@Override
 	public void add(long interId, VictimDTO victimDTO) {
 		PersistenceManager pm = getPM();
 		Transaction tx = pm.currentTransaction();
@@ -375,6 +427,10 @@ public class InterventionDAOImpl {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see org.agetac.server.db.InterventionDAO#retrieveVictims(long)
+	 */
+	@Override
 	public Collection<VictimDTO> retrieveVictims(long interId) {
 		PersistenceManager pm = getPM();
 		try {
@@ -412,6 +468,10 @@ public class InterventionDAOImpl {
 		return pmfInstance;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.agetac.server.db.InterventionDAO#add(org.agetac.server.entities.InterventionEntity)
+	 */
+	@Override
 	public void add(InterventionEntity entity) {
 		PersistenceManager pm = getPM();
 		Transaction tx = pm.currentTransaction();
@@ -431,6 +491,10 @@ public class InterventionDAOImpl {
 
 	}
 	
+	/* (non-Javadoc)
+	 * @see org.agetac.server.db.InterventionDAO#update(org.agetac.common.dto.InterventionDTO)
+	 */
+	@Override
 	public void update(InterventionDTO intervention) {
 		PersistenceManager pm = InterventionDAOImpl.getPM();
 
@@ -457,6 +521,10 @@ public class InterventionDAOImpl {
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see org.agetac.server.db.InterventionDAO#retrieveAll()
+	 */
+	@Override
 	public Collection<InterventionDTO> retrieveAll() {
 		PersistenceManager pm = getPM();
 		Query query = pm.newQuery(InterventionEntity.class);
@@ -493,6 +561,10 @@ public class InterventionDAOImpl {
 		return ret;
 	}
 
+	/* (non-Javadoc)
+	 * @see org.agetac.server.db.InterventionDAO#retrieveOne(long)
+	 */
+	@Override
 	public InterventionDTO retrieveOne(long id) {
 		PersistenceManager pm = getPM();
 		Object interKey = pm.newObjectIdInstance(InterventionEntity.class, id);
