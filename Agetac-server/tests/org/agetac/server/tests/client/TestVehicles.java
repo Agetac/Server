@@ -39,7 +39,7 @@ public class TestVehicles {
 		InterventionDTO inter = client.createIntervention();
 		
 		//Création d'une vehicle
-		VehicleDTO s = new VehicleDTO("veh", VehicleState.SUR_LES_LIEUX, VehicleType.VLDP, new PositionDTO(12, 12), new BarrackDTO("Janze"));
+		VehicleDTO s = new VehicleDTO("testVehicle", VehicleState.SUR_LES_LIEUX, VehicleType.VLDP, new PositionDTO(12, 12), new BarrackDTO("Janze"));
 		
 		//Ajout de la vehicle
 		client.addVehicle(inter.getId(), s);
@@ -63,7 +63,7 @@ public class TestVehicles {
 		InterventionDTO inter = client.createIntervention();
 		
 		//Création d'une vehicle
-		VehicleDTO s = new VehicleDTO("veh", VehicleState.SUR_LES_LIEUX, VehicleType.VLDP, new PositionDTO(12, 12), new BarrackDTO("Janze"));
+		VehicleDTO s = new VehicleDTO("testVehicle", VehicleState.SUR_LES_LIEUX, VehicleType.VLDP, new PositionDTO(12, 12), new BarrackDTO("Janze"));
 		
 		//Ajout de la vehicle
 		client.addVehicle(inter.getId(), s);
@@ -87,7 +87,7 @@ public class TestVehicles {
 		InterventionDTO inter = client.createIntervention();
 		
 		//Création d'une vehicle
-		VehicleDTO s = new VehicleDTO("veh", VehicleState.SUR_LES_LIEUX, VehicleType.VLDP, new PositionDTO(12, 12), new BarrackDTO("Janze"));
+		VehicleDTO s = new VehicleDTO("testVehicle", VehicleState.SUR_LES_LIEUX, VehicleType.VLDP, new PositionDTO(12, 12), new BarrackDTO("Janze"));
 		
 		//Ajout de la vehicle
 		s = client.addVehicle(inter.getId(), s);

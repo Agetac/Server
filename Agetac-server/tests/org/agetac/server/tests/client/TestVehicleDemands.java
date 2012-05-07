@@ -38,7 +38,7 @@ public class TestVehicleDemands {
 		InterventionDTO inter = client.createIntervention();
 		
 		//Création d'une vehicleDemand
-		VehicleDemandDTO s = new VehicleDemandDTO("dem", new PositionDTO(12,12), DemandState.ASKED, new GroupDTO("grp", new PositionDTO(12, 12)));
+		VehicleDemandDTO s = new VehicleDemandDTO("testVehicleDemand", new PositionDTO(12,12), DemandState.ASKED, new GroupDTO("grp", new PositionDTO(12, 12)));
 		
 		//Ajout de la vehicleDemand
 		client.addVehicleDemand(inter.getId(), s);
@@ -62,7 +62,7 @@ public class TestVehicleDemands {
 		InterventionDTO inter = client.createIntervention();
 		
 		//Création d'une vehicleDemand
-		VehicleDemandDTO s = new VehicleDemandDTO("dem", new PositionDTO(12,12), DemandState.ASKED, new GroupDTO("grp", new PositionDTO(12, 12)));
+		VehicleDemandDTO s = new VehicleDemandDTO("testVehicleDemand", new PositionDTO(12,12), DemandState.ASKED, new GroupDTO("grp", new PositionDTO(12, 12)));
 		
 		//Ajout de la vehicleDemand
 		client.addVehicleDemand(inter.getId(), s);
