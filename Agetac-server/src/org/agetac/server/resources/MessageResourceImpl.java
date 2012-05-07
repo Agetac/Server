@@ -15,7 +15,7 @@ public class MessageResourceImpl extends ServerResource implements
 
 		long interId = Long.parseLong((String) getRequestAttributes().get(
 				"interId"));
-		dao.addMessage(interId, message);
+		message = dao.addMessage(interId, message);
 		
 		return message;
 	}

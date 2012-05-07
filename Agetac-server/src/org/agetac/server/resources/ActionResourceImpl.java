@@ -14,7 +14,7 @@ public class ActionResourceImpl extends ServerResource implements
 		InterventionDAO dao = new InterventionDAO();
 
 		long interId = Long.parseLong((String) getRequestAttributes().get("interId"));
-		dao.addAction(interId, action);
+		action = dao.addAction(interId, action);
 		
 		return action;
 	}

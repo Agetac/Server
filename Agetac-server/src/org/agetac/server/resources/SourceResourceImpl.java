@@ -14,7 +14,7 @@ public class SourceResourceImpl extends ServerResource implements
 		InterventionDAO dao = new InterventionDAO();
 
 		long interId = Long.parseLong((String) getRequestAttributes().get("interId"));
-		dao.addSource(interId, source);
+		source = dao.addSource(interId, source);
 		
 		return source;
 	}

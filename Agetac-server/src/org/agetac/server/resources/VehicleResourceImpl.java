@@ -14,7 +14,7 @@ public class VehicleResourceImpl extends ServerResource implements VehicleResour
 		InterventionDAO dao = new InterventionDAO();
 
 		long interId = Long.parseLong((String) getRequestAttributes().get("interId"));
-		dao.addVehicle(interId, vehicle);
+		vehicle = dao.addVehicle(interId, vehicle);
 		
 		return vehicle;
 	}

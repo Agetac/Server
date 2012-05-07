@@ -14,7 +14,7 @@ public class TargetResourceImpl extends ServerResource implements
 		InterventionDAO dao = new InterventionDAO();
 
 		long interId = Long.parseLong((String) getRequestAttributes().get("interId"));
-		dao.addTarget(interId, target);
+		target = dao.addTarget(interId, target);
 		
 		return target;
 	}

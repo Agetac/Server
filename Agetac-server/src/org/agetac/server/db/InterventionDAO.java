@@ -34,13 +34,13 @@ public class InterventionDAO {
 		return new InterventionDAO();
 	}
 
-	public void addVehicleDemand(long interId, final VehicleDemandDTO vehicleDemandDTO) {
+	public VehicleDemandDTO addVehicleDemand(long interId, final VehicleDemandDTO vehicleDemandDTO) {
 		PersistenceManager pm = getPM();
 		Transaction tx = pm.currentTransaction();
 
 		ModelMapper modelMapper = new ModelMapper();
 		VehicleDemandEntity vehicleDemand = modelMapper.map(vehicleDemandDTO, VehicleDemandEntity.class);
-		vehicleDemandDTO.setId(vehicleDemand.getId());
+		
 
 		try {
 			tx.begin();
@@ -60,15 +60,17 @@ public class InterventionDAO {
 
 			pm.close();
 		}
+		vehicleDemandDTO.setId(vehicleDemand.getId());
+		return vehicleDemandDTO;
 	}
 
-	public void addMessage(long interId, MessageDTO messageDTO) {
+	public MessageDTO addMessage(long interId, MessageDTO messageDTO) {
 		PersistenceManager pm = getPM();
 		Transaction tx = pm.currentTransaction();
 
 		ModelMapper modelMapper = new ModelMapper();
 		MessageEntity message = modelMapper.map(messageDTO, MessageEntity.class);
-		messageDTO.setId(message.getId());
+		
 
 		try {
 			tx.begin();
@@ -89,16 +91,18 @@ public class InterventionDAO {
 
 			pm.close();
 		}
+		messageDTO.setId(message.getId());
+		return messageDTO;
 	}
 
-	public void addSource(long interId, SourceDTO sourceDTO) {
+	public SourceDTO addSource(long interId, SourceDTO sourceDTO) {
 		PersistenceManager pm = getPM();
 		Transaction tx = pm.currentTransaction();
 
 		ModelMapper modelMapper = new ModelMapper();
 		SourceEntity source = modelMapper.map(sourceDTO, SourceEntity.class);
-		sourceDTO.setId(source.getId());
-
+		
+		
 		try {
 			tx.begin();
 
@@ -117,15 +121,17 @@ public class InterventionDAO {
 
 			pm.close();
 		}
+		sourceDTO.setId(source.getId());
+		return sourceDTO;
 	}
 
-	public void addTarget(long interId, TargetDTO targetDTO) {
+	public TargetDTO addTarget(long interId, TargetDTO targetDTO) {
 		PersistenceManager pm = getPM();
 		Transaction tx = pm.currentTransaction();
 
 		ModelMapper modelMapper = new ModelMapper();
 		TargetEntity target = modelMapper.map(targetDTO, TargetEntity.class);
-		targetDTO.setId(target.getId());
+		
 
 		try {
 			tx.begin();
@@ -145,16 +151,18 @@ public class InterventionDAO {
 
 			pm.close();
 		}
-
+		
+		targetDTO.setId(target.getId());
+		return targetDTO;
 	}
 	
-	public void addAction(long interId, ActionDTO actionDTO) {
+	public ActionDTO addAction(long interId, ActionDTO actionDTO) {
 		PersistenceManager pm = getPM();
 		Transaction tx = pm.currentTransaction();
 
 		ModelMapper modelMapper = new ModelMapper();
 		ActionEntity action = modelMapper.map(actionDTO, ActionEntity.class);
-		actionDTO.setId(action.getId());
+		
 
 		try {
 			tx.begin();
@@ -173,15 +181,17 @@ public class InterventionDAO {
 
 			pm.close();
 		}
+		actionDTO.setId(action.getId());
+		return actionDTO;
 	}
 	
-	public void addVehicle(long interId, VehicleDTO vehicleDTO) {
+	public VehicleDTO addVehicle(long interId, VehicleDTO vehicleDTO) {
 		PersistenceManager pm = getPM();
 		Transaction tx = pm.currentTransaction();
 
 		ModelMapper modelMapper = new ModelMapper();
 		VehicleEntity vehicle = modelMapper.map(vehicleDTO, VehicleEntity.class);
-		vehicleDTO.setId(vehicle.getId());
+		
 
 		try {
 			tx.begin();
@@ -201,7 +211,8 @@ public class InterventionDAO {
 
 			pm.close();
 		}
-
+		vehicleDTO.setId(vehicle.getId());
+		return vehicleDTO;
 	}
 
 	public Collection<VehicleDemandDTO> retrieveVehicleDemands(long interId) {
