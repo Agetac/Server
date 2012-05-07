@@ -3,7 +3,8 @@ package org.agetac.server.resources;
 import org.agetac.common.dto.VictimDTO;
 import org.agetac.common.resources.VictimResource;
 import org.agetac.server.db.InterventionDAO;
-import org.agetac.server.db.VictimDAO;
+import org.agetac.server.db.InterventionDAOImpl;
+import org.agetac.server.db.VictimDAOImpl;
 import org.restlet.resource.ServerResource;
 
 public class VictimResourceImpl extends ServerResource implements
@@ -11,7 +12,7 @@ public class VictimResourceImpl extends ServerResource implements
 
 	@Override
 	public VictimDTO add(VictimDTO victim) {
-		InterventionDAO dao = new InterventionDAO();
+		InterventionDAO dao = new InterventionDAOImpl();
 
 		long interId = Long.parseLong((String) getRequestAttributes().get(
 				"interId"));
@@ -22,7 +23,7 @@ public class VictimResourceImpl extends ServerResource implements
 
 	@Override
 	public void update(VictimDTO victim) {
-		VictimDAO.getInstance().update(victim);
+		VictimDAOImpl.getInstance().update(victim);
 	}
 
 	@Override
@@ -30,7 +31,7 @@ public class VictimResourceImpl extends ServerResource implements
 		long victimId = Long.parseLong((String) getRequestAttributes().get(
 				"victimId"));
 
-		VictimDAO.getInstance().delete(victimId);
+		VictimDAOImpl.getInstance().delete(victimId);
 
 	}
 

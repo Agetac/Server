@@ -3,7 +3,8 @@ package org.agetac.server.resources;
 import org.agetac.common.dto.SourceDTO;
 import org.agetac.common.resources.SourceResource;
 import org.agetac.server.db.InterventionDAO;
-import org.agetac.server.db.SourceDAO;
+import org.agetac.server.db.InterventionDAOImpl;
+import org.agetac.server.db.SourceDAOImpl;
 import org.restlet.resource.ServerResource;
 
 public class SourceResourceImpl extends ServerResource implements
@@ -11,7 +12,7 @@ public class SourceResourceImpl extends ServerResource implements
 
 	@Override
 	public SourceDTO add(SourceDTO source) {
-		InterventionDAO dao = new InterventionDAO();
+		InterventionDAO dao = new InterventionDAOImpl();
 
 		long interId = Long.parseLong((String) getRequestAttributes().get("interId"));
 		source = dao.addSource(interId, source);
@@ -21,14 +22,14 @@ public class SourceResourceImpl extends ServerResource implements
 
 	@Override
 	public void update(SourceDTO source) {
-		SourceDAO.getInstance().update(source);
+		SourceDAOImpl.getInstance().update(source);
 	}
 
 	@Override
 	public void remove() {
 		long sourceId = Long.parseLong((String) getRequestAttributes().get("sourceId"));
 
-		SourceDAO.getInstance().delete(sourceId);
+		SourceDAOImpl.getInstance().delete(sourceId);
 
 	}
 
