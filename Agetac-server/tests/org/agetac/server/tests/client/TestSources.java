@@ -45,6 +45,7 @@ public class TestSources {
 		//Récupération des sources de l'intervention
 		List<SourceDTO> sources = new ArrayList<SourceDTO>(client.getSources(inter.getId()));
 		
+		//Il doit y avoir une ressource
 		assertTrue(inter.getSources().size() < sources.size());
 		assertTrue(sources.get(0).getName().equals("testSource"));
 		
@@ -68,6 +69,7 @@ public class TestSources {
 		//Récupération des sources de l'intervention
 		List<SourceDTO> sources = new ArrayList<SourceDTO>(client.getSources(inter.getId()));
 		
+		//On verifie l'éxistence de la ressource
 		assertTrue(sources.get(0).getName().equals("testSource"));
 		
 	}
@@ -93,8 +95,33 @@ public class TestSources {
 		
 		//Récupération des sources de l'intervention
 		List<SourceDTO> sources = new ArrayList<SourceDTO>(client.getSources(inter.getId()));
-		System.out.println(sources.get(0).getId());
+
+		//Le nom doit avoir été modifier
 		assertTrue(sources.get(0).getName().equals("testUpdate"));
 		
+	}
+	
+	@Test
+	public void deleteSourceTest() throws Exception {
+		
+		//Initialisation du client
+		AgetacClient client = new AgetacClient("localhost", 8989);
+		
+		//Création de l'intervention
+		InterventionDTO inter = client.createIntervention();
+		
+		//Création d'une source
+		SourceDTO s = new SourceDTO("toDeleteSource",SourceType.FIRE, new PositionDTO(42,42));
+		
+		//Ajout de la source
+		s = client.addSource(inter.getId(), s);
+
+		client.deleteSource(s.getId());
+		
+		//Récupération des sources de l'intervention
+		List<SourceDTO> sources = new ArrayList<SourceDTO>(client.getSources(inter.getId()));
+
+		//La liste doit être vide
+		assertTrue(sources.size()==0);
 	}
 }
