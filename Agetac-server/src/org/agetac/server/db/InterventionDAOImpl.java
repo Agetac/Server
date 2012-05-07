@@ -28,10 +28,10 @@ import org.agetac.server.entities.VehicleEntity;
 import org.agetac.server.entities.VictimEntity;
 import org.modelmapper.ModelMapper;
 
-public class InterventionDAO {
+public class InterventionDAOImpl {
 	
-	public static InterventionDAO getInstance() {
-		return new InterventionDAO();
+	public static InterventionDAOImpl getInstance() {
+		return new InterventionDAOImpl();
 	}
 
 	public VehicleDemandDTO addVehicleDemand(long interId, final VehicleDemandDTO vehicleDemandDTO) {
@@ -432,7 +432,7 @@ public class InterventionDAO {
 	}
 	
 	public void update(InterventionDTO intervention) {
-		PersistenceManager pm = InterventionDAO.getPM();
+		PersistenceManager pm = InterventionDAOImpl.getPM();
 
 		Transaction tx = pm.currentTransaction();
 		try {

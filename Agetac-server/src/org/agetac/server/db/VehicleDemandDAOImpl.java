@@ -7,14 +7,14 @@ import org.agetac.common.dto.VehicleDemandDTO;
 import org.agetac.server.entities.VehicleDemandEntity;
 import org.modelmapper.ModelMapper;
 
-public class VehicleDemandDAO {
+public class VehicleDemandDAOImpl {
 
-	public static VehicleDemandDAO getInstance() {
-		return new VehicleDemandDAO();
+	public static VehicleDemandDAOImpl getInstance() {
+		return new VehicleDemandDAOImpl();
 	}
 
 	public void delete(long demandId) {
-		PersistenceManager pm = InterventionDAO.getPM();
+		PersistenceManager pm = InterventionDAOImpl.getPM();
 
 		Transaction tx = pm.currentTransaction();
 		try {
@@ -39,7 +39,7 @@ public class VehicleDemandDAO {
 	}
 
 	public void update(VehicleDemandDTO demand) {
-		PersistenceManager pm = InterventionDAO.getPM();
+		PersistenceManager pm = InterventionDAOImpl.getPM();
 
 		Transaction tx = pm.currentTransaction();
 		try {

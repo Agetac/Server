@@ -7,15 +7,15 @@ import org.agetac.common.dto.TargetDTO;
 import org.agetac.server.entities.TargetEntity;
 import org.modelmapper.ModelMapper;
 
-public class TargetDAO {
+public class TargetDAOImpl {
 
-	public static TargetDAO getInstance() {
+	public static TargetDAOImpl getInstance() {
 		// TODO Auto-generated method stub
-		return new TargetDAO();
+		return new TargetDAOImpl();
 	}
 
 	public void delete(long targetId) {
-		PersistenceManager pm = InterventionDAO.getPM();
+		PersistenceManager pm = InterventionDAOImpl.getPM();
 
 		Transaction tx = pm.currentTransaction();
 		try {
@@ -41,7 +41,7 @@ public class TargetDAO {
 	}
 	
 	public void update(TargetDTO target) {
-		PersistenceManager pm = InterventionDAO.getPM();
+		PersistenceManager pm = InterventionDAOImpl.getPM();
 
 		Transaction tx = pm.currentTransaction();
 		try {

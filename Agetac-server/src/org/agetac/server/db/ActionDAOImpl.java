@@ -7,15 +7,15 @@ import org.agetac.common.dto.ActionDTO;
 import org.agetac.server.entities.ActionEntity;
 import org.modelmapper.ModelMapper;
 
-public class ActionDAO {
+public class ActionDAOImpl {
 
-	public static ActionDAO getInstance() {
+	public static ActionDAOImpl getInstance() {
 		// TODO Auto-generated method stub
-		return new ActionDAO();
+		return new ActionDAOImpl();
 	}
 
 	public void delete(long actionId) {
-		PersistenceManager pm = InterventionDAO.getPM();
+		PersistenceManager pm = InterventionDAOImpl.getPM();
 
 		Transaction tx = pm.currentTransaction();
 		try {
@@ -40,7 +40,7 @@ public class ActionDAO {
 	}
 	
 	public void update(ActionDTO action) {
-		PersistenceManager pm = InterventionDAO.getPM();
+		PersistenceManager pm = InterventionDAOImpl.getPM();
 
 		Transaction tx = pm.currentTransaction();
 		try {

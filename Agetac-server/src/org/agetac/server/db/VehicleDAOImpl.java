@@ -7,14 +7,14 @@ import org.agetac.common.dto.VehicleDTO;
 import org.agetac.server.entities.VehicleEntity;
 import org.modelmapper.ModelMapper;
 
-public class VehicleDAO {
+public class VehicleDAOImpl {
 
-	public static VehicleDAO getInstance() {
-		return new VehicleDAO();
+	public static VehicleDAOImpl getInstance() {
+		return new VehicleDAOImpl();
 	}
 
 	public void delete(long vehicleId) {
-		PersistenceManager pm = InterventionDAO.getPM();
+		PersistenceManager pm = InterventionDAOImpl.getPM();
 
 		Transaction tx = pm.currentTransaction();
 		try {
@@ -38,7 +38,7 @@ public class VehicleDAO {
 	}
 
 	public void update(VehicleDTO vehicle) {
-		PersistenceManager pm = InterventionDAO.getPM();
+		PersistenceManager pm = InterventionDAOImpl.getPM();
 
 		Transaction tx = pm.currentTransaction();
 		try {

@@ -5,14 +5,14 @@ import javax.jdo.Transaction;
 
 import org.agetac.server.entities.MessageEntity;
 
-public class MessageDAO {
+public class MessageDAOImpl {
 
-	public static MessageDAO getInstance() {
-		return new MessageDAO();
+	public static MessageDAOImpl getInstance() {
+		return new MessageDAOImpl();
 	}
 
 	public void delete(long demandId) {
-		PersistenceManager pm = InterventionDAO.getPM();
+		PersistenceManager pm = InterventionDAOImpl.getPM();
 
 		Transaction tx = pm.currentTransaction();
 		try {
