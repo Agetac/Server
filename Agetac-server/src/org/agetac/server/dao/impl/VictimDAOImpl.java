@@ -4,7 +4,7 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 
 import org.agetac.common.dto.VictimDTO;
-import org.agetac.server.db.VictimDAO;
+import org.agetac.server.dao.VictimDAO;
 import org.agetac.server.entities.VictimEntity;
 import org.modelmapper.ModelMapper;
 

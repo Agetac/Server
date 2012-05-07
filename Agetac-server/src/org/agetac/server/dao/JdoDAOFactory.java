@@ -1,4 +1,4 @@
-package org.agetac.server.db;
+package org.agetac.server.dao;
 
 import org.agetac.server.dao.impl.ActionDAOImpl;
 import org.agetac.server.dao.impl.InterventionDAOImpl;

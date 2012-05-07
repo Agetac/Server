@@ -4,8 +4,8 @@ import java.util.Collection;
 
 import org.agetac.common.dto.SourceDTO;
 import org.agetac.common.resources.SourcesResource;
-import org.agetac.server.dao.impl.InterventionDAOImpl;
-import org.agetac.server.db.InterventionDAO;
+import org.agetac.server.dao.DAOFactory;
+import org.agetac.server.dao.InterventionDAO;
 import org.restlet.resource.ServerResource;
 
 public class SourcesResourceImpl extends ServerResource implements
@@ -13,7 +13,7 @@ public class SourcesResourceImpl extends ServerResource implements
 
 	@Override
 	public Collection<SourceDTO> retrieve() {
-		InterventionDAO dao = new InterventionDAOImpl();
+		InterventionDAO dao = DAOFactory.getDAOFactory().getInterventionDAO();
 
 		long interId = Long.parseLong((String) getRequestAttributes().get(
 				"interId"));

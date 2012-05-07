@@ -4,7 +4,7 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 
 import org.agetac.common.dto.SourceDTO;
-import org.agetac.server.db.SourceDAO;
+import org.agetac.server.dao.SourceDAO;
 import org.agetac.server.entities.SourceEntity;
 import org.modelmapper.ModelMapper;
 

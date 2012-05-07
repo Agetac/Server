@@ -7,7 +7,6 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
-import org.agetac.server.dao.impl.InterventionDAOImpl;
 import org.agetac.server.entities.VehicleEntity.VehicleType;
 
 @PersistenceCapable

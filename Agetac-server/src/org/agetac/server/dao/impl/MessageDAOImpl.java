@@ -3,7 +3,7 @@ package org.agetac.server.dao.impl;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 
-import org.agetac.server.db.MessageDAO;
+import org.agetac.server.dao.MessageDAO;
 import org.agetac.server.entities.MessageEntity;
 
 public class MessageDAOImpl implements MessageDAO {

@@ -2,8 +2,8 @@ package org.agetac.server.resources;
 
 import org.agetac.common.dto.MessageDTO;
 import org.agetac.common.resources.MessageResource;
-import org.agetac.server.dao.impl.InterventionDAOImpl;
-import org.agetac.server.db.InterventionDAO;
+import org.agetac.server.dao.DAOFactory;
+import org.agetac.server.dao.InterventionDAO;
 import org.restlet.resource.ServerResource;
 
 
@@ -12,7 +12,7 @@ public class MessageResourceImpl extends ServerResource implements
 
 	@Override
 	public MessageDTO add(MessageDTO message) {
-		InterventionDAO dao = new InterventionDAOImpl();
+		InterventionDAO dao = DAOFactory.getDAOFactory().getInterventionDAO();
 
 		long interId = Long.parseLong((String) getRequestAttributes().get(
 				"interId"));

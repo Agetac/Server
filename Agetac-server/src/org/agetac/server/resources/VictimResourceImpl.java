@@ -2,8 +2,8 @@ package org.agetac.server.resources;
 
 import org.agetac.common.dto.VictimDTO;
 import org.agetac.common.resources.VictimResource;
-import org.agetac.server.db.DAOFactory;
-import org.agetac.server.db.InterventionDAO;
+import org.agetac.server.dao.DAOFactory;
+import org.agetac.server.dao.InterventionDAO;
 import org.restlet.resource.ServerResource;
 
 public class VictimResourceImpl extends ServerResource implements

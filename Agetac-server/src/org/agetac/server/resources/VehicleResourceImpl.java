@@ -2,8 +2,8 @@ package org.agetac.server.resources;
 
 import org.agetac.common.dto.VehicleDTO;
 import org.agetac.common.resources.VehicleResource;
-import org.agetac.server.db.DAOFactory;
-import org.agetac.server.db.InterventionDAO;
+import org.agetac.server.dao.DAOFactory;
+import org.agetac.server.dao.InterventionDAO;
 import org.restlet.resource.ServerResource;
 
 public class VehicleResourceImpl extends ServerResource implements

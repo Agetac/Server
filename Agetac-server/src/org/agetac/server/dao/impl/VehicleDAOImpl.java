@@ -4,7 +4,7 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 
 import org.agetac.common.dto.VehicleDTO;
-import org.agetac.server.db.VehicleDAO;
+import org.agetac.server.dao.VehicleDAO;
 import org.agetac.server.entities.VehicleEntity;
 import org.modelmapper.ModelMapper;
 
