@@ -2,9 +2,8 @@ package org.agetac.server.resources;
 
 import org.agetac.common.dto.ActionDTO;
 import org.agetac.common.resources.ActionResource;
+import org.agetac.server.db.DAOFactory;
 import org.agetac.server.db.InterventionDAO;
-import org.agetac.server.db.InterventionDAOImpl;
-import org.agetac.server.db.ActionDAOImpl;
 import org.restlet.resource.ServerResource;
 
 public class ActionResourceImpl extends ServerResource implements
@@ -12,24 +11,27 @@ public class ActionResourceImpl extends ServerResource implements
 
 	@Override
 	public ActionDTO add(ActionDTO action) {
-		InterventionDAO dao = new InterventionDAOImpl();
 
-		long interId = Long.parseLong((String) getRequestAttributes().get("interId"));
+		InterventionDAO dao = DAOFactory.getDAOFactory().getInterventionDAO();
+
+		long interId = Long.parseLong((String) getRequestAttributes().get(
+				"interId"));
 		action = dao.addAction(interId, action);
-		
+
 		return action;
 	}
 
 	@Override
 	public void update(ActionDTO action) {
-		ActionDAOImpl.getInstance().update(action);
+		DAOFactory.getDAOFactory().getActionDAO().update(action);
 	}
 
 	@Override
 	public void remove() {
-		long sourceId = Long.parseLong((String) getRequestAttributes().get("actionId"));
+		long sourceId = Long.parseLong((String) getRequestAttributes().get(
+				"actionId"));
 
-		ActionDAOImpl.getInstance().delete(sourceId);
+		DAOFactory.getDAOFactory().getActionDAO().delete(sourceId);
 
 	}
 

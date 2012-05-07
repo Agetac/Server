@@ -2,9 +2,8 @@ package org.agetac.server.resources;
 
 import org.agetac.common.dto.VehicleDemandDTO;
 import org.agetac.common.resources.VehicleDemandResource;
+import org.agetac.server.db.DAOFactory;
 import org.agetac.server.db.InterventionDAO;
-import org.agetac.server.db.InterventionDAOImpl;
-import org.agetac.server.db.VehicleDemandDAOImpl;
 import org.restlet.resource.ServerResource;
 
 public class VehicleDemandResourceImpl extends ServerResource implements
@@ -12,9 +11,10 @@ public class VehicleDemandResourceImpl extends ServerResource implements
 
 	@Override
 	public VehicleDemandDTO add(VehicleDemandDTO vehicleDemand) {
-		InterventionDAO dao = new InterventionDAOImpl();
+		InterventionDAO dao = DAOFactory.getDAOFactory().getInterventionDAO();
 
-		long interId = Long.parseLong((String) getRequestAttributes().get("interId"));
+		long interId = Long.parseLong((String) getRequestAttributes().get(
+				"interId"));
 		vehicleDemand = dao.addVehicleDemand(interId, vehicleDemand);
 
 		return vehicleDemand;
@@ -22,13 +22,14 @@ public class VehicleDemandResourceImpl extends ServerResource implements
 
 	@Override
 	public void update(VehicleDemandDTO demand) {
-		VehicleDemandDAOImpl.getInstance().update(demand);
+		DAOFactory.getDAOFactory().getVehicleDemandDAO().update(demand);
 	}
 
 	@Override
 	public void remove() {
-		long demandId = Long.parseLong((String) getRequestAttributes().get("vdId"));
+		long demandId = Long.parseLong((String) getRequestAttributes().get(
+				"vdId"));
 
-		VehicleDemandDAOImpl.getInstance().delete(demandId);
+		DAOFactory.getDAOFactory().getVehicleDemandDAO().delete(demandId);
 	}
 }

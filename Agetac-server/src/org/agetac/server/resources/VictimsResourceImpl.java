@@ -4,8 +4,8 @@ import java.util.Collection;
 
 import org.agetac.common.dto.VictimDTO;
 import org.agetac.common.resources.VictimsResource;
+import org.agetac.server.dao.impl.InterventionDAOImpl;
 import org.agetac.server.db.InterventionDAO;
-import org.agetac.server.db.InterventionDAOImpl;
 import org.restlet.resource.ServerResource;
 
 

@@ -1,18 +1,14 @@
-package org.agetac.server.db;
+package org.agetac.server.dao.impl;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 
 import org.agetac.common.dto.ActionDTO;
+import org.agetac.server.db.ActionDAO;
 import org.agetac.server.entities.ActionEntity;
 import org.modelmapper.ModelMapper;
 
 public class ActionDAOImpl implements ActionDAO {
-
-	public static ActionDAO getInstance() {
-		// TODO Auto-generated method stub
-		return new ActionDAOImpl();
-	}
 
 	/* (non-Javadoc)
 	 * @see org.agetac.server.db.ActionDAO#delete(long)

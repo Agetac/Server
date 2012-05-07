@@ -2,8 +2,9 @@ package org.agetac.server.resources;
 
 import org.agetac.common.dto.InterventionDTO;
 import org.agetac.common.resources.InterventionResource;
+import org.agetac.server.dao.impl.InterventionDAOImpl;
+import org.agetac.server.db.DAOFactory;
 import org.agetac.server.db.InterventionDAO;
-import org.agetac.server.db.InterventionDAOImpl;
 import org.agetac.server.entities.InterventionEntity;
 import org.modelmapper.ModelMapper;
 import org.restlet.resource.ServerResource;
@@ -20,7 +21,7 @@ public class InterventionResourceImpl extends ServerResource implements
 
 		InterventionDAO dao = new InterventionDAOImpl();
 		dao.add(entity);
-		
+
 		interventionDTO.setId(entity.getId());
 		return interventionDTO;
 	}
@@ -36,7 +37,7 @@ public class InterventionResourceImpl extends ServerResource implements
 
 	@Override
 	public void update(InterventionDTO intervention) {
-		InterventionDAOImpl.getInstance().update(intervention);
+		DAOFactory.getDAOFactory().getInterventionDAO().update(intervention);
 	}
 
 }

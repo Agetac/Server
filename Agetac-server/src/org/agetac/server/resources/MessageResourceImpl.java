@@ -2,8 +2,8 @@ package org.agetac.server.resources;
 
 import org.agetac.common.dto.MessageDTO;
 import org.agetac.common.resources.MessageResource;
+import org.agetac.server.dao.impl.InterventionDAOImpl;
 import org.agetac.server.db.InterventionDAO;
-import org.agetac.server.db.InterventionDAOImpl;
 import org.restlet.resource.ServerResource;
 
 

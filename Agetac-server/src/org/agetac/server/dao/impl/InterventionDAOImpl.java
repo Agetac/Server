@@ -1,4 +1,4 @@
-package org.agetac.server.db;
+package org.agetac.server.dao.impl;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -18,6 +18,7 @@ import org.agetac.common.dto.TargetDTO;
 import org.agetac.common.dto.VehicleDTO;
 import org.agetac.common.dto.VehicleDemandDTO;
 import org.agetac.common.dto.VictimDTO;
+import org.agetac.server.db.InterventionDAO;
 import org.agetac.server.entities.ActionEntity;
 import org.agetac.server.entities.InterventionEntity;
 import org.agetac.server.entities.MessageEntity;
@@ -29,10 +30,6 @@ import org.agetac.server.entities.VictimEntity;
 import org.modelmapper.ModelMapper;
 
 public class InterventionDAOImpl implements InterventionDAO {
-	
-	public static InterventionDAO getInstance() {
-		return new InterventionDAOImpl();
-	}
 
 	/* (non-Javadoc)
 	 * @see org.agetac.server.db.InterventionDAO#addVehicleDemand(long, org.agetac.common.dto.VehicleDemandDTO)

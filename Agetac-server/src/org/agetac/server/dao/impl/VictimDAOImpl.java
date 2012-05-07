@@ -1,18 +1,14 @@
-package org.agetac.server.db;
+package org.agetac.server.dao.impl;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 
 import org.agetac.common.dto.VictimDTO;
+import org.agetac.server.db.VictimDAO;
 import org.agetac.server.entities.VictimEntity;
 import org.modelmapper.ModelMapper;
 
 public class VictimDAOImpl implements VictimDAO {
-
-	public static VictimDAO getInstance() {
-		// TODO Auto-generated method stub
-		return new VictimDAOImpl();
-	}
 
 	/* (non-Javadoc)
 	 * @see org.agetac.server.db.VictimDAO#delete(long)

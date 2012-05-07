@@ -1,15 +1,12 @@
-package org.agetac.server.db;
+package org.agetac.server.dao.impl;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 
+import org.agetac.server.db.MessageDAO;
 import org.agetac.server.entities.MessageEntity;
 
 public class MessageDAOImpl implements MessageDAO {
-
-	public static MessageDAO getInstance() {
-		return new MessageDAOImpl();
-	}
 
 	/* (non-Javadoc)
 	 * @see org.agetac.server.db.MessageDAO#delete(long)

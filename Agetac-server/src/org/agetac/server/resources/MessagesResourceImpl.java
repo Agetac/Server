@@ -4,8 +4,8 @@ import java.util.Collection;
 
 import org.agetac.common.dto.MessageDTO;
 import org.agetac.common.resources.MessagesResource;
+import org.agetac.server.dao.impl.InterventionDAOImpl;
 import org.agetac.server.db.InterventionDAO;
-import org.agetac.server.db.InterventionDAOImpl;
 import org.restlet.resource.ServerResource;
 
 

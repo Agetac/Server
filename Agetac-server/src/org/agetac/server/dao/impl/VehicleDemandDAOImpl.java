@@ -1,17 +1,14 @@
-package org.agetac.server.db;
+package org.agetac.server.dao.impl;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 
 import org.agetac.common.dto.VehicleDemandDTO;
+import org.agetac.server.db.VehicleDemandDAO;
 import org.agetac.server.entities.VehicleDemandEntity;
 import org.modelmapper.ModelMapper;
 
 public class VehicleDemandDAOImpl implements VehicleDemandDAO {
-
-	public static VehicleDemandDAO getInstance() {
-		return new VehicleDemandDAOImpl();
-	}
 
 	/* (non-Javadoc)
 	 * @see org.agetac.server.db.VehicleDemandDAO#delete(long)
