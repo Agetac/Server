@@ -1,5 +1,7 @@
 package org.agetac.server.dao;
 
+import org.agetac.server.dao.impl.JdoDAOFactory;
+
 public abstract class DAOFactory {
 
 	public static DAOFactory getDAOFactory() {

@@ -229,9 +229,10 @@ public class InterventionDAOImpl implements InterventionDAO {
 			if (tx.isActive()) {
 				tx.rollback();
 			}
-
+			
 			pm.close();
 		}
+		
 		vehicleDTO.setId(vehicle.getId());
 		return vehicleDTO;
 	}
@@ -384,7 +385,7 @@ public class InterventionDAOImpl implements InterventionDAO {
 
 			ModelMapper modelMapper = new ModelMapper();
 			List<VehicleDTO> ret = new ArrayList<VehicleDTO>();
-			for (SourceEntity entity : inter.getSources())
+			for (VehicleEntity entity : inter.getVehicles())
 				ret.add(modelMapper.map(entity, VehicleDTO.class));
 
 			return ret;

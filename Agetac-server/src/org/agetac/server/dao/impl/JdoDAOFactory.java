@@ -1,13 +1,14 @@
-package org.agetac.server.dao;
+package org.agetac.server.dao.impl;
 
-import org.agetac.server.dao.impl.ActionDAOImpl;
-import org.agetac.server.dao.impl.InterventionDAOImpl;
-import org.agetac.server.dao.impl.MessageDAOImpl;
-import org.agetac.server.dao.impl.SourceDAOImpl;
-import org.agetac.server.dao.impl.TargetDAOImpl;
-import org.agetac.server.dao.impl.VehicleDAOImpl;
-import org.agetac.server.dao.impl.VehicleDemandDAOImpl;
-import org.agetac.server.dao.impl.VictimDAOImpl;
+import org.agetac.server.dao.ActionDAO;
+import org.agetac.server.dao.DAOFactory;
+import org.agetac.server.dao.InterventionDAO;
+import org.agetac.server.dao.MessageDAO;
+import org.agetac.server.dao.SourceDAO;
+import org.agetac.server.dao.TargetDAO;
+import org.agetac.server.dao.VehicleDAO;
+import org.agetac.server.dao.VehicleDemandDAO;
+import org.agetac.server.dao.VictimDAO;
 
 public class JdoDAOFactory extends DAOFactory {
 
