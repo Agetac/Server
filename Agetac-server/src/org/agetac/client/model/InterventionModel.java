@@ -13,7 +13,7 @@ public class InterventionModel extends AbstractTableModel {
 
 	private List<InterventionDTO> interventions;
 	private final String[] entetes = {
-			"ID", "Position", "Vehicules", "Cibles",
+			"ID", "Position (lat,long)", "Vehicules", "Cibles",
 			"Sources", "Actions", "Messages", "Victimes"};
 	
 	private AgetacClient client;
@@ -41,7 +41,7 @@ public class InterventionModel extends AbstractTableModel {
 		case 0:
 			return interventions.get(rowIndex).getId();
 		case 1:
-			return "("+ interventions.get(rowIndex).getPosition().getLongitude() +", "+ interventions.get(rowIndex).getPosition().getLatitude() +")";
+			return "("+ interventions.get(rowIndex).getPosition().getLatitude() +", "+ interventions.get(rowIndex).getPosition().getLongitude() +")";
 		case 2:
 			return interventions.get(rowIndex).getVehicles().size();
 		case 3:

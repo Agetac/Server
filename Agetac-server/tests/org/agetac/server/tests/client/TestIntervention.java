@@ -1,16 +1,11 @@
 package org.agetac.server.tests.client;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 import org.agetac.common.client.AgetacClient;
 import org.agetac.common.dto.InterventionDTO;
-import org.agetac.common.dto.PositionDTO;
-import org.agetac.common.dto.ActionDTO;
-import org.agetac.common.dto.ActionDTO.ActionType;
 import org.agetac.server.Server;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -57,7 +52,7 @@ public class TestIntervention {
 		Collection<InterventionDTO> list_inter_1 = client.getInterventions();
 		
 		//Création d'une intervention
-		InterventionDTO inter = client.createIntervention();
+		client.createIntervention();
 		
 		//Récupération des actions de l'intervention
 		Collection<InterventionDTO> list_inter_2 = client.getInterventions();
@@ -86,7 +81,7 @@ public class TestIntervention {
 		
 		//Il doit y avoir une ressource
 		assertTrue(client.getIntervention(inter.getId()).getName().equals("updatedName"));
-		
+		assertTrue(!client.getIntervention(inter.getId()).getName().equals(name));
 	}
 
 }

@@ -6,7 +6,13 @@ import java.util.List;
 import javax.swing.table.AbstractTableModel;
 
 import org.agetac.common.client.AgetacClient;
+import org.agetac.common.dto.BarrackDTO;
+import org.agetac.common.dto.PositionDTO;
+import org.agetac.common.dto.VehicleDTO;
 import org.agetac.common.dto.VehicleDemandDTO;
+import org.agetac.common.dto.VehicleDTO.VehicleState;
+import org.agetac.common.dto.VehicleDTO.VehicleType;
+import org.agetac.common.dto.VehicleDemandDTO.DemandState;
 
 public class VehicleDemandModel extends AbstractTableModel {
 
@@ -51,9 +57,17 @@ public class VehicleDemandModel extends AbstractTableModel {
 	}
 
 	public void updateVehicleDemand(VehicleDemandDTO dem) {
-		VehicleDemands.add(dem);
+		// Si la demande est accepté, on ajoute un vehicule
+		if(dem.getState()==DemandState.ACCEPTED){
+			VehicleDTO v = new VehicleDTO("veh", VehicleState.ALERTE, dem.getType(), dem.getPosition(), null);
+			v.setDemandTime(dem.getGroupeHoraire());
+			
+			v = client.addVehicle(interID, v);
+			dem.setVehicleId((int)v.getId());//TODO : les ID sont en float -> modifier vehicleId
+		}
 		client.updateVehicleDemand(dem);
-		fireTableRowsInserted(VehicleDemands.size() - 1, VehicleDemands.size() - 1);
+		this.fireTableDataChanged();
+		//fireTableRowsInserted(VehicleDemands.size() - 1, VehicleDemands.size() - 1);
 	}
 	
 	public VehicleDemandDTO getVehicleDemand(int index){

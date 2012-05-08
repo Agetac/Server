@@ -82,7 +82,7 @@ public class InterventionController implements ActionListener {
 						casModel.update();
 
 					}
-				}, 0, 1 * 1000);
+				}, 0, 5 * 1000);
 			}
 
 		}
