@@ -554,6 +554,16 @@ public class InterventionDAOImpl implements InterventionDAO {
 				dto.getMessages().add(
 						modelMapper.map(message, MessageDTO.class));
 			}
+			
+
+			for (VehicleEntity ve : entity.getVehicles())
+				dto.getVehicles().add(modelMapper.map(ve, VehicleDTO.class));
+			
+			for (VehicleDemandEntity vde : entity.getVehicleDemands())
+				dto.getDemands().add(modelMapper.map(vde, VehicleDemandDTO.class));
+			
+			for (ActionEntity vde : entity.getActions())
+				dto.getActions().add(modelMapper.map(vde, ActionDTO.class));
 		}
 
 		return ret;
@@ -589,6 +599,9 @@ public class InterventionDAOImpl implements InterventionDAO {
 		for (MessageEntity message : entity.getMessages()) {
 			dto.getMessages().add(modelMapper.map(message, MessageDTO.class));
 		}
+		
+		for (VehicleEntity ve : entity.getVehicles())
+			dto.getVehicles().add(modelMapper.map(ve, VehicleDTO.class));
 		
 		for (VehicleDemandEntity vde : entity.getVehicleDemands())
 			dto.getDemands().add(modelMapper.map(vde, VehicleDemandDTO.class));
