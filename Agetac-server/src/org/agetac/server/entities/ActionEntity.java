@@ -9,7 +9,7 @@ import javax.jdo.annotations.PrimaryKey;
 @PersistenceCapable
 public class ActionEntity {
 
-	public enum ActionType {WATER, FIRE, HUMAN}
+	public enum ActionType {WATER, FIRE, HUMAN, CHEM}
 	
 	private String name = "";
 	private ActionType type;
