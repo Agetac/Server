@@ -40,7 +40,7 @@ public class TestIntervention {
 		//Il doit y avoir une ressource
 		assertTrue(list_inter_1.size() < list_inter_2.size());
 		assertTrue(inter != null);
-		
+		//TODO : Ajouter des tests sur le contenu de l'intervention
 	}
 	
 	@Test

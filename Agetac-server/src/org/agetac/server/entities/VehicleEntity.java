@@ -21,7 +21,6 @@ public class VehicleEntity {
 	private VehicleState state;
 	private VehicleType type;
 	
-	@NotPersistent
 	private PositionEntity position;
 	
 	@NotPersistent
