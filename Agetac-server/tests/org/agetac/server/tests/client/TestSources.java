@@ -48,7 +48,8 @@ public class TestSources {
 		//Il doit y avoir une ressource
 		assertTrue(inter.getSources().size() < sources.size());
 		assertTrue(sources.get(0).getName().equals("testSource"));
-		
+		assertTrue(sources.get(0).getType().equals(SourceType.FIRE));
+		assertTrue(sources.get(0).getPosition().getLatitude() == 42 && sources.get(0).getPosition().getLongitude() == 42);
 	}
 	
 	@Test
@@ -71,7 +72,8 @@ public class TestSources {
 		
 		//On verifie l'éxistence de la ressource
 		assertTrue(sources.get(0).getName().equals("testSource"));
-		
+		assertTrue(sources.get(0).getType().equals(SourceType.FIRE));
+		assertTrue(sources.get(0).getPosition().getLatitude() == 42 && sources.get(0).getPosition().getLongitude() == 42);
 	}
 
 	
@@ -91,6 +93,9 @@ public class TestSources {
 		s = client.addSource(inter.getId(), s);
 		
 		s.setName("testUpdate");
+		s.setPosition(new PositionDTO(22,22));
+		s.setType(SourceType.CHEM);
+		
 		client.updateSource(s);
 		
 		//Récupération des sources de l'intervention
@@ -98,7 +103,8 @@ public class TestSources {
 
 		//Le nom doit avoir été modifier
 		assertTrue(sources.get(0).getName().equals("testUpdate"));
-		
+		assertTrue(sources.get(0).getType().equals(SourceType.CHEM));
+		assertTrue(sources.get(0).getPosition().getLatitude() == 22 && sources.get(0).getPosition().getLongitude() == 22);
 	}
 	
 	@Test

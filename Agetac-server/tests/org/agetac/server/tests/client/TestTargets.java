@@ -48,7 +48,8 @@ public class TestTargets {
 		//Il doit y avoir une ressource
 		assertTrue(inter.getTargets().size() < targets.size());
 		assertTrue(targets.get(0).getName().equals("testTarget"));
-		
+		assertTrue(targets.get(0).getType().equals(TargetType.FIRE));
+		assertTrue(targets.get(0).getPosition().getLatitude() == 42 && targets.get(0).getPosition().getLongitude() == 42);
 	}
 	
 	@Test
@@ -71,6 +72,8 @@ public class TestTargets {
 		
 		//On verifie l'éxistence de la ressource
 		assertTrue(targets.get(0).getName().equals("testTarget"));
+		assertTrue(targets.get(0).getType().equals(TargetType.FIRE));
+		assertTrue(targets.get(0).getPosition().getLatitude() == 42 && targets.get(0).getPosition().getLongitude() == 42);
 		
 	}
 
@@ -91,6 +94,8 @@ public class TestTargets {
 		s = client.addTarget(inter.getId(), s);
 		
 		s.setName("testUpdate");
+		s.setType(TargetType.CHEM);
+		s.setPosition(new PositionDTO(22,22));
 		client.updateTarget(s);
 		
 		//Récupération des targets de l'intervention
@@ -98,6 +103,8 @@ public class TestTargets {
 
 		//Le nom doit avoir été modifier
 		assertTrue(targets.get(0).getName().equals("testUpdate"));
+		assertTrue(targets.get(0).getType().equals(TargetType.CHEM));
+		assertTrue(targets.get(0).getPosition().getLatitude() == 22 && targets.get(0).getPosition().getLongitude() == 22);
 		
 	}
 	

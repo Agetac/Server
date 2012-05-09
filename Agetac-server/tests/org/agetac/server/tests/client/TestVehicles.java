@@ -49,8 +49,13 @@ public class TestVehicles {
 		
 		//Il doit y avoir une ressource
 		assertTrue(inter.getVehicles().size() < vehicles.size());
+		assertTrue(vehicles.get(0).getId() >= 0 );
 		assertTrue(vehicles.get(0).getName().equals("testVehicle"));
+		assertTrue(vehicles.get(0).getPosition().getLatitude() == 12 && vehicles.get(0).getPosition().getLongitude() == 12);
+		assertTrue(vehicles.get(0).getState().equals(VehicleState.SUR_LES_LIEUX));
+		assertTrue(vehicles.get(0).getType().equals(VehicleType.VLDP));
 		
+		//TODO : A compléter pour prendre en charge les grpHoraire et les groupe
 	}
 	
 	@Test
@@ -64,15 +69,19 @@ public class TestVehicles {
 		
 		//Création d'une vehicle
 		VehicleDTO s = new VehicleDTO("testVehicle", VehicleState.SUR_LES_LIEUX, VehicleType.VLDP, new PositionDTO(12, 12), new BarrackDTO("Janze"));
-		
+
 		//Ajout de la vehicle
-		client.addVehicle(inter.getId(), s);
+		s = client.addVehicle(inter.getId(), s);
 		
 		//Récupération des vehicles de l'intervention
 		List<VehicleDTO> vehicles = new ArrayList<VehicleDTO>(client.getVehicles(inter.getId()));
 		
 		//On verifie l'éxistence de la ressource
+		assertTrue(vehicles.get(0).getId() >= 0 );
 		assertTrue(vehicles.get(0).getName().equals("testVehicle"));
+		assertTrue(vehicles.get(0).getState().equals(VehicleState.SUR_LES_LIEUX));
+		assertTrue(vehicles.get(0).getType().equals(VehicleType.VLDP));
+		assertTrue(vehicles.get(0).getPosition().getLatitude() == 12 && vehicles.get(0).getPosition().getLongitude() == 12);
 		
 	}
 
@@ -93,13 +102,21 @@ public class TestVehicles {
 		s = client.addVehicle(inter.getId(), s);
 		
 		s.setName("testUpdate");
+		s.setPosition(new PositionDTO(42, 42));
+		s.setState(VehicleState.DEMOBILISE);
+		s.setType(VehicleType.BLSP);
+		
 		client.updateVehicle(s);
 		
 		//Récupération des vehicles de l'intervention
 		List<VehicleDTO> vehicles = new ArrayList<VehicleDTO>(client.getVehicles(inter.getId()));
-
+		
 		//Le nom doit avoir été modifier
+		assertTrue(vehicles.get(0).getId() >= 0 );
 		assertTrue(vehicles.get(0).getName().equals("testUpdate"));
+		assertTrue(vehicles.get(0).getPosition().getLatitude() == 42 && vehicles.get(0).getPosition().getLongitude() == 42);
+		assertTrue(vehicles.get(0).getState().equals(VehicleState.DEMOBILISE));
+		assertTrue(vehicles.get(0).getType().equals(VehicleType.BLSP));
 		
 	}
 	

@@ -47,8 +47,12 @@ public class TestActions {
 		
 		//Il doit y avoir une ressource
 		assertTrue(inter.getActions().size() < actions.size());
-		assertTrue(actions.get(0).getName().equals("testAction"));
 		
+		//On vérifie qu'elle correspond
+		assertTrue(actions.get(0).getName().equals("testAction"));
+		assertTrue(actions.get(0).getType().equals(ActionType.FIRE));
+		assertTrue(actions.get(0).getOrigin().getLatitude() == 42 && actions.get(0).getOrigin().getLongitude() == 42);
+		assertTrue(actions.get(0).getAim().getLatitude() == 42 && actions.get(0).getAim().getLongitude() == 43);
 	}
 	
 	@Test
@@ -71,7 +75,9 @@ public class TestActions {
 		
 		//On verifie l'éxistence de la ressource
 		assertTrue(actions.get(0).getName().equals("testAction"));
-		
+		assertTrue(actions.get(0).getType().equals(ActionType.FIRE));
+		assertTrue(actions.get(0).getOrigin().getLatitude() == 42 && actions.get(0).getOrigin().getLongitude() == 42);
+		assertTrue(actions.get(0).getAim().getLatitude() == 42 && actions.get(0).getAim().getLongitude() == 43);
 	}
 
 	
@@ -91,6 +97,11 @@ public class TestActions {
 		s = client.addAction(inter.getId(), s);
 		
 		s.setName("testUpdate");
+		s.setPosition(new PositionDTO(22,22));
+		s.setOrigin(new PositionDTO(22,22));
+		s.setAim(new PositionDTO(22,23));
+		s.setType(ActionType.HUMAN);
+		
 		client.updateAction(s);
 		
 		//Récupération des actions de l'intervention
@@ -98,7 +109,9 @@ public class TestActions {
 
 		//Le nom doit avoir été modifier
 		assertTrue(actions.get(0).getName().equals("testUpdate"));
-		
+		assertTrue(actions.get(0).getType().equals(ActionType.HUMAN));
+		assertTrue(actions.get(0).getOrigin().getLatitude() == 22 && actions.get(0).getOrigin().getLongitude() == 22);
+		assertTrue(actions.get(0).getAim().getLatitude() == 22 && actions.get(0).getAim().getLongitude() == 23);
 	}
 	
 	@Test

@@ -9,6 +9,7 @@ import org.agetac.common.client.AgetacClient;
 import org.agetac.common.dto.GroupDTO;
 import org.agetac.common.dto.InterventionDTO;
 import org.agetac.common.dto.PositionDTO;
+import org.agetac.common.dto.VehicleDTO.VehicleType;
 import org.agetac.common.dto.VehicleDemandDTO;
 import org.agetac.common.dto.VehicleDemandDTO.DemandState;
 import org.agetac.server.Server;
@@ -39,6 +40,7 @@ public class TestVehicleDemands {
 		
 		//Création d'une vehicleDemand
 		VehicleDemandDTO s = new VehicleDemandDTO("testVehicleDemand", new PositionDTO(12,12), DemandState.ASKED, new GroupDTO("grp", new PositionDTO(12, 12)));
+		s.setType(VehicleType.CCGC);
 		
 		//Ajout de la vehicleDemand
 		client.addVehicleDemand(inter.getId(), s);
@@ -49,7 +51,9 @@ public class TestVehicleDemands {
 		//Il doit y avoir une ressource
 		assertTrue(inter.getDemands().size() < vehicleDemands.size());
 		assertTrue(vehicleDemands.get(0).getName().equals("testVehicleDemand"));
-		
+		assertTrue(vehicleDemands.get(0).getPosition().getLatitude() == 12 && vehicleDemands.get(0).getPosition().getLongitude() == 12);
+		assertTrue(vehicleDemands.get(0).getState().equals(DemandState.ASKED));
+		assertTrue(vehicleDemands.get(0).getType().equals(VehicleType.CCGC));
 	}
 	
 	@Test
@@ -63,6 +67,7 @@ public class TestVehicleDemands {
 		
 		//Création d'une vehicleDemand
 		VehicleDemandDTO s = new VehicleDemandDTO("testVehicleDemand", new PositionDTO(12,12), DemandState.ASKED, new GroupDTO("grp", new PositionDTO(12, 12)));
+		s.setType(VehicleType.CCGC);
 		
 		//Ajout de la vehicleDemand
 		client.addVehicleDemand(inter.getId(), s);
@@ -72,6 +77,9 @@ public class TestVehicleDemands {
 		
 		//On verifie l'éxistence de la ressource
 		assertTrue(vehicleDemands.get(0).getName().equals("testVehicleDemand"));
+		assertTrue(vehicleDemands.get(0).getPosition().getLatitude() == 12 && vehicleDemands.get(0).getPosition().getLongitude() == 12);
+		assertTrue(vehicleDemands.get(0).getState().equals(DemandState.ASKED));
+		assertTrue(vehicleDemands.get(0).getType().equals(VehicleType.CCGC));
 		
 	}
 
@@ -87,11 +95,16 @@ public class TestVehicleDemands {
 		
 		//Création d'une vehicleDemand
 		VehicleDemandDTO s = new VehicleDemandDTO("dem", new PositionDTO(12,12), DemandState.ASKED, new GroupDTO("grp", new PositionDTO(12, 12)));
+		s.setType(VehicleType.CCGC);
 		
 		//Ajout de la vehicleDemand
 		s = client.addVehicleDemand(inter.getId(), s);
 		
 		s.setName("testUpdate");
+		s.setPosition(new PositionDTO(42, 42));
+		s.setState(DemandState.ACCEPTED);
+		s.setType(VehicleType.VAR);
+		
 		client.updateVehicleDemand(s);
 		
 		//Récupération des vehicleDemands de l'intervention
@@ -99,6 +112,9 @@ public class TestVehicleDemands {
 
 		//Le nom doit avoir été modifier
 		assertTrue(vehicleDemands.get(0).getName().equals("testUpdate"));
+		assertTrue(vehicleDemands.get(0).getPosition().getLatitude() == 42 && vehicleDemands.get(0).getPosition().getLongitude() == 42);
+		assertTrue(vehicleDemands.get(0).getState().equals(DemandState.ACCEPTED));
+		assertTrue(vehicleDemands.get(0).getType().equals(VehicleType.VAR));
 		
 	}
 	
