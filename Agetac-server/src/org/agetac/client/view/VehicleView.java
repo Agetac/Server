@@ -22,7 +22,7 @@ public class VehicleView extends JFrame {
 	private VehicleModel model;
 	
 	private JTable table;
-	private JTextField txtId, txtName, txtPosition, txtBarrack,txtState,txtGroup;
+	private JTextField txtType, txtName;
 	private JButton addBut, delBut;
 
 	public VehicleView(VehicleModel model) {
@@ -67,29 +67,14 @@ public class VehicleView extends JFrame {
 		JPanel panelChamps = new JPanel();
 		panelChamps.setLayout(new GridLayout());
 		
-		// ID field
-		txtId = new JTextField("ID");
-		panelChamps.add(txtId);
-		
 		// Name field
 		txtName = new JTextField("Nom");
 		panelChamps.add(txtName);
-		
-		// Position field
-		txtPosition = new JTextField("Position");
-		panelChamps.add(txtPosition);
 
-		// BarrackName field
-		txtBarrack = new JTextField("Caserne");
-		panelChamps.add(txtBarrack);
+		// Type field
+		txtType = new JTextField("Type");
+		panelChamps.add(txtType);
 
-		// State field
-		txtState = new JTextField("Etat");
-		panelChamps.add(txtState);
-
-		// Group field
-		txtGroup = new JTextField("Groupe");
-		panelChamps.add(txtGroup);
 
 		// Fields & Buttons panel
 		JPanel FandB = new JPanel();
@@ -111,30 +96,18 @@ public class VehicleView extends JFrame {
 		
 	}
 	
-	
-	public String getID(){
-		return txtId.getText();
-	}
-	
 	public String getName(){
 		return txtName.getText();
 	}
 	
-	public String getPosition(){
-		return txtPosition.getText();
-	}
-	
-	public String getStates(){
-		return txtState.getText();
+	public String getVehType(){
+		return txtType.getText();
 	}
 	
 	public void resetTxtFields(){
-		txtId.setText("ID");
+		
 		txtName.setText("Nom");
-		txtPosition.setText("Position");
-		txtBarrack.setText("Caserne");
-		txtState.setText("Etat");
-		txtGroup.setText("Groupe");
+		txtType.setText("Type");
 	}
 	
 	public int getSelectedLine(){
