@@ -110,24 +110,41 @@ public class InterventionController implements ActionListener {
 			VehicleDTO vehicle2 = new VehicleDTO("VL1",VehicleState.ALERTE, VehicleType.VL,new PositionDTO(), null);
 			vehicle2.setDemandTime(new Date());
 			client.addVehicle(inter.getId(), vehicle2);
-			System.out.println();
 			break;
 			
 		case 1:
-			client.addVehicle(inter.getId(), new VehicleDTO("FTP1",VehicleState.ALERTE, VehicleType.FPT,new PositionDTO(), new BarrackDTO("Janze")));
-			client.addVehicle(inter.getId(), new VehicleDTO("FTP2",VehicleState.ALERTE, VehicleType.FPT,new PositionDTO(), new BarrackDTO("Janze")));
-			client.addVehicle(inter.getId(), new VehicleDTO("EPS1",VehicleState.ALERTE, VehicleType.EPS,new PositionDTO(), new BarrackDTO("Janze")));
-			client.addVehicle(inter.getId(), new VehicleDTO("VLSV",VehicleState.ALERTE, VehicleType.VLSV,new PositionDTO(), new BarrackDTO("Janze")));
+			VehicleDTO vehicle3 = new VehicleDTO("FTP1",VehicleState.ALERTE, VehicleType.FPT,new PositionDTO(), new BarrackDTO("Janze"));
+			vehicle3.setDemandTime(new Date());
+			client.addVehicle(inter.getId(), vehicle3);
+			VehicleDTO vehicle4 = new VehicleDTO("FTP2",VehicleState.ALERTE, VehicleType.FPT,new PositionDTO(), new BarrackDTO("Janze"));
+			vehicle4.setDemandTime(new Date());
+			client.addVehicle(inter.getId(), vehicle4);
+			VehicleDTO vehicle5 = new VehicleDTO("EPS1",VehicleState.ALERTE, VehicleType.EPS,new PositionDTO(), new BarrackDTO("Janze"));
+			vehicle5.setDemandTime(new Date());
+			client.addVehicle(inter.getId(), vehicle5);
+			VehicleDTO vehicle6 = new VehicleDTO("VLSV",VehicleState.ALERTE, VehicleType.VLSV,new PositionDTO(), new BarrackDTO("Janze"));
+			vehicle6.setDemandTime(new Date());
+			client.addVehicle(inter.getId(), vehicle6);
 			break;
 			
 		case 2:
-			client.addVehicle(inter.getId(), new VehicleDTO("FTP1",VehicleState.ALERTE, VehicleType.FPT,new PositionDTO(), new BarrackDTO("Janze")));
-			client.addVehicle(inter.getId(), new VehicleDTO("VSAV1",VehicleState.ALERTE, VehicleType.VSAV,new PositionDTO(), new BarrackDTO("Janze")));
-			client.addVehicle(inter.getId(), new VehicleDTO("VSR1",VehicleState.ALERTE, VehicleType.VSR,new PositionDTO(), new BarrackDTO("Janze")));
-			client.addVehicle(inter.getId(), new VehicleDTO("VL1",VehicleState.ALERTE, VehicleType.VL,new PositionDTO(), new BarrackDTO("Janze")));
+			VehicleDTO vehicle7 = new VehicleDTO("FTP1",VehicleState.ALERTE, VehicleType.FPT,new PositionDTO(), new BarrackDTO("Janze"));
+			vehicle7.setDemandTime(new Date());
+			client.addVehicle(inter.getId(), vehicle7);
+			VehicleDTO vehicle8 = new VehicleDTO("VSAV1",VehicleState.ALERTE, VehicleType.VSAV,new PositionDTO(), new BarrackDTO("Janze"));
+			vehicle8.setDemandTime(new Date());
+			client.addVehicle(inter.getId(), vehicle8);
+			VehicleDTO vehicle9 = new VehicleDTO("VSR1",VehicleState.ALERTE, VehicleType.VSR,new PositionDTO(), new BarrackDTO("Janze"));
+			vehicle9.setDemandTime(new Date());
+			client.addVehicle(inter.getId(), vehicle9);
+			VehicleDTO vehicle10 = new VehicleDTO("VL1",VehicleState.ALERTE, VehicleType.VL,new PositionDTO(), new BarrackDTO("Janze"));
+			vehicle10.setDemandTime(new Date());
+			client.addVehicle(inter.getId(), vehicle10);
 			break;
 		default:
-			client.addVehicle(inter.getId(), new VehicleDTO("VL1",VehicleState.ALERTE, VehicleType.VL,new PositionDTO(), new BarrackDTO("Janze")));
+			VehicleDTO vehicle11 = new VehicleDTO("VL1",VehicleState.ALERTE, VehicleType.VL,new PositionDTO(), new BarrackDTO("Janze"));
+			vehicle11.setDemandTime(new Date());
+			client.addVehicle(inter.getId(), vehicle11);
 			break;
 		}
 	}
