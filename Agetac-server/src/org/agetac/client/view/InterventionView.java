@@ -28,7 +28,7 @@ public class InterventionView extends JFrame {
 	private JTable table;
 	private JTextField txtName, txtLatitude, txtLongitude;
 
-	private JComboBox<String> typeInter = new JComboBox<String>();
+	private JComboBox typeInter = new JComboBox();
 	
 	private JButton addBut, detailBut;
 
@@ -87,7 +87,7 @@ public class InterventionView extends JFrame {
 		
 		typeInter.setPreferredSize(new Dimension(100,20));
 		typeInter.addItem("Feu habitation"); // 2 FPT / 1 VL
-		typeInter.addItem("Feu établissement recevant du public"); // 2FPT / 1EPA / 1 VSAB / 1VL / 1VSR
+		typeInter.addItem("Feu ï¿½tablissement recevant du public"); // 2FPT / 1EPA / 1 VSAB / 1VL / 1VSR
 		typeInter.addItem("Carambolage"); // 1FPT / 4VSAB / 2VSR / 1VL 
 
 		panelChamps.add(typeInter);
@@ -143,10 +143,10 @@ public class InterventionView extends JFrame {
 		if(this.typeInter.getSelectedItem().equals("Feu habitation")){
 			return 0;
 		}
-		if(this.typeInter.getSelectedItem().equals("Feu habitation a étage")){
+		if(this.typeInter.getSelectedItem().equals("Feu habitation a etage")){
 			return 1;
 		}
-		if(this.typeInter.getSelectedItem().equals("Feu établissement recevant du public")){
+		if(this.typeInter.getSelectedItem().equals("Feu etablissement recevant du public")){
 			return 2;
 		}
 		if(this.typeInter.getSelectedItem().equals("Carambolage")){

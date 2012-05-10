@@ -2,16 +2,17 @@ package org.agetac.client.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import org.agetac.client.model.VehicleDemandModel;
 import org.agetac.client.model.InterventionModel;
 import org.agetac.client.model.MessageModel;
+import org.agetac.client.model.VehicleDemandModel;
 import org.agetac.client.model.VehicleModel;
-import org.agetac.client.view.VehicleDemandView;
 import org.agetac.client.view.InterventionView;
 import org.agetac.client.view.MessageView;
+import org.agetac.client.view.VehicleDemandView;
 import org.agetac.client.view.VehicleView;
 import org.agetac.common.client.AgetacClient;
 import org.agetac.common.dto.BarrackDTO;
@@ -100,9 +101,15 @@ public class InterventionController implements ActionListener {
 	private void ajouteDepartType(int codeSinitre, InterventionDTO inter, AgetacClient client){
 		switch(codeSinitre){
 		case 0:
-			client.addVehicle(inter.getId(), new VehicleDTO("FTP1",VehicleState.ALERTE, VehicleType.FPT,new PositionDTO(), null));
-			client.addVehicle(inter.getId(), new VehicleDTO("FTP2",VehicleState.ALERTE, VehicleType.FPT,new PositionDTO(), null));
-			client.addVehicle(inter.getId(), new VehicleDTO("VL1",VehicleState.ALERTE, VehicleType.VL,new PositionDTO(), null));
+			VehicleDTO v1 = new VehicleDTO("FTP1",VehicleState.ALERTE, VehicleType.FPT,new PositionDTO(), null);
+			v1.setDemandTime(new Date());
+			client.addVehicle(inter.getId(), v1);
+			VehicleDTO vehicle = new VehicleDTO("FTP2",VehicleState.ALERTE, VehicleType.FPT,new PositionDTO(), null);
+			vehicle.setDemandTime(new Date());
+			client.addVehicle(inter.getId(), vehicle);
+			VehicleDTO vehicle2 = new VehicleDTO("VL1",VehicleState.ALERTE, VehicleType.VL,new PositionDTO(), null);
+			vehicle2.setDemandTime(new Date());
+			client.addVehicle(inter.getId(), vehicle2);
 			System.out.println();
 			break;
 			
