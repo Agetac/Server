@@ -31,7 +31,7 @@ public class VehicleController implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand().equals("Ajouter")) {
 
-			VehicleDTO v = new VehicleDTO(view.getName(), VehicleState.ALERTE,	VehicleType.valueOf(view.getVehType()), new PositionDTO(), null);
+			v = new VehicleDTO(view.getName(), VehicleState.ALERTE,	VehicleType.valueOf(view.getVehType()), new PositionDTO(), null);
 			v.setDemandTime(new Date());
 			model.addVehicle(v);
 			view.resetTxtFields();
