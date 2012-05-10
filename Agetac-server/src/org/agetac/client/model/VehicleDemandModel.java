@@ -24,8 +24,7 @@ public class VehicleDemandModel extends AbstractTableModel {
 	public VehicleDemandModel(AgetacClient c, long interId) {
 		client = c;
 		interID = interId;
-		VehicleDemands = new ArrayList<VehicleDemandDTO>();
-		c.getVehicleDemands(interID);
+		VehicleDemands = new ArrayList<VehicleDemandDTO>(c.getVehicleDemands(interID));
 	}
 
 	public int getRowCount() {

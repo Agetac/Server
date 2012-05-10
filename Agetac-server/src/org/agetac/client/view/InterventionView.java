@@ -1,9 +1,11 @@
 package org.agetac.client.view;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -25,6 +27,9 @@ public class InterventionView extends JFrame {
 
 	private JTable table;
 	private JTextField txtName, txtLatitude, txtLongitude;
+
+	private JComboBox<String> typeInter = new JComboBox<String>();
+	
 	private JButton addBut, detailBut;
 
 	public InterventionView(InterventionModel model) {
@@ -79,6 +84,13 @@ public class InterventionView extends JFrame {
 		// Longitude field
 		txtLongitude = new JTextField("Longitude");
 		panelChamps.add(txtLongitude);
+		
+		typeInter.setPreferredSize(new Dimension(100,20));
+		typeInter.addItem("Feu habitation"); // 2 FPT / 1 VL
+		typeInter.addItem("Feu établissement recevant du public"); // 2FPT / 1EPA / 1 VSAB / 1VL / 1VSR
+		typeInter.addItem("Carambolage"); // 1FPT / 4VSAB / 2VSR / 1VL 
+
+		panelChamps.add(typeInter);
 
 		// Fields & Buttons panel
 		JPanel FandB = new JPanel();
@@ -125,6 +137,22 @@ public class InterventionView extends JFrame {
 	public void showError(String message) {
 		JOptionPane.showMessageDialog(this, message);
 		
+	}
+	
+	public int getCodeSinistre() {
+		if(this.typeInter.getSelectedItem().equals("Feu habitation")){
+			return 0;
+		}
+		if(this.typeInter.getSelectedItem().equals("Feu habitation a étage")){
+			return 1;
+		}
+		if(this.typeInter.getSelectedItem().equals("Feu établissement recevant du public")){
+			return 2;
+		}
+		if(this.typeInter.getSelectedItem().equals("Carambolage")){
+			return 3;
+		}
+		return -1;
 	}
 
 }

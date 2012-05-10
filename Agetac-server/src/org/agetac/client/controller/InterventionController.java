@@ -14,8 +14,12 @@ import org.agetac.client.view.InterventionView;
 import org.agetac.client.view.MessageView;
 import org.agetac.client.view.VehicleView;
 import org.agetac.common.client.AgetacClient;
+import org.agetac.common.dto.BarrackDTO;
 import org.agetac.common.dto.InterventionDTO;
 import org.agetac.common.dto.PositionDTO;
+import org.agetac.common.dto.VehicleDTO;
+import org.agetac.common.dto.VehicleDTO.VehicleState;
+import org.agetac.common.dto.VehicleDTO.VehicleType;
 
 public class InterventionController implements ActionListener {
 
@@ -51,8 +55,13 @@ public class InterventionController implements ActionListener {
 			inter.setPosition(position);
 
 			inter.setName(view.getName());
+			
+			
+			
 			client.updateIntervention(inter);
 
+			ajouteDepartType(view.getCodeSinistre(), inter, client);
+			
 			model.addIntervention(inter);
 			view.resetTxtFields();
 
@@ -85,6 +94,34 @@ public class InterventionController implements ActionListener {
 				}, 0, 5 * 1000);
 			}
 
+		}
+	}
+	
+	private void ajouteDepartType(int codeSinitre, InterventionDTO inter, AgetacClient client){
+		switch(codeSinitre){
+		case 0:
+			client.addVehicle(inter.getId(), new VehicleDTO("FTP1",VehicleState.ALERTE, VehicleType.FPT,new PositionDTO(), null));
+			client.addVehicle(inter.getId(), new VehicleDTO("FTP2",VehicleState.ALERTE, VehicleType.FPT,new PositionDTO(), null));
+			client.addVehicle(inter.getId(), new VehicleDTO("VL1",VehicleState.ALERTE, VehicleType.VL,new PositionDTO(), null));
+			System.out.println();
+			break;
+			
+		case 1:
+			client.addVehicle(inter.getId(), new VehicleDTO("FTP1",VehicleState.ALERTE, VehicleType.FPT,new PositionDTO(), new BarrackDTO("Janze")));
+			client.addVehicle(inter.getId(), new VehicleDTO("FTP2",VehicleState.ALERTE, VehicleType.FPT,new PositionDTO(), new BarrackDTO("Janze")));
+			client.addVehicle(inter.getId(), new VehicleDTO("EPS1",VehicleState.ALERTE, VehicleType.EPS,new PositionDTO(), new BarrackDTO("Janze")));
+			client.addVehicle(inter.getId(), new VehicleDTO("VLSV",VehicleState.ALERTE, VehicleType.VLSV,new PositionDTO(), new BarrackDTO("Janze")));
+			break;
+			
+		case 2:
+			client.addVehicle(inter.getId(), new VehicleDTO("FTP1",VehicleState.ALERTE, VehicleType.FPT,new PositionDTO(), new BarrackDTO("Janze")));
+			client.addVehicle(inter.getId(), new VehicleDTO("VSAV1",VehicleState.ALERTE, VehicleType.VSAV,new PositionDTO(), new BarrackDTO("Janze")));
+			client.addVehicle(inter.getId(), new VehicleDTO("VSR1",VehicleState.ALERTE, VehicleType.VSR,new PositionDTO(), new BarrackDTO("Janze")));
+			client.addVehicle(inter.getId(), new VehicleDTO("VL1",VehicleState.ALERTE, VehicleType.VL,new PositionDTO(), new BarrackDTO("Janze")));
+			break;
+		default:
+			client.addVehicle(inter.getId(), new VehicleDTO("VL1",VehicleState.ALERTE, VehicleType.VL,new PositionDTO(), new BarrackDTO("Janze")));
+			break;
 		}
 	}
 

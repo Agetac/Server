@@ -8,14 +8,16 @@ import org.agetac.client.view.VehicleView;
 import org.agetac.common.dto.GroupDTO;
 import org.agetac.common.dto.PositionDTO;
 import org.agetac.common.dto.VehicleDTO;
+import org.agetac.common.dto.VehicleDemandDTO;
 import org.agetac.common.dto.VehicleDTO.VehicleState;
 import org.agetac.common.dto.VehicleDTO.VehicleType;
+import org.agetac.common.dto.VehicleDemandDTO.DemandState;
 
 public class VehicleController implements ActionListener {
 
 	private VehicleView view;
 	private VehicleModel model;
-
+	private VehicleDTO v;
 	/**
 	 * VehicleController constructor
 	 */
@@ -26,20 +28,20 @@ public class VehicleController implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getActionCommand().equals("Ajouter vehicule")) {
-			if (!(view.getName().equals("Nom"))
-					&& !(view.getPosition().equals("Position"))
-					&& !(view.getBarrack().equals("Caserne"))
-					&& !(view.getStates().equals("Etat"))
-					&& !(view.getGroup().equals("Groupe"))) {
-				// TODO NOT GOOD !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-				model.addVehicle(new VehicleDTO(new PositionDTO(0, 0), VehicleType.FPT, view.getBarrack(), VehicleState.ALERTE, new GroupDTO(), "0102"));
-				view.resetTxtFields();
+		if (e.getActionCommand().equals("Ajouter")) {
+
+			VehicleDTO v = new VehicleDTO(view.getName(), VehicleState.ALERTE,	VehicleType.FPT, new PositionDTO(), null);
+			model.addVehicle(v);
+			view.resetTxtFields();
+
+		} else if (e.getActionCommand().equals("Faire rentrer")) {
+			if(view.getSelectedLine()>-1){
+				v = model.getVehicle(view.getSelectedLine());
+				v.setState(VehicleState.DEMOBILISE);
+				model.updateVehicle(view.getSelectedLine(),v);
 			}
-		} else if (e.getActionCommand().equals("Effacer vehicule")) {
-			model.removeVehicle(view.getSelectedLine());
 		}
+		
 
 	}
-
 }

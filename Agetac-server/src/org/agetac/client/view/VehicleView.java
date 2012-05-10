@@ -52,12 +52,12 @@ public class VehicleView extends JFrame {
 		panelButton.setLayout(new GridLayout());
 
 		// Add
-		addBut = new JButton("Ajouter vehicule");
+		addBut = new JButton("Ajouter");
 		addBut.addActionListener(this.controller);
 		panelButton.add(addBut);
 
 		// Delete
-		delBut = new JButton("Effacer vehicule");
+		delBut = new JButton("Faire rentrer");
 		delBut.addActionListener(this.controller);
 		panelButton.add(delBut);
 		
@@ -124,16 +124,8 @@ public class VehicleView extends JFrame {
 		return txtPosition.getText();
 	}
 	
-	public String getBarrack(){
-		return txtBarrack.getText();
-	}
-	
 	public String getStates(){
 		return txtState.getText();
-	}
-	
-	public String getGroup(){
-		return txtGroup.getText();
 	}
 	
 	public void resetTxtFields(){
