@@ -1,5 +1,7 @@
 package org.agetac.server.entities;
 
+import java.util.Date;
+
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.NotPersistent;
 import javax.jdo.annotations.PersistenceCapable;
@@ -33,29 +35,29 @@ public class VehicleEntity {
 	 */
 	private InterventionEntity intervention;
 
-	private String arrivalTime, demandTime, retTime;
+	private Date arrivalTime, demandTime, retTime;
 
-	public String getArrivalTime() {
+	public Date getArrivalTime() {
 		return arrivalTime;
 	}
 
-	public void setArrivalTime(String arrivalTime) {
+	public void setArrivalTime(Date arrivalTime) {
 		this.arrivalTime = arrivalTime;
 	}
 
-	public String getDemandTime() {
+	public Date getDemandTime() {
 		return demandTime;
 	}
 
-	public void setDemandTime(String demandTime) {
+	public void setDemandTime(Date demandTime) {
 		this.demandTime = demandTime;
 	}
 
-	public String getRetTime() {
+	public Date getRetTime() {
 		return retTime;
 	}
 
-	public void setRetTime(String retTime) {
+	public void setRetTime(Date retTime) {
 		this.retTime = retTime;
 	}
 
@@ -125,5 +127,8 @@ public class VehicleEntity {
 		this.name = vehicle.getName();
 		this.state = vehicle.getState();
 		this.barrack = vehicle.getBarrack();
+		this.demandTime = vehicle.getDemandTime();
+		this.retTime = vehicle.getRetTime();
+		this.arrivalTime = vehicle.getArrivalTime();
 	}
 }

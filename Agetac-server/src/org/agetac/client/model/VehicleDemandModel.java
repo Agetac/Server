@@ -44,7 +44,7 @@ public class VehicleDemandModel extends AbstractTableModel {
 	public Object getValueAt(int rowIndex, int columnIndex) {
 		switch (columnIndex) {
 		case 0:
-			return VehicleDemands.get(rowIndex).getTimestamp();
+			return VehicleDemands.get(rowIndex).getGroupeHoraire();
 		case 1:
 			return VehicleDemands.get(rowIndex).getType();
 		case 2:
@@ -57,9 +57,9 @@ public class VehicleDemandModel extends AbstractTableModel {
 	}
 
 	public void updateVehicleDemand(VehicleDemandDTO dem) {
-		// Si la demande est accepté, on ajoute un vehicule
+		// Si la demande est acceptï¿½, on ajoute un vehicule
 		if(dem.getState()==DemandState.ACCEPTED){
-			VehicleDTO v = new VehicleDTO("veh", VehicleState.ALERTE, dem.getType(), dem.getPosition(), null);
+			VehicleDTO v = new VehicleDTO(dem.getName(), VehicleState.ALERTE, dem.getType(), dem.getPosition(), null);
 			v.setDemandTime(dem.getGroupeHoraire());
 			
 			v = client.addVehicle(interID, v);

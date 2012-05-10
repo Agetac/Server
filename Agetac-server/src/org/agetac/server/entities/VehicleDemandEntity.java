@@ -18,19 +18,18 @@ public class VehicleDemandEntity {
 	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
 	private long id;
 	
-	private Date timestamp;
+	private Date groupeHoraire;
 	private DemandState state;
 	private PositionEntity position;
 	private VehicleType type;
 	private String name;
 	
-	private String groupeHoraire;
 	
-	public String getGroupeHoraire() {
+	public Date getGroupeHoraire() {
 		return groupeHoraire;
 	}
 
-	public void setGroupeHoraire(String groupeHoraire) {
+	public void setGroupeHoraire(Date groupeHoraire) {
 		this.groupeHoraire = groupeHoraire;
 	}
 
@@ -47,15 +46,7 @@ public class VehicleDemandEntity {
 		this.state = state;
 		this.type = cat;
 		this.position = p;
-		this.timestamp = date;
-	}
-
-	public Date getTimestamp() {
-		return timestamp;
-	}
-
-	public void setTimestamp(Date timestamp) {
-		this.timestamp = timestamp;
+		this.groupeHoraire = date;
 	}
 
 	public DemandState getState() {
@@ -106,7 +97,7 @@ public class VehicleDemandEntity {
 		this.name = demand.getName();
 		this.position = demand.getPosition();
 		this.state = demand.getState();
-		this.timestamp = demand.getTimestamp();
+		this.groupeHoraire = demand.getGroupeHoraire();
 		this.type = demand.getType();
 		this.vehicleId = demand.getVehicleId();
 	}
