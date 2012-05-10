@@ -2,6 +2,7 @@ package org.agetac.client.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Date;
 
 import org.agetac.client.model.VehicleModel;
 import org.agetac.client.view.VehicleView;
@@ -31,6 +32,7 @@ public class VehicleController implements ActionListener {
 		if (e.getActionCommand().equals("Ajouter")) {
 
 			VehicleDTO v = new VehicleDTO(view.getName(), VehicleState.ALERTE,	VehicleType.valueOf(view.getVehType()), new PositionDTO(), null);
+			v.setDemandTime(new Date());
 			model.addVehicle(v);
 			view.resetTxtFields();
 
@@ -38,6 +40,7 @@ public class VehicleController implements ActionListener {
 			if(view.getSelectedLine()>-1){
 				v = model.getVehicle(view.getSelectedLine());
 				v.setState(VehicleState.DEMOBILISE);
+				v.setRetTime(new Date());
 				model.updateVehicle(view.getSelectedLine(),v);
 			}
 		}
