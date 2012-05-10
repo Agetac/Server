@@ -35,8 +35,10 @@ public class VehicleDemandController implements ActionListener {
 			}
 		} else if (e.getActionCommand().equals("Refuser") && (view.getSelectedLine()>-1)) {
 			dem = model.getVehicleDemand(view.getSelectedLine());
-			dem.setState(DemandState.REFUSED);
-			model.updateVehicleDemand(dem);
+			if(dem.getState()==DemandState.ASKED){
+				dem.setState(DemandState.REFUSED);
+				model.updateVehicleDemand(dem);
+			}
 		}
 
 	}
